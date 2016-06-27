@@ -1,0 +1,78 @@
+Vozila:
+#id
+-model
+-tipVozila(auto, kamion, motor)
+-motor
+-hp
+-kw
+-snaga
+-obrtaji
+-cijena
+
+ChipTuning
+#id
+-idVozila
+-idStage1
+-idStage2
+-idStage3
+-idEcoTuning
+
+Stage
+#id
+-snaga
+-obrtaji
+-cijena
+
+Slike
+#id
+-path
+-Video(true, false)
+-folderId
+
+FolderiSlika
+#id
+-imeFoldera
+
+Novosti
+#id
+-tekst
+-datumObjave
+-linkSlikeVidea
+-video(true/false)
+
+Korisnici
+#id
+-username
+-password
+
+FUNKCIONALNOSTI:
+-slike/video
+	-dodavanje
+	-brisanje
+	-pregled
+-album
+	-kreiranje
+	-brisanje
+	-editovanje (dodavanje novih slika/videa i brisanje starih)
+	-pregled
+-novosti (haman isto kao na WT)
+	-dodavanje
+	-brisanje
+	-pregled
+-vozila (sad ovdje imaju one carlame sa podtabelama i tim stvarima sto cemo poslije detaljnije razraditi)
+	-dodavanje
+	-brisanje
+	-editovanje
+	-pregled
+-korisnici (nagrubo ubacena 1-2 korisnika u bazu)
+	-login
+
+-fb share
+-forum ??? mozda xD
+
+
+pristup bazi:
+    private static $dbName = 'aschip' ;
+    private static $dbHost = 'localhost' ;
+    private static $dbUsername = 'root';
+    private static $dbUserPassword = '';
