@@ -31,7 +31,7 @@ CREATE TABLE `slike` (
   `idFolder` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,6 +40,7 @@ CREATE TABLE `slike` (
 
 LOCK TABLES `slike` WRITE;
 /*!40000 ALTER TABLE `slike` DISABLE KEYS */;
+INSERT INTO `slike` VALUES (23,'../uploads/proizvodjaci/audi.jpg',0,1),(24,'../uploads/proizvodjaci/bmw.jpg',0,1),(25,'../uploads/proizvodjaci/ferari.jpg',0,1),(26,'../uploads/proizvodjaci/lamborgini.jpg',0,1),(27,'../uploads/proizvodjaci/vw.jpg',0,1),(28,'../uploads/vozila/Auto/audi-a3-hatch-refresh-8.jpg',0,2);
 /*!40000 ALTER TABLE `slike` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-26 19:52:53
+-- Dump completed on 2016-06-27 22:01:29
