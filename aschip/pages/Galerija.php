@@ -6,11 +6,15 @@ Author URI: http://www.os-templates.com/
 Licence: Free to use under our free template licence terms
 Licence URI: http://www.os-templates.com/template-terms
 -->
+<?php session_start(); ?>
 <html>
 <head>
 <title>PlusBusiness | Style Demo</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <link rel="stylesheet" href="../layout/styles/layout.css" type="text/css" />
+<link rel="stylesheet" href="../layout/styles/login.css" type="text/css" />
+<script type="text/javascript" src="../layout/scripts/jquery.min.js"></script>
+<script type="text/javascript" src="../layout/scripts/login.js"></script>
 </head>
 <body id="top">
 <!-- ####################################################################################################### -->
@@ -225,9 +229,28 @@ Licence URI: http://www.os-templates.com/template-terms
 <div class="wrapper col5">
   <div id="copyright">
     <p class="fl_left">Copyright &copy; 2016 - All Rights Reserved - <a href="http://www.etermini.com">eTermini team</a></p>
-    <p class="fl_right"><a href="../php/login.php"><b>Admin LogIn</b></a></p>
+	
+	<?php
+	if(empty($_SESSION['username'])){
+	?>
+		<p id="loginFooter" class="fl_right"><a href="#" onclick="UcitajFormu()"><b>Admin LogIn</b></a></p>
+	
+	<?php
+	}else{
+		?>
+		<div id="logout">
+		<form method="post" onsubmit="return SubmitLogout()">
+			<input class="btnPrijava" name="odjava" value="Odjavi se" type="submit"/>
+		</form>
+		</div>
+		
+	<?php	
+	}
+	?>
     <br class="clear" />
   </div>
 </div>
+
+<div id="vrh"></div>
 </body>
 </html>
