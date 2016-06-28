@@ -8,19 +8,28 @@ if(isset($_REQUEST["idProizvodjaca"]) && isset($_REQUEST["tipVozila"])){
 }
 //cisti prikaz, to bum skontali kako cemo napraviti :D
 function Prikazi($lista){
+	echo '<h2 style="margin: 20px 0;">'.dajProizvodjacaPoId($_REQUEST["idProizvodjaca"])["markaVozila"].'</h2>
+			<table id="brandovi" style="margin-left: 30px;">
+			<tbody>';
+	$j=0;
 	for($i=0; $i<count($lista); $i++){
-		print '<div> 
-			<div>'.$lista[$i]["id"].'</div>
-			<div>'.$lista[$i]["model"].'</div>
-			<div>'.$lista[$i]["tipVozila"].'</div>
-			<div>'.$lista[$i]["motor"].'</div>
-			<div>'.$lista[$i]["hp"].'</div>
-			<div>'.$lista[$i]["kw"].'</div>
-			<div>'.$lista[$i]["snaga"].'</div>
-			<div>'.$lista[$i]["obrtaji"].'</div>
-			<div>'.$lista[$i]["cijena"].'</div>
-		</div>';	
+		if($j==0) echo '<tr>';
+		$j++;
+		echo '<td><a href="#" onclick="return OtvoriVozilo('.$lista[$i]["id"].')">
+			<img class="imgVozila" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <div style="text-align:center; max-width:150px;">'.$lista[$i]["model"].'</div></a></td>';				
+		if($j==3){
+			echo '</tr>';
+			$j=0;
+		}
 	}
+	echo '</tbody></table>';
 }
 
 ?>
+
+<style>
+.imgVozila{
+	max-width:150px;
+	max-height:150px;
+}
+</style>

@@ -11,6 +11,22 @@ function OtvoriProizvodjaca(id,tip){
 	   data: datarow,
 	 success: function(response){
 		$("#content").html(response);
+	 }});
+	return false;
+}
+
+function OtvoriVozilo(id){
+	var check=window.location.pathname;
+	urlTmp='../php/dajVozilo.php';
+	var datarow={
+		'id':id,
+	};
+	$.ajax({
+	   url: urlTmp,
+	   type:    'POST',
+	   data: datarow,
+	 success: function(response){
+		$("#content").html(response);
 		/*if(response.indexOf("Pogresan username i sifra!")!=-1) 
 			//$("#Poruka").html("Pogresan username i sifra!");
 			alert("Pogresan username i sifra!");
@@ -20,4 +36,5 @@ function OtvoriProizvodjaca(id,tip){
 		}*/
 	 }});
 	return false;
+	
 }

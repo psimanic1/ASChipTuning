@@ -27,8 +27,12 @@ Licence URI: http://www.os-templates.com/template-terms
 				if($j==0) echo '<tr>';
 				$j++;
 				$js="'Auto'";
-				echo '<td><a title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Auto")).'" href="#" onclick="return OtvoriProizvodjaca('.$lista[$i]["id"].','.$js.')">
-					<img class="imgProizvodjaci" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <div style="display:inline-block; position: relative;top: -10px;">'.$lista[$i]["markaVozila"].'</div></a></td>';
+				if(count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Auto"))!=0)
+					echo '<td><a title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Auto")).'" href="#" onclick="return OtvoriProizvodjaca('.$lista[$i]["id"].','.$js.')">
+						<img class="imgProizvodjaci" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <div style="display:inline-block; position: relative;top: -10px;">'.$lista[$i]["markaVozila"].'</div></a></td>';
+				else
+					echo '<td><a title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Auto")).'" href="#">
+						<img class="imgProizvodjaci" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <div style="display:inline-block; position: relative;top: -10px;">'.$lista[$i]["markaVozila"].'</div></a></td>';
 				if($j==3){ 
 					echo '</tr>';
 					$j=0;
@@ -37,8 +41,12 @@ Licence URI: http://www.os-templates.com/template-terms
 		}
 								
 		function PrikaziSveStrana($lista){
+			$js="'Auto'";
 			for($i=0; $i<count($lista); $i++){
-				echo '<li style="padding-left:20px; padding-top:5px; padding-bottom:5px;"><img style="display:inline-block;" alt="" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <a style="display:inline-block; position: relative; top: -10px;" href="/auto/acura">'.$lista[$i]["markaVozila"].'</a></li>';
+				if(count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Auto"))!=0)
+					echo '<li style="padding-left:20px; padding-top:5px; padding-bottom:5px;"><img style="display:inline-block;" alt="" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <a  title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Auto")).'" style="display:inline-block; position: relative; top: -10px;" href="#" onclick="return OtvoriProizvodjaca('.$lista[$i]["id"].','.$js.')">'.$lista[$i]["markaVozila"].'</a></li>';
+				else
+					echo '<li style="padding-left:20px; padding-top:5px; padding-bottom:5px;"><img style="display:inline-block;" alt="" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <a  title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Auto")).'" style="display:inline-block; position: relative; top: -10px;" href="#">'.$lista[$i]["markaVozila"].'</a></li>';
 			}
 		}
 	}else if($_GET['tip']=="Kamion"){
@@ -47,7 +55,12 @@ Licence URI: http://www.os-templates.com/template-terms
 			for($i=0; $i<count($lista); $i++){
 				if($j==0) echo '<tr>';
 				$j++;
-				echo '<td><a title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Kamion")).'" href="/auto/acura">
+				$js="'Kamion'";
+				if(count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Kamion"))!=0)
+					echo '<td><a title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Kamion")).'" href="#" onclick="return OtvoriProizvodjaca('.$lista[$i]["id"].','.$js.')">
+					<img class="imgProizvodjaci" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <div style="display:inline-block; position: relative;top: -10px;">'.$lista[$i]["markaVozila"].'</div></a></td>';
+				else
+					echo '<td><a title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Kamion")).'" href="#">
 					<img class="imgProizvodjaci" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <div style="display:inline-block; position: relative;top: -10px;">'.$lista[$i]["markaVozila"].'</div></a></td>';
 				if($j==3){ 
 					echo '</tr>';
@@ -58,7 +71,11 @@ Licence URI: http://www.os-templates.com/template-terms
 								
 		function PrikaziSveStrana($lista){
 			for($i=0; $i<count($lista); $i++){
-				echo '<li style="padding-left:20px; padding-top:5px; padding-bottom:5px;"><img style="display:inline-block;" alt="" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <a style="display:inline-block; position: relative; top: -10px;" href="/auto/acura">'.$lista[$i]["markaVozila"].'</a></li>';
+				$js="'Kamion'";
+				if(count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Kamion"))!=0)
+					echo '<li style="padding-left:20px; padding-top:5px; padding-bottom:5px;"><img style="display:inline-block;" alt="" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <a title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Kamion")).'" style="display:inline-block; position: relative; top: -10px;" href="#" onclick="return OtvoriProizvodjaca('.$lista[$i]["id"].','.$js.')">'.$lista[$i]["markaVozila"].'</a></li>';
+				else 
+					echo '<li style="padding-left:20px; padding-top:5px; padding-bottom:5px;"><img style="display:inline-block;" alt="" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <a title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Kamion")).'" style="display:inline-block; position: relative; top: -10px;" href="#">'.$lista[$i]["markaVozila"].'</a></li>';
 			}
 		}
 	}else if($_GET['tip']=="Motor"){
@@ -67,7 +84,12 @@ Licence URI: http://www.os-templates.com/template-terms
 			for($i=0; $i<count($lista); $i++){
 				if($j==0) echo '<tr>';
 				$j++;
-				echo '<td><a title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Motor")).'" href="/auto/acura">
+				$js="'Motor'";
+				if(count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Motor"))!=0)
+					echo '<td><a title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Motor")).'" href="#" onclick="return OtvoriProizvodjaca('.$lista[$i]["id"].','.$js.')">
+						<img class="imgProizvodjaci" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <div style="display:inline-block; position: relative;top: -10px;">'.$lista[$i]["markaVozila"].'</div></a></td>';
+				else
+					echo '<td><a title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Motor")).'" href="#">
 					<img class="imgProizvodjaci" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <div style="display:inline-block; position: relative;top: -10px;">'.$lista[$i]["markaVozila"].'</div></a></td>';
 				if($j==3){ 
 					echo '</tr>';
@@ -78,7 +100,11 @@ Licence URI: http://www.os-templates.com/template-terms
 								
 		function PrikaziSveStrana($lista){
 			for($i=0; $i<count($lista); $i++){
-				echo '<li style="padding-left:20px; padding-top:5px; padding-bottom:5px;"><img style="display:inline-block;" alt="" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <a style="display:inline-block; position: relative; top: -10px;" href="/auto/acura">'.$lista[$i]["markaVozila"].'</a></li>';
+				$js="'Motor'";
+				if(count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Motor"))!=0)
+					echo '<li style="padding-left:20px; padding-top:5px; padding-bottom:5px;"><img style="display:inline-block;" alt="" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <a title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Motor")).'" style="display:inline-block; position: relative; top: -10px;" href="#" onclick="return OtvoriProizvodjaca('.$lista[$i]["id"].','.$js.')">'.$lista[$i]["markaVozila"].'</a></li>';
+				else
+					echo '<li style="padding-left:20px; padding-top:5px; padding-bottom:5px;"><img style="display:inline-block;" alt="" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <a title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Motor")).'" style="display:inline-block; position: relative; top: -10px;" href="#">'.$lista[$i]["markaVozila"].'</a></li>';
 			}
 		}
 	}
@@ -238,7 +264,7 @@ Licence URI: http://www.os-templates.com/template-terms
  
 		<div id="content" style="float:right; width:75%;">
 
-			<h2 style="margin: 20px 0;">Proizvođači</h2>
+			<h2 style="margin: 20px 0;">Proizvođači - <?php echo $_GET['tip']; ?></h2>
 			<center>
 			<table id="brandovi" style="margin-left: 30px;">
 				<thead>
