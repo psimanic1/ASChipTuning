@@ -96,23 +96,22 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ){
 					echo "Sorry, there was an error uploading your file.";
 				}
 			}
-		}
-		
-		
+		}	
 	}
 	
 	function PrikaziMarkeVozila($lista){
 		for($i=0; $i<count($lista); $i++){
-			echo '<option value="'.$lista[$i]["id"].'>'.$lista[$i]["markaVozila"].'</option>"';	
+			echo '<option value="'.$lista[$i]["id"].'">'.$lista[$i]["markaVozila"].'</option>"';	
 		}
 	}
+
 ?>
 
 <form id="dodajAuto" method="POST" enctype="multipart/form-data">
 	<label>Marka vozila:</label>
 	<select id="markaVozila" name="markaVozila">
 		<?php
-			PrikaziMarkeVozila(dajSveProizvodjace());
+			PrikaziMarkeVozila(dajSveProizvodjace());							
 		?>
 	</select>
 	<label>Tip vozila:</label></br>
