@@ -20,23 +20,65 @@ Licence URI: http://www.os-templates.com/template-terms
 		return $list;
 	}
 	
-	function PrikaziSveCentar($lista){
-		$j=0;
-		for($i=0; $i<count($lista); $i++){
-			if($j==0) echo '<tr>';
-			$j++;
-			echo '<td><a title="Ukupno '.dajBrojVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Auto").'" href="/auto/acura">
-				<img class="imgProizvodjaci" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <div style="display:inline-block; position: relative;top: -10px;">'.$lista[$i]["markaVozila"].'</div></a></td>';
-			if($j==3){ 
-				echo '</tr>';
-				$j=0;
+	if($_GET['tip']=="Auto"){		
+		function PrikaziSveCentar($lista){
+			$j=0;
+			for($i=0; $i<count($lista); $i++){
+				if($j==0) echo '<tr>';
+				$j++;
+				echo '<td><a title="Ukupno '.dajBrojVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Auto").'" href="/auto/acura">
+					<img class="imgProizvodjaci" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <div style="display:inline-block; position: relative;top: -10px;">'.$lista[$i]["markaVozila"].'</div></a></td>';
+				if($j==3){ 
+					echo '</tr>';
+					$j=0;
+				}
 			}
 		}
-	}
-							
-	function PrikaziSveStrana($lista){
-		for($i=0; $i<count($lista); $i++){
-			echo '<li style="padding-left:20px; padding-top:5px; padding-bottom:5px;"><img style="display:inline-block;" alt="" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <a style="display:inline-block; position: relative; top: -10px;" href="/auto/acura">'.$lista[$i]["markaVozila"].'</a></li>';
+								
+		function PrikaziSveStrana($lista){
+			for($i=0; $i<count($lista); $i++){
+				echo '<li style="padding-left:20px; padding-top:5px; padding-bottom:5px;"><img style="display:inline-block;" alt="" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <a style="display:inline-block; position: relative; top: -10px;" href="/auto/acura">'.$lista[$i]["markaVozila"].'</a></li>';
+			}
+		}
+	}else if($_GET['tip']=="Kamion"){
+		function PrikaziSveCentar($lista){
+			$j=0;
+			for($i=0; $i<count($lista); $i++){
+				if($j==0) echo '<tr>';
+				$j++;
+				echo '<td><a title="Ukupno '.dajBrojVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Kamion").'" href="/auto/acura">
+					<img class="imgProizvodjaci" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <div style="display:inline-block; position: relative;top: -10px;">'.$lista[$i]["markaVozila"].'</div></a></td>';
+				if($j==3){ 
+					echo '</tr>';
+					$j=0;
+				}
+			}
+		}
+								
+		function PrikaziSveStrana($lista){
+			for($i=0; $i<count($lista); $i++){
+				echo '<li style="padding-left:20px; padding-top:5px; padding-bottom:5px;"><img style="display:inline-block;" alt="" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <a style="display:inline-block; position: relative; top: -10px;" href="/auto/acura">'.$lista[$i]["markaVozila"].'</a></li>';
+			}
+		}
+	}else if($_GET['tip']=="Motor"){
+		function PrikaziSveCentar($lista){
+			$j=0;
+			for($i=0; $i<count($lista); $i++){
+				if($j==0) echo '<tr>';
+				$j++;
+				echo '<td><a title="Ukupno '.dajBrojVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Motor").'" href="/auto/acura">
+					<img class="imgProizvodjaci" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <div style="display:inline-block; position: relative;top: -10px;">'.$lista[$i]["markaVozila"].'</div></a></td>';
+				if($j==3){ 
+					echo '</tr>';
+					$j=0;
+				}
+			}
+		}
+								
+		function PrikaziSveStrana($lista){
+			for($i=0; $i<count($lista); $i++){
+				echo '<li style="padding-left:20px; padding-top:5px; padding-bottom:5px;"><img style="display:inline-block;" alt="" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <a style="display:inline-block; position: relative; top: -10px;" href="/auto/acura">'.$lista[$i]["markaVozila"].'</a></li>';
+			}
 		}
 	}
 ?>
@@ -63,9 +105,9 @@ Licence URI: http://www.os-templates.com/template-terms
         <li><a href="full-width.php">O nama</a></li>
         <li><a href="Katalog.php">Katalog</a>
           <ul>
-           <li><a href="AMK.php">Auta</a></li>
-            <li><a href="AMK.php">Kamioni</a></li>
-            <li><a href="AMK.php">Motori</a></li>
+            <li><a href="pages/AMK.php?tip=Auto">Auta</a></li>
+            <li><a href="pages/AMK.php?tip=Kamion">Kamioni</a></li>
+            <li><a href="pages/AMK.php?tip=Motor">Motori</a></li>
           </ul>
         </li>
 		<li><a href="Galerija.php">Galerija</a></li>

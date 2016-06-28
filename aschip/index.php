@@ -32,9 +32,9 @@ Licence URI: http://www.os-templates.com/template-terms
         <li><a href="pages/full-width.php">O nama</a></li>
         <li><a href="pages/Katalog.php">Katalog</a>
           <ul>
-            <li><a href="pages/AMK.php">Auta</a></li>
-            <li><a href="pages/AMK.php">Kamioni</a></li>
-            <li><a href="pages/AMK.php">Motori</a></li>
+            <li><a href="pages/AMK.php?tip=Auto">Auta</a></li>
+            <li><a href="pages/AMK.php?tip=Kamion">Kamioni</a></li>
+            <li><a href="pages/AMK.php?tip=Motor">Motori</a></li>
           </ul>
         </li>
 		<li><a href="pages/Galerija.php">Galerija</a></li>
