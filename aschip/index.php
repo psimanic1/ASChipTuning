@@ -13,10 +13,10 @@ Licence URI: http://www.os-templates.com/template-terms
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <link rel="stylesheet" href="layout/styles/layout.css" type="text/css" />
 <link rel="stylesheet" href="layout/styles/login.css" type="text/css" />
-<script type="text/javascript" src="layout/scripts/login.js"></script>
 <script type="text/javascript" src="layout/scripts/jquery.min.js"></script>
 <script type="text/javascript" src="layout/scripts/jquery.jcarousel.pack.js"></script>
 <script type="text/javascript" src="layout/scripts/jquery.jcarousel.setup.js"></script>
+<script type="text/javascript" src="layout/scripts/login.js"></script>
 </head>
 <body id="top">
 <!-- ####################################################################################################### -->
@@ -142,11 +142,9 @@ Licence URI: http://www.os-templates.com/template-terms
 	<?php
 	}else{
 		?>
-		<div id="logout">
-		<form method="post" onsubmit="return SubmitLogout()">
-			<input class="btnPrijava" name="odjava" value="Odjavi se" type="submit"/>
+		<form method="post">
+			<p class="fl_right"><a href="#" onclick="return SubmitLogout()"><b>Admin LogOut</b></a></p>
 		</form>
-		</div>
 		
 	<?php	
 	}
@@ -155,7 +153,6 @@ Licence URI: http://www.os-templates.com/template-terms
   </div>
 </div>
 
-<div id="vrh"></div>
-
+<div id="loginDiv"></div>
 </body>
 </html>

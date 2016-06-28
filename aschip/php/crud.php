@@ -21,7 +21,7 @@ include 'baza.php';
 		Baza::disconnect();
 		return $obj;
 	}
-
+	
 	/*	 prima id onog sta treba vratiti i vraca array kojem pristupama npr: 
 		 $tmp=dajVoziloPoId(5); 
 		 $idVracenog=$tmp["id"];
@@ -42,10 +42,10 @@ include 'baza.php';
 		return $obj;
 	}
 
-	/*	 prima id i tipVozila i vraca broj vozila 
-		 $tmp=dajBrojVozilaZaProizvodjacaITipVozila(5,"Auto"); 
+	/*	 prima id i tipVozila i vraca vozila 
+		 $tmp=dajVozilaZaProizvodjacaITipVozila(5,"Auto"); 
 	*/
-	function dajBrojVozilaZaProizvodjacaITipVozila($id,$tipVozila){
+	function dajVozilaZaProizvodjacaITipVozila($id,$tipVozila){
 		$obj=array();
 		$baza=Baza::connect();
 		$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -58,7 +58,7 @@ include 'baza.php';
 			array_push($obj,$tmpObj);
 		}
 		Baza::disconnect();
-		return count($obj);
+		return $obj;
 	}
 	
 	/*	dodaje vozilo, prima varijablu tipa Vozilo()

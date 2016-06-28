@@ -30,9 +30,9 @@ Licence URI: http://www.os-templates.com/template-terms
         <li><a href="full-width.php">O nama</a></li>
         <li><a href="Katalog.php">Katalog</a>
           <ul>
-           <li><a href="pages/AMK.php?tip=Auto">Auta</a></li>
-            <li><a href="pages/AMK.php?tip=Kamion">Kamioni</a></li>
-            <li><a href="pages/AMK.php?tip=Motor">Motori</a></li>
+           <li><a href="AMK.php?tip=Auto">Auta</a></li>
+            <li><a href="AMK.php?tip=Kamion">Kamioni</a></li>
+            <li><a href="AMK.php?tip=Motor">Motori</a></li>
           </ul>
         </li>
 		<li><a href="Galerija.php">Galerija</a></li>
@@ -124,11 +124,9 @@ Licence URI: http://www.os-templates.com/template-terms
 	<?php
 	}else{
 		?>
-		<div id="logout">
-		<form method="post" onsubmit="return SubmitLogout()">
-			<input class="btnPrijava" name="odjava" value="Odjavi se" type="submit"/>
+		<form method="post">
+			<p class="fl_right"><a href="#" onclick="return SubmitLogout()"><b>Admin LogOut</b></a></p>
 		</form>
-		</div>
 		
 	<?php	
 	}
@@ -137,6 +135,6 @@ Licence URI: http://www.os-templates.com/template-terms
   </div>
 </div>
 
-<div id="vrh"></div>
+<div id="loginDiv"></div>
 </body>
 </html>

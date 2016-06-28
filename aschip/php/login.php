@@ -5,11 +5,12 @@ session_start();
 
 if( $_SERVER["REQUEST_METHOD"] == "POST" ){
 	$_SESSION['username']="";
-	if(isset($_REQUEST['username']) && isset($_REQUEST['pass'])){
+	if(isset($_REQUEST['username']) && isset($_REQUEST['pass']) && empty($_SESSION['username'])){
 		Login($_REQUEST['username'],$_REQUEST['pass']);
 	}
 	
 	if(isset($_REQUEST['odjava'])){
+		echo "logout";
 		$_SESSION['username']="";
 		session_destroy();
 	}
@@ -35,7 +36,8 @@ if(empty($_SESSION['username']))
 
 <link rel="stylesheet" href="../layout/styles/login.css">
 <div id="login">
-	<form id="loginForm" onsubmit="return SubmitLogin()" method="POST">
+<!--onsubmit="return SubmitLogin()" method="POST"-->
+	<form id="loginForm" >
 	<h1>Log In</h1>
 		<div class="ineline">
 			<p class="ineline tbprijava">Username:</p>
@@ -48,7 +50,7 @@ if(empty($_SESSION['username']))
 		<br>
 		
 		<div class="ineline">
-			<input class="btnPrijava" type="submit" name="login" value="Prijavi se">
+			<input class="btnPrijava" onclick="return SubmitLogin()" type="submit" name="login" value="Prijavi se">
 		</div>
 		<div class="ineline">
 			<input class="btnIzadji" type="button" value="Izadji" onclick="Zatvori()">
