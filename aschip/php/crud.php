@@ -42,6 +42,26 @@ include 'baza.php';
 		return $obj;
 	}
 
+	/*	 prima naziv modlea onog sta treba vratiti i vraca array kojem pristupama npr: 
+		 $tmp=dajVoziloPoModelu(audi a3); 
+		 $idVracenog=$tmp["id"];
+	*/
+	function dajVoziloPoModelu($model){
+		$obj=array();
+		$baza=Baza::connect();
+		$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$query='Select * from vozila where model LIKE ?';
+		$q = $baza->prepare($query);
+		$q->execute(array($model.'%'));
+		$tmpObj1 = $q->fetchAll();
+		foreach($tmpObj1 as $r){
+			$tmpObj=array('id'=>$r['id'],'model'=>$r['model'],'tipVozila'=>$r['tipVozila'],'motor'=>$r['motor'],'hp'=>$r['hp'],'kw'=>$r['kw'],'snaga'=>$r['snaga'],'obrtaji'=>$r['obrtaji'],'cijena'=>$r['cijena'],'idProizvodjaca'=>$r['idProizvodjaca'],'idSlike'=>$r['idSlike']);
+			array_push($obj,$tmpObj);
+		}
+		Baza::disconnect();
+		return $obj;
+	}	
+
 	/*	 prima id i tipVozila i vraca vozila 
 		 $tmp=dajVozilaZaProizvodjacaITipVozila(5,"Auto"); 
 	*/
@@ -103,6 +123,7 @@ include 'baza.php';
 	/*	 prima id onog sta treba obrisati i vraca true ili false 
 		 $tmp=obrisiVoziloPoId(5); 
 	*/
+	//UBACITI BRISANJE STAGE i CHIPTUNING
 	function obrisiVoziloPoId($id){
 		try{
 			$obj=array();
