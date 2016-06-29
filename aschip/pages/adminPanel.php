@@ -68,11 +68,21 @@ Licence URI: http://www.os-templates.com/template-terms
 	  width:75%;
 	  float:right;
   }
+  
+  #sideAdminPanel ol li {
+	  display:block;
+	  padding-left:10px;
+  }
   </style>
     <div id="sideAdminPanel">
 		<ol>
+			<h3>Proizvodjaci</h3>
 			<li><a href="#" onclick="return dodajProizvodjaca()">Dodaj proizvodjaca</a></li>
+			<li><a href="#" onclick="return obrisiProizvodjaca()">Obrisi proizvodjaca</a></li>			
+			</br>
+			<h3>Vozila</h3>			
 			<li><a href="#" onclick="return dodajVozilo()">Dodaj vozilo</a></li>
+			<li><a href="#" onclick="return obrisiVozilo()">Obrisi vozilo</a></li>
 		</ol>
 	</div>
 	<div id="centerAdminPanel">

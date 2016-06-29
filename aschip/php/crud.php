@@ -61,6 +61,25 @@ include 'baza.php';
 		return $obj;
 	}
 	
+	/*	 prima idProizvodjaca i vraca vozila 
+		 $tmp=dajVozilaZaProizvodjaca(5); 
+	*/
+	function dajVozilaZaProizvodjaca($idProizvodjaca){
+		$obj=array();
+		$baza=Baza::connect();
+		$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$query='Select * from vozila where idProizvodjaca=?';
+		$q = $baza->prepare($query);
+		$q->execute(array($idProizvodjaca));
+		$tmpObj1 = $q->fetchAll();
+		foreach($tmpObj1 as $r){
+			$tmpObj=array('id'=>$r['id'],'model'=>$r['model'],'tipVozila'=>$r['tipVozila'],'motor'=>$r['motor'],'hp'=>$r['hp'],'kw'=>$r['kw'],'snaga'=>$r['snaga'],'obrtaji'=>$r['obrtaji'],'cijena'=>$r['cijena'],'idProizvodjaca'=>$r['idProizvodjaca'],'idSlike'=>$r['idSlike']);
+			array_push($obj,$tmpObj);
+		}
+		Baza::disconnect();
+		return $obj;
+	}
+	
 	/*	dodaje vozilo, prima varijablu tipa Vozilo()
 		vraca id dodanog Vozila
 		ukoliko nije uspjesno dodavanje vraca 0
@@ -80,6 +99,29 @@ include 'baza.php';
 			return 0;
 		}
 	}
+	
+	/*	 prima id onog sta treba obrisati i vraca true ili false 
+		 $tmp=obrisiVoziloPoId(5); 
+	*/
+	function obrisiVoziloPoId($id){
+		try{
+			$obj=array();
+			$idSlike= dajVoziloPoId($id)["idSlike"];
+			obrisiSlikuPoId($idSlike);
+			$baza=Baza::connect();
+			$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$query='Delete from vozila where id=?';
+			$q = $baza->prepare($query);
+			$q->execute(array($id));
+			
+			Baza::disconnect();
+			return true;
+		}catch(Exception $e){
+			Baza::disconnect();
+			return false;
+		}
+	}
+	
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -121,6 +163,35 @@ include 'baza.php';
 		return $obj;
 	}
 
+	/*	 prima id onog sta treba obrisati i vraca true ili false 
+		 $tmp=obrisiProizvodjacaPoId(5); 
+	*/
+	function obrisiProizvodjacaPoId($id){
+		try{
+			$obj=array();
+			$vozila=dajVozilaZaProizvodjaca($id);
+			if(empty($vozila)){
+				$idSlike=dajProizvodjacaPoId($id)["idSlike"];
+				obrisiSlikuPoId($idSlike);
+			}else{
+				foreach($vozila as $v){
+					obrisiVoziloPoId($v["id"]);
+				}
+			}
+			$baza=Baza::connect();
+			$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$query='Delete from proizvodjaci where id=?';
+			$q = $baza->prepare($query);
+			$q->execute(array($id));
+			
+			Baza::disconnect();
+			return true;
+		}catch(Exception $e){
+			Baza::disconnect();
+			return false;
+		}
+	}
+	
 	/*	dodaje proizvodjaca, prima varijablu tipa Proizvodjac()
 		vraca id dodanog proizvodjaca
 		ukoliko nije uspjesno dodavanje vraca 0
@@ -140,6 +211,8 @@ include 'baza.php';
 			return 0;
 		}
 	}
+	
+	
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////
