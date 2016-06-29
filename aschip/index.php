@@ -144,6 +144,7 @@ Licence URI: http://www.os-templates.com/template-terms
 		?>
 		<form method="post">
 			<p class="fl_right"><a href="#" onclick="return SubmitLogout()"><b>Admin LogOut</b></a></p>
+			<p style="margin-right: 20px;" class="fl_right"><a href="pages/adminPanel.php"><b>Admin Panel</b></a></p>
 		</form>
 		
 	<?php	

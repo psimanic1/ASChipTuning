@@ -6,8 +6,10 @@
 include 'crud.php';
 include 'klase.php';
 
+session_start();
+
 //dodavanje vozila
-if( $_SERVER["REQUEST_METHOD"] == "POST" ){
+if( $_SERVER["REQUEST_METHOD"] == "POST" && !empty($_SESSTION['username'])){
 		$model=htmlspecialchars($_POST['model']);
 		$motor=htmlspecialchars($_POST['motor']);
 		$hp=htmlspecialchars($_POST['hp']);
@@ -82,7 +84,7 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ){
 					}
 					if($idUploadovaneSlike!=0 && $markaVozila!=0){						
 						$auto=new Vozilo();
-						$auto->VoziloCtor(0,$model,$tipVozila,$motor,$hp,$kw,$snaga,$obrtaji,$cijena,$idProizvodjaca);
+						$auto->VoziloCtor(0,$model,$tipVozila,$motor,$hp,$kw,$snaga,$obrtaji,$cijena,$markaVozila,$idUploadovaneSlike);
 						$id=dodajVozilo($auto);
 						
 						if($id!=0) echo "<script> alert('Uspjesno ste dodali vozilo!'); </script>";
@@ -107,14 +109,18 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ){
 
 ?>
 
+<?php 
+ if(!empty($_SESSION["username"])){
+?>
+
 <form id="dodajAuto" method="POST" enctype="multipart/form-data">
 	<label>Marka vozila:</label>
 	<select id="markaVozila" name="markaVozila">
 		<?php
 			PrikaziMarkeVozila(dajSveProizvodjace());							
 		?>
-	</select>
-	<label>Tip vozila:</label></br>
+	</select></br>
+	<label>Tip vozila:</label>
 	<select id="tipVozila" name="tipVozila">
 		<option value="0">Auto</option>
 		<option value="1">Kamion</option>
@@ -138,3 +144,25 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ){
 	<input type="file" name="fileToUpload" id="fileToUpload"/></br>
 	<input type="submit" value="submit" name="submit"/>
 </form>
+
+<?php
+}else{
+	echo 'Nemate privilegije admina!';
+}
+?>
+
+<script>
+$('#dodajAuto').submit( function( e ) {
+		$.ajax( {
+		  url: '../php/dodajVozilo.php',
+		  type: 'POST',
+		  data: new FormData(this),
+		  processData: false,
+		  contentType: false,
+		  success:function(response){
+			  $("#centerAdminPanel").html(response);
+		  }
+		});
+    e.preventDefault();
+	});
+</script>

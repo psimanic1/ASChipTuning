@@ -1,5 +1,4 @@
 function OtvoriProizvodjaca(id,tip){
-	var check=window.location.pathname;
 	urlTmp='../php/dajSvaVozilaZaProizvodjaca.php';
 	var datarow={
 		'idProizvodjaca':id,
@@ -16,7 +15,6 @@ function OtvoriProizvodjaca(id,tip){
 }
 
 function OtvoriVozilo(id){
-	var check=window.location.pathname;
 	urlTmp='../php/dajVozilo.php';
 	var datarow={
 		'id':id,
@@ -27,13 +25,6 @@ function OtvoriVozilo(id){
 	   data: datarow,
 	 success: function(response){
 		$("#content").html(response);
-		/*if(response.indexOf("Pogresan username i sifra!")!=-1) 
-			//$("#Poruka").html("Pogresan username i sifra!");
-			alert("Pogresan username i sifra!");
-		else{
-			document.location.reload();
-			localStorage.setItem("msg", "Uspjesno ste se logovali!");
-		}*/
 	 }});
 	return false;
 	

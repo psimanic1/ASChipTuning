@@ -132,7 +132,7 @@ include 'baza.php';
 			$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$query='Insert into proizvodjaci (markaVozila,idSlike) values(?,?)';
 			$q = $baza->prepare($query);
-			$q->execute(array($tmp->idProizvodjaca,$tmp->idSlike));
+			$q->execute(array($tmp->markaVozila,$tmp->idSlike));
 			Baza::disconnect();
 			return $baza->lastInsertId();
 		}

@@ -6,7 +6,7 @@ include 'klase.php';
 if(isset($_REQUEST["idProizvodjaca"]) && isset($_REQUEST["tipVozila"])){
 	Prikazi(dajVozilaZaProizvodjacaITipVozila($_REQUEST["idProizvodjaca"],$_REQUEST["tipVozila"]));
 }
-//cisti prikaz, to bum skontali kako cemo napraviti :D
+
 function Prikazi($lista){
 	echo '<h2 style="margin: 20px 0;">'.dajProizvodjacaPoId($_REQUEST["idProizvodjaca"])["markaVozila"].'</h2>
 			<table id="brandovi" style="margin-left: 30px;">

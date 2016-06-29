@@ -20,8 +20,6 @@ function Prikazi($vozilo){
 			<div><img src="'.dajSlikuPoid($vozilo["idSlike"])["path"].'" alt=""></div>			
 
 		</div>';	
-
-	//		<img class="imgVozila" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <div style="text-align:center; max-width:150px;">'.$lista[$i]["model"].'</div></a></td>';				
 }
 
 ?>

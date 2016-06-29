@@ -6,9 +6,9 @@
 include 'crud.php';
 include 'klase.php';
 
+session_start();
 
-
-if( $_SERVER["REQUEST_METHOD"] == "POST"){
+if($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_SESSION["username"])){
 	if($_POST["markaVozila"] ){
 		//dodavanje slike
 		$idUploadovaneSlike=0;
@@ -82,13 +82,34 @@ if( $_SERVER["REQUEST_METHOD"] == "POST"){
 }
 ?>
 
-
+<?php 
+ if(!empty($_SESSION["username"])){
+?>
 
 <form id="dodajProizvodjaca" method="POST" enctype="multipart/form-data">
 	<label>Izaberite sliku:<label></br>
 	<input type="file" name="fileToUpload" id="fileToUpload"/></br>
 	<label>Proizvodjac:</label></br>
 	<input type="text" name="markaVozila" id="markaVozila" /></br>
-	
 	<input type="submit" value="submit" name="submit"/>
 </form>
+<?php
+}else{
+	echo 'Nemate privilegije admina!';
+}
+?>
+<script>
+$('#dodajProizvodjaca').submit( function( e ) {
+		$.ajax( {
+		  url: '../php/dodavanjeProizvodjaca.php',
+		  type: 'POST',
+		  data: new FormData(this),
+		  processData: false,
+		  contentType: false,
+		  success:function(response){
+			  $("#centerAdminPanel").html(response);
+		  }
+		});
+    e.preventDefault();
+	});
+</script>
