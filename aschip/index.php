@@ -49,28 +49,17 @@ Licence URI: http://www.os-templates.com/template-terms
   <div id="featured_slide">
     <div id="featured_content">
       <ul>
-        <li><img src="images/demo/1.gif" alt="" />
-          <div class="floater">
-           
-          </div>
+        <li><img src="images/g6.jpg" alt="" />
+          
         </li>
-        <li><img src="images/demo/2.gif" alt="" />
-          <div class="floater">
-            <h2>Cursus penati saccum ut curabitur nulla.</h2>
-            <p>Temperinte interdum sempus odio urna eget curabitur semper convallis nunc laoreet. Nullain convallis ris elis vest liberos nis diculis feugiat in rutrum. Suspendreristibulumfaucibulum lobortor quis tortortor ris sapien sce enim et volutpat sus. Urnaretiumorci orci fauctor leo justo nulla cras ridiculum&hellip;</p>
-            <p class="readmore"><a href="#">Continue Reading &raquo;</a></p>
-          </div>
+        <li><img src="images/a3.jpg" alt="" />
         </li>
-        <li><img src="images/demo/3.gif" alt="" />
-          <div class="floater">
-            <h2>Cursus penati saccum ut curabitur nulla.</h2>
-            <p>Temperinte interdum sempus odio urna eget curabitur semper convallis nunc laoreet. Nullain convallis ris elis vest liberos nis diculis feugiat in rutrum. Suspendreristibulumfaucibulum lobortor quis tortortor ris sapien sce enim et volutpat sus. Urnaretiumorci orci fauctor leo justo nulla cras ridiculum&hellip;</p>
-            <p class="readmore"><a href="#">Continue Reading &raquo;</a></p>
-          </div>
+        <li><img src="images/r32.jpg" alt="" />
         </li>
       </ul>
     </div>
-    <a href="javascript:void(0);" id="featured-item-prev"><img src="layout/images/prev.png" alt="" /></a> <a href="javascript:void(0);" id="featured-item-next"><img src="layout/images/next.png" alt="" /></a> </div>
+    <a href="javascript:void(0);" id="featured-item-prev"><img src="layout/images/left.png" alt="" /></a> <a href="javascript:void(0);" id="featured-item-next"><img src="layout/images/right.png" alt="" /></a> </div>
+</div>
 </div>
 <!-- ####################################################################################################### -->
 <div class="wrapper col3">

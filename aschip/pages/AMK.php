@@ -111,7 +111,11 @@ Licence URI: http://www.os-templates.com/template-terms
 ?>
 <html>
 <head>
+<<<<<<< HEAD
 <title>PlusBusiness | Style Demo</title>
+=======
+<title>AS Chip tuning</title>
+>>>>>>> refs/remotes/origin/dizajn
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" href="../layout/styles/layout.css" type="text/css" />
 <link rel="stylesheet" href="../layout/styles/login.css" type="text/css" />
@@ -149,7 +153,7 @@ Licence URI: http://www.os-templates.com/template-terms
 <div class="wrapper col2">
   <div id="breadcrumb">
     <ul>
-      <li class="first"><p>Mob: 061/552-336 --- Mob: 061/815-816|info@aschiptuning.com</p></li>
+      <li class="first"><p>Mob: 061/552-336 --- Mob: 061/815-816 | info@aschiptuning.com</p></li>
       <p>Dodati fb logo ovde, za fb stranicu.</p>
     </ul>
   </div>

@@ -9,7 +9,7 @@ Licence URI: http://www.os-templates.com/template-terms
 <?php session_start(); ?>
 <html>
 <head>
-<title>PlusBusiness | Style Demo</title>
+<title>AS Chip tuning</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <link rel="stylesheet" href="../layout/styles/layout.css" type="text/css" />
 <link rel="stylesheet" href="../layout/styles/login.css" type="text/css" />
@@ -54,7 +54,7 @@ Licence URI: http://www.os-templates.com/template-terms
 <!-- ####################################################################################################### -->
 <div class="wrapper col3">
   <div id="container">
-      <h2>Write A Comment</h2>
+      <h2>Kontaktirajte nas</h2>
       <div id="respond">
         <form action="#" method="post">
           <p>

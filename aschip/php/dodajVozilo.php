@@ -120,12 +120,20 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" && !empty($_SESSTION['username'])){
 			PrikaziMarkeVozila(dajSveProizvodjace());							
 		?>
 	</select></br>
+<<<<<<< HEAD
+=======
+	<br>
+>>>>>>> refs/remotes/origin/dizajn
 	<label>Tip vozila:</label>
 	<select id="tipVozila" name="tipVozila">
 		<option value="0">Auto</option>
 		<option value="1">Kamion</option>
 		<option value="2">Motor</option>
 	</select></br>
+<<<<<<< HEAD
+=======
+	<br>
+>>>>>>> refs/remotes/origin/dizajn
 	<label>Model:</label></br>
 	<input type="text" name="model" id="model" /></br>
 	<label>Motor:</label></br>
@@ -141,8 +149,14 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" && !empty($_SESSTION['username'])){
 	<label>Cijena:</label></br>
 	<input type="text" name="cijena" id="cijena" /></br>
 	<label>Izaberite sliku:<label></br>
+<<<<<<< HEAD
 	<input type="file" name="fileToUpload" id="fileToUpload"/></br>
 	<input type="submit" value="submit" name="submit"/>
+=======
+	<br>
+	<input type="file" name="fileToUpload" id="fileToUpload"/>
+	<input type="submit" value="Submit" name="submit"/>
+>>>>>>> refs/remotes/origin/dizajn
 </form>
 
 <?php
