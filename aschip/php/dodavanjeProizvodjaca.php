@@ -88,6 +88,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_SESSION["username"])){
 
 <form id="dodajProizvodjaca" method="POST" enctype="multipart/form-data">
 	<label>Izaberite sliku:<label></br>
+<<<<<<< HEAD
+	<input type="file" name="fileToUpload" id="fileToUpload"/></br>
+	<label>Proizvodjac:</label></br>
+	<input type="text" name="markaVozila" id="markaVozila" /></br>
+	<input type="submit" value="submit" name="submit"/>
+=======
 	<br>
 	<input type="file" name="fileToUpload" id="fileToUpload"/></br>
 	<br>
@@ -95,6 +101,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_SESSION["username"])){
 	<input type="text" name="markaVozila" id="markaVozila" /></br>
 	<br>
 	<input type="submit" value="Submit" name="submit"/>
+>>>>>>> refs/remotes/origin/dizajn
 </form>
 <?php
 }else{

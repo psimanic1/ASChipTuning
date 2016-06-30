@@ -9,7 +9,11 @@ Licence URI: http://www.os-templates.com/template-terms
 <?php session_start(); ?>
 <html>
 <head>
+<<<<<<< HEAD
+<title>PlusBusiness | Full Width</title>
+=======
 <title>AS Chip tuning</title>
+>>>>>>> refs/remotes/origin/dizajn
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <link rel="stylesheet" href="../layout/styles/layout.css" type="text/css" />
 <link rel="stylesheet" href="../layout/styles/login.css" type="text/css" />
