@@ -6,11 +6,118 @@ Author URI: http://www.os-templates.com/
 Licence: Free to use under our free template licence terms
 Licence URI: http://www.os-templates.com/template-terms
 -->
+<?php session_start(); ?>
+<?php
+	include '../php/crud.php';
+
+	$lista=Sortiraj(dajSveProizvodjace());
+
+	function Sortiraj($list){
+		foreach ($list as $key => $row) {
+			$markaVozila[$key]  = $row['markaVozila'];
+		}
+		array_multisort($markaVozila, SORT_ASC, $list);
+		return $list;
+	}
+	
+	if($_GET['tip']=="Auto"){		
+		function PrikaziSveCentar($lista){
+			$j=0;
+			for($i=0; $i<count($lista); $i++){
+				if($j==0) echo '<tr>';
+				$j++;
+				$js="'Auto'";
+				if(count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Auto"))!=0)
+					echo '<td><a title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Auto")).'" href="#" onclick="return OtvoriProizvodjaca('.$lista[$i]["id"].','.$js.')">
+						<img class="imgProizvodjaci" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <div style="display:inline-block; position: relative;top: -10px;">'.$lista[$i]["markaVozila"].'</div></a></td>';
+				else
+					echo '<td><a title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Auto")).'" href="#">
+						<img class="imgProizvodjaci" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <div style="display:inline-block; position: relative;top: -10px;">'.$lista[$i]["markaVozila"].'</div></a></td>';
+				if($j==3){ 
+					echo '</tr>';
+					$j=0;
+				}
+			}
+		}
+								
+		function PrikaziSveStrana($lista){
+			$js="'Auto'";
+			for($i=0; $i<count($lista); $i++){
+				if(count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Auto"))!=0)
+					echo '<li style="padding-left:20px; padding-top:5px; padding-bottom:5px;"><img style="display:inline-block;" alt="" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <a  title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Auto")).'" style="display:inline-block; position: relative; top: -10px;" href="#" onclick="return OtvoriProizvodjaca('.$lista[$i]["id"].','.$js.')">'.$lista[$i]["markaVozila"].'</a></li>';
+				else
+					echo '<li style="padding-left:20px; padding-top:5px; padding-bottom:5px;"><img style="display:inline-block;" alt="" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <a  title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Auto")).'" style="display:inline-block; position: relative; top: -10px;" href="#">'.$lista[$i]["markaVozila"].'</a></li>';
+			}
+		}
+	}else if($_GET['tip']=="Kamion"){
+		function PrikaziSveCentar($lista){
+			$j=0;
+			for($i=0; $i<count($lista); $i++){
+				if($j==0) echo '<tr>';
+				$j++;
+				$js="'Kamion'";
+				if(count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Kamion"))!=0)
+					echo '<td><a title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Kamion")).'" href="#" onclick="return OtvoriProizvodjaca('.$lista[$i]["id"].','.$js.')">
+					<img class="imgProizvodjaci" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <div style="display:inline-block; position: relative;top: -10px;">'.$lista[$i]["markaVozila"].'</div></a></td>';
+				else
+					echo '<td><a title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Kamion")).'" href="#">
+					<img class="imgProizvodjaci" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <div style="display:inline-block; position: relative;top: -10px;">'.$lista[$i]["markaVozila"].'</div></a></td>';
+				if($j==3){ 
+					echo '</tr>';
+					$j=0;
+				}
+			}
+		}
+								
+		function PrikaziSveStrana($lista){
+			for($i=0; $i<count($lista); $i++){
+				$js="'Kamion'";
+				if(count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Kamion"))!=0)
+					echo '<li style="padding-left:20px; padding-top:5px; padding-bottom:5px;"><img style="display:inline-block;" alt="" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <a title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Kamion")).'" style="display:inline-block; position: relative; top: -10px;" href="#" onclick="return OtvoriProizvodjaca('.$lista[$i]["id"].','.$js.')">'.$lista[$i]["markaVozila"].'</a></li>';
+				else 
+					echo '<li style="padding-left:20px; padding-top:5px; padding-bottom:5px;"><img style="display:inline-block;" alt="" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <a title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Kamion")).'" style="display:inline-block; position: relative; top: -10px;" href="#">'.$lista[$i]["markaVozila"].'</a></li>';
+			}
+		}
+	}else if($_GET['tip']=="Motor"){
+		function PrikaziSveCentar($lista){
+			$j=0;
+			for($i=0; $i<count($lista); $i++){
+				if($j==0) echo '<tr>';
+				$j++;
+				$js="'Motor'";
+				if(count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Motor"))!=0)
+					echo '<td><a title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Motor")).'" href="#" onclick="return OtvoriProizvodjaca('.$lista[$i]["id"].','.$js.')">
+						<img class="imgProizvodjaci" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <div style="display:inline-block; position: relative;top: -10px;">'.$lista[$i]["markaVozila"].'</div></a></td>';
+				else
+					echo '<td><a title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Motor")).'" href="#">
+					<img class="imgProizvodjaci" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <div style="display:inline-block; position: relative;top: -10px;">'.$lista[$i]["markaVozila"].'</div></a></td>';
+				if($j==3){ 
+					echo '</tr>';
+					$j=0;
+				}
+			}
+		}
+								
+		function PrikaziSveStrana($lista){
+			for($i=0; $i<count($lista); $i++){
+				$js="'Motor'";
+				if(count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Motor"))!=0)
+					echo '<li style="padding-left:20px; padding-top:5px; padding-bottom:5px;"><img style="display:inline-block;" alt="" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <a title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Motor")).'" style="display:inline-block; position: relative; top: -10px;" href="#" onclick="return OtvoriProizvodjaca('.$lista[$i]["id"].','.$js.')">'.$lista[$i]["markaVozila"].'</a></li>';
+				else
+					echo '<li style="padding-left:20px; padding-top:5px; padding-bottom:5px;"><img style="display:inline-block;" alt="" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <a title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Motor")).'" style="display:inline-block; position: relative; top: -10px;" href="#">'.$lista[$i]["markaVozila"].'</a></li>';
+			}
+		}
+	}
+?>
 <html>
 <head>
-<title>PlusBusiness | Style Demo</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>AS Chip tuning</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" href="../layout/styles/layout.css" type="text/css" />
+<link rel="stylesheet" href="../layout/styles/login.css" type="text/css" />
+<script type="text/javascript" src="../layout/scripts/jquery.min.js"></script>
+<script type="text/javascript" src="../layout/scripts/login.js"></script>
+<script type="text/javascript" src="../layout/scripts/AMK.js"></script>
 </head>
 <body id="top">
 <!-- ####################################################################################################### -->
@@ -26,9 +133,9 @@ Licence URI: http://www.os-templates.com/template-terms
         <li><a href="full-width.php">O nama</a></li>
         <li><a href="Katalog.php">Katalog</a>
           <ul>
-           <li><a href="AMK.php">Auta</a></li>
-            <li><a href="AMK.php">Kamioni</a></li>
-            <li><a href="AMK.php">Motori</a></li>
+            <li><a href="AMK.php?tip=Auto">Auta</a></li>
+            <li><a href="AMK.php?tip=Kamion">Kamioni</a></li>
+            <li><a href="AMK.php?tip=Motor">Motori</a></li>
           </ul>
         </li>
 		<li><a href="Galerija.php">Galerija</a></li>
@@ -42,7 +149,7 @@ Licence URI: http://www.os-templates.com/template-terms
 <div class="wrapper col2">
   <div id="breadcrumb">
     <ul>
-      <li class="first"><p>Mob: 061/552-336 --- Mob: 061/815-816|info@aschiptuning.com</p></li>
+      <li class="first"><p>Mob: 061/552-336 --- Mob: 061/815-816 | info@aschiptuning.com</p></li>
       <p>Dodati fb logo ovde, za fb stranicu.</p>
     </ul>
   </div>
@@ -50,142 +157,145 @@ Licence URI: http://www.os-templates.com/template-terms
 <!-- ####################################################################################################### -->
 <div class="wrapper col3">
   <div id="container">
-    <div id="content">
-      <h1>&lt;h1&gt; to &lt;h6&gt; - Headline Colour and Size Are All The Same</h1>
-      <img class="imgr" src="../images/demo/imgr.gif" alt="" width="125" height="125" />
-      <p>Aliquatjusto quisque nam consequat doloreet vest orna partur scetur portortis nam. Metadipiscing eget facilis elit sagittis felisi eger id justo maurisus convallicitur.</p>
-      <p>Dapiensociis <a href="#">temper donec auctortortis cumsan</a> et curabitur condis lorem loborttis leo. Ipsumcommodo libero nunc at in velis tincidunt pellentum tincidunt vel lorem.</p>
-      <img class="imgl" src="../images/demo/imgl.gif" alt="" width="125" height="125" />
-      <p>This is a W3C compliant free website template from <a href="http://www.os-templates.com/" title="Free Website Templates">OS Templates</a>. This template is distributed using a <a href="http://www.os-templates.com/template-terms">Website Template Licence</a>.</p>
-      <p>You can use and modify the template for both personal and commercial use. You must keep all copyright information and credit links in the template and associated files. For more CSS templates visit <a href="http://www.os-templates.com/">Free Website Templates</a>.</p>
-      <p>Portortornec condimenterdum eget consectetuer condis consequam pretium pellus sed mauris enim. Puruselit mauris nulla hendimentesque elit semper nam a sapien urna sempus.</p>
-      <h2>Table(s)</h2>
-      <table summary="Summary Here" cellpadding="0" cellspacing="0">
-        <thead>
-          <tr>
-            <th>Header 1</th>
-            <th>Header 2</th>
-            <th>Header 3</th>
-            <th>Header 4</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="light">
-            <td>Value 1</td>
-            <td>Value 2</td>
-            <td>Value 3</td>
-            <td>Value 4</td>
-          </tr>
-          <tr class="dark">
-            <td>Value 5</td>
-            <td>Value 6</td>
-            <td>Value 7</td>
-            <td>Value 8</td>
-          </tr>
-          <tr class="light">
-            <td>Value 9</td>
-            <td>Value 10</td>
-            <td>Value 11</td>
-            <td>Value 12</td>
-          </tr>
-          <tr class="dark">
-            <td>Value 13</td>
-            <td>Value 14</td>
-            <td>Value 15</td>
-            <td>Value 16</td>
-          </tr>
-        </tbody>
-      </table>
-      <div id="comments">
-        <h2>Comments</h2>
-        <ul class="commentlist">
-          <li class="comment_odd">
-            <div class="author"><img class="avatar" src="../images/demo/avatar.gif" width="32" height="32" alt="" /><span class="name"><a href="#">A Name</a></span> <span class="wrote">wrote:</span></div>
-            <div class="submitdate"><a href="#">August 4, 2009 at 8:35 am</a></div>
-            <p>This is an example of a comment made on a post. You can either edit the comment, delete the comment or reply to the comment. Use this as a place to respond to the post or to share what you are thinking.</p>
-          </li>
-          <li class="comment_even">
-            <div class="author"><img class="avatar" src="../images/demo/avatar.gif" width="32" height="32" alt="" /><span class="name"><a href="#">A Name</a></span> <span class="wrote">wrote:</span></div>
-            <div class="submitdate"><a href="#">August 4, 2009 at 8:35 am</a></div>
-            <p>This is an example of a comment made on a post. You can either edit the comment, delete the comment or reply to the comment. Use this as a place to respond to the post or to share what you are thinking.</p>
-          </li>
-          <li class="comment_odd">
-            <div class="author"><img class="avatar" src="../images/demo/avatar.gif" width="32" height="32" alt="" /><span class="name"><a href="#">A Name</a></span> <span class="wrote">wrote:</span></div>
-            <div class="submitdate"><a href="#">August 4, 2009 at 8:35 am</a></div>
-            <p>This is an example of a comment made on a post. You can either edit the comment, delete the comment or reply to the comment. Use this as a place to respond to the post or to share what you are thinking.</p>
-          </li>
-        </ul>
-      </div>
-      <h2>Write A Comment</h2>
-      <div id="respond">
-        <form action="#" method="post">
-          <p>
-            <input type="text" name="name" id="name" value="" size="22" />
-            <label for="name"><small>Name (required)</small></label>
-          </p>
-          <p>
-            <input type="text" name="email" id="email" value="" size="22" />
-            <label for="email"><small>Mail (required)</small></label>
-          </p>
-          <p>
-            <textarea name="comment" id="comment" cols="100%" rows="10"></textarea>
-            <label for="comment" style="display:none;"><small>Comment (required)</small></label>
-          </p>
-          <p>
-            <input name="submit" type="submit" id="submit" value="Submit Form" />
-            &nbsp;
-            <input name="reset" type="reset" id="reset" tabindex="5" value="Reset Form" />
-          </p>
-        </form>
-      </div>
-    </div>
-    <div id="column">
-      <div class="subnav">
-        <h2>Secondary Navigation</h2>
-        <ul>
-          <li><a href="#">Navigation - Level 1</a></li>
-          <li><a href="#">Navigation - Level 1</a>
-            <ul>
-              <li><a href="#">Navigation - Level 2</a></li>
-              <li><a href="#">Navigation - Level 2</a></li>
-            </ul>
-          </li>
-          <li><a href="#">Navigation - Level 1</a>
-            <ul>
-              <li><a href="#">Navigation - Level 2</a></li>
-              <li><a href="#">Navigation - Level 2</a>
-                <ul>
-                  <li><a href="#">Navigation - Level 3</a></li>
-                  <li><a href="#">Navigation - Level 3</a></li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li><a href="#">Navigation - Level 1</a></li>
-        </ul>
-      </div>
-      <div class="holder">
-        <h2 class="title"><img src="../images/demo/60x60.gif" alt="" />Nullamlacus dui ipsum conseque loborttis</h2>
-        <p>Urnaultrices quis curabitur phasellentesque congue magnis vestibulum quismodo nulla et feugiat. Adipisciniapellentum leo ut consequam ris felit elit id nibh sociis malesuada.</p>
-        <p class="readmore"><a href="#">Continue Reading &raquo;</a></p>
-      </div>
-      <div class="holder">
-        <div class="imgholder"><img src="../images/demo/290x100.gif" alt="" /></div>
-        <p>Nullamlacus dui ipsum conseque loborttis non euisque morbi penas dapibulum orna.</p>
-        <p class="readmore"><a href="#">Continue Reading &raquo;</a></p>
-      </div>
-      <div class="holder">
-        <h2>Lorem ipsum dolor</h2>
-        <p>Nuncsed sed conseque a at quismodo tris mauristibus sed habiturpiscinia sed.</p>
-        <ul>
-          <li><a href="#">Lorem ipsum dolor sit</a></li>
-          <li>Etiam vel sapien et</li>
-          <li><a href="#">Etiam vel sapien et</a></li>
-        </ul>
-        <p>Nuncsed sed conseque a at quismodo tris mauristibus sed habiturpiscinia sed. Condimentumsantincidunt dui mattis magna intesque purus orci augue lor nibh.</p>
-        <p class="readmore"><a href="#">Continue Reading &raquo;</a></p>
-      </div>
-    </div>
+<style>
+/* Sidebar */
+
+#sidebar ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+#sidebar li {
+	margin: 0;
+	padding: 0;
+}
+
+#sidebar li ul {
+	margin-bottom: 10px;
+	border-right: 1px solid #909090;
+	border-bottom: 1px solid #909090;
+}
+
+#sidebar li li {
+	border-bottom: 1px dashed #909090;
+	padding-left: 0px;
+}
+
+#sidebar li li span {
+	display: block;
+	margin-top: -20px;
+	padding: 0;
+	font-size: 11px;
+	font-style: italic;
+}
+
+#sidebar h2 {
+	height: 42px;
+	margin: 0 auto;
+	text-transform: uppercase;
+	padding: 3px 0 0 25px;
+	background: url(/css/smh2.png) no-repeat;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+#sidebar a {
+	color: #333;
+	border: none;
+}
+
+#sidebar a:hover {
+	text-decoration: underline;
+	color: #cc0000;
+}
+/* Brandovi */
+
+#brandovi
+{
+	border:none;
+	background: transparent;
+	width: 100%;
+	border-collapse: collapse;
+	text-align: left;
+}
+#brandovi a
+{
+	color: #000;
+	text-decoration: none;
+}
+#brandovi a:hover
+{
+	color: #cc0000;
+	text-decoration: none;
+}
+
+#brandovi thead
+{
+	color: #000;
+	padding: 10px 8px;
+	margin-bottom:20px;
+	/*border-bottom: 2px solid #909090;*/
+}
+#brandovi td
+{
+	font-weight: bold;
+	color: #000;
+	padding: 6px 8px;
+}
+#brandovi tbody tr:hover td
+{
+	color: #cc0000;
+}
+
+#brandovi li {
+	padding-left: 10px;
+}
+
+
+/* MOJE napamet*/
+.imgProizvodjaci{
+	max-width:70px;
+	max-height:70px;
+	display:inline-block;
+}
+
+</style>
+ 
+		<div id="content" style="float:right; width:75%;">
+
+			<h2 style="margin: 20px 0;">Proizvođači - <?php echo $_GET['tip']; ?></h2>
+			<center>
+			<table id="brandovi" style="margin-left: 30px;">
+				<thead>
+				</thead>
+				<tbody>
+				<?php
+					PrikaziSveCentar($lista);
+				?>
+				</tbody>
+
+			</table>
+			</center>
+
+			</div>
+			<div id="sidebar" style="float:left; width:20%;">
+			<h2>Proizvođači</h2>
+				<ul>
+					<li>
+						<ul id="kontejner" style="overflow: auto; height: 973px;">
+							<?php
+								PrikaziSveStrana($lista);
+							?>
+							
+						</ul>
+					</li>
+				</ul>
+			</div>    
+	  
+			  
+  
+  
     <br class="clear" />
   </div>
 </div>
@@ -224,10 +334,28 @@ Licence URI: http://www.os-templates.com/template-terms
 <!-- ####################################################################################################### -->
 <div class="wrapper col5">
   <div id="copyright">
-    <p class="fl_left">Copyright &copy; 2014 - All Rights Reserved - <a href="#">Domain Name</a></p>
-    <p class="fl_right">Template by <a target="_blank" href="http://www.os-templates.com/" title="Free Website Templates">OS Templates</a></p>
+    <p class="fl_left">Copyright &copy; 2016 - All Rights Reserved - <a href="http://www.etermini.com">eTermini team</a></p>
+	
+	<?php
+	if(empty($_SESSION['username'])){
+	?>
+		<p id="loginFooter" class="fl_right"><a href="#" onclick="UcitajFormu()"><b>Admin LogIn</b></a></p>
+	
+	<?php
+	}else{
+		?>
+		<form method="post">
+			<p class="fl_right"><a href="#" onclick="return SubmitLogout()"><b>Admin LogOut</b></a></p>
+			<p style="margin-right: 20px;" class="fl_right"><a href="adminPanel.php"><b>Admin Panel</b></a></p>
+		</form>
+		
+	<?php	
+	}
+	?>
     <br class="clear" />
   </div>
 </div>
+
+<div id="loginDiv"></div>
 </body>
 </html>

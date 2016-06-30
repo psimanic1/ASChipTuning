@@ -9,8 +9,10 @@ class Vozilo{
 	public $snaga;
 	public $obrtaji;
 	public $cijena;
+	public $idProizvodjaca;
+	public $idSlike;
 
-	function VoziloCtor($id,$model, $tipVozila, $motor, $hp, $kw, $snaga, $obrtaji, $cijena){
+	function VoziloCtor($id,$model, $tipVozila, $motor, $hp, $kw, $snaga, $obrtaji, $cijena, $idProizvodjaca, $idSlike){
 		$this->id=$id;
 		$this->model=$model;
 		$this->tipVozila=$tipVozila;
@@ -20,6 +22,20 @@ class Vozilo{
 		$this->snaga=$snaga;
 		$this->obrtaji=$obrtaji;
 		$this->cijena=$cijena;
+		$this->idProizvodjaca=$idProizvodjaca;
+		$this->idSlike=$idSlike;
+	}
+}
+
+class Proizvodjac{
+	public $id;
+	public $markaVozila;
+	public $idSlike;
+	
+	function ProizvodjacCtor($id,$markaVozila,$idSlike){
+		$this->id=$id;
+		$this->markaVozila=$markaVozila;
+		$this->idSlike=$idSlike;
 	}
 }
 

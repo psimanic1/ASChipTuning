@@ -15,6 +15,7 @@ Licence URI: http://www.os-templates.com/template-terms
 <link rel="stylesheet" href="../layout/styles/login.css" type="text/css" />
 <script type="text/javascript" src="../layout/scripts/jquery.min.js"></script>
 <script type="text/javascript" src="../layout/scripts/login.js"></script>
+<script type="text/javascript" src="../layout/scripts/panel.js"></script>
 </head>
 <body id="top">
 <!-- ####################################################################################################### -->
@@ -30,7 +31,7 @@ Licence URI: http://www.os-templates.com/template-terms
         <li><a href="full-width.php">O nama</a></li>
         <li><a href="Katalog.php">Katalog</a>
           <ul>
-            <li><a href="AMK.php?tip=Auto">Auta</a></li>
+           <li><a href="AMK.php?tip=Auto">Auta</a></li>
             <li><a href="AMK.php?tip=Kamion">Kamioni</a></li>
             <li><a href="AMK.php?tip=Motor">Motori</a></li>
           </ul>
@@ -53,31 +54,41 @@ Licence URI: http://www.os-templates.com/template-terms
 </div>
 <!-- ####################################################################################################### -->
 <div class="wrapper col3">
-  <div id="container">
-      <h2>Kontaktirajte nas</h2>
-      <div id="respond">
-        <form action="#" method="post">
-          <p>
-            <input type="text" name="name" id="name" value="" size="22" />
-            <label for="name"><small>Name (required)</small></label>
-          </p>
-          <p>
-            <input type="text" name="email" id="email" value="" size="22" />
-            <label for="email"><small>Mail (required)</small></label>
-          </p>
-          <p>
-            <textarea name="comment" id="comment" cols="100%" rows="10"></textarea>
-            <label for="comment" style="display:none;"><small>Comment (required)</small></label>
-          </p>
-          <p>
-            <input name="submit" type="submit" id="submit" value="Submit Form" />
-            &nbsp;
-            <input name="reset" type="reset" id="reset" tabindex="5" value="Reset Form" />
-          </p>
-        </form>
-      </div>
-    </div>
-    <br class="clear" />
+  <div id="container" style="min-height:400px;">
+  <style>
+  #sideAdminPanel{
+	  display:inline-block;
+	  width:24%;
+	  border-right:1px solid black;
+	  float:left;
+	  min-height:400px;
+  }
+  #centerAdminPanel{
+	  display:inline-block;	  
+	  width:75%;
+	  float:right;
+  }
+  
+  #sideAdminPanel ol li {
+	  display:block;
+	  padding-left:10px;
+  }
+  </style>
+    <div id="sideAdminPanel">
+		<ol>
+			<h3>Proizvodjaci</h3>
+			<li><a href="#" onclick="return dodajProizvodjaca()">Dodaj proizvodjaca</a></li>
+			<li><a href="#" onclick="return obrisiProizvodjaca()">Obrisi proizvodjaca</a></li>			
+			</br>
+			<h3>Vozila</h3>			
+			<li><a href="#" onclick="return dodajVozilo()">Dodaj vozilo</a></li>
+			<li><a href="#" onclick="return obrisiVozilo()">Obrisi vozilo</a></li>
+		</ol>
+	</div>
+	<div id="centerAdminPanel">
+	
+	</div>
+	
   </div>
 </div>
 <!-- ####################################################################################################### -->

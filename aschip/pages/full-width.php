@@ -6,11 +6,15 @@ Author URI: http://www.os-templates.com/
 Licence: Free to use under our free template licence terms
 Licence URI: http://www.os-templates.com/template-terms
 -->
+<?php session_start(); ?>
 <html>
 <head>
-<title>PlusBusiness | Full Width</title>
+<title>AS Chip tuning</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <link rel="stylesheet" href="../layout/styles/layout.css" type="text/css" />
+<link rel="stylesheet" href="../layout/styles/login.css" type="text/css" />
+<script type="text/javascript" src="../layout/scripts/jquery.min.js"></script>
+<script type="text/javascript" src="../layout/scripts/login.js"></script>
 </head>
 <body id="top">
 <!-- ####################################################################################################### -->
@@ -26,9 +30,9 @@ Licence URI: http://www.os-templates.com/template-terms
         <li><a href="full-width.php">O nama</a></li>
         <li><a href="Katalog.php">Katalog</a>
           <ul>
-            <li><a href="AMK.php">Auta</a></li>
-            <li><a href="AMK.php">Kamioni</a></li>
-            <li><a href="AMK.php">Motori</a></li>
+           <li><a href="AMK.php?tip=Auto">Auta</a></li>
+            <li><a href="AMK.php?tip=Kamion">Kamioni</a></li>
+            <li><a href="AMK.php?tip=Motor">Motori</a></li>
           </ul>
         </li>
 		<li><a href="Galerija.php">Galerija</a></li>
@@ -42,7 +46,7 @@ Licence URI: http://www.os-templates.com/template-terms
 <div class="wrapper col2">
   <div id="breadcrumb">
     <ul>
-      <li class="first"><p>Mob: 061/552-336 --- Mob: 061/815-816|info@aschiptuning.com</p></li>
+      <li class="first"><p>Mob: 061/552-336 --- Mob: 061/815-816 | info@aschiptuning.com</p></li>
       <p>Dodati fb logo ovde, za fb stranicu.</p>
     </ul>
   </div>
@@ -79,7 +83,7 @@ Licence URI: http://www.os-templates.com/template-terms
 <div class="wrapper col4">
   <div id="footer">
     <div class="box1">
-      <h2>Sjediste tuning kuce</h2>
+      <h2>Sjedište tuning kuće</h2>
       <ul>
         <li>AS Chip tuning</li>
         <li>Adema Buce 234</li>
@@ -111,9 +115,27 @@ Licence URI: http://www.os-templates.com/template-terms
 <div class="wrapper col5">
   <div id="copyright">
     <p class="fl_left">Copyright &copy; 2016 - All Rights Reserved - <a href="http://www.etermini.com">eTermini team</a></p>
-    <p class="fl_right"><a href="../php/login.php"><b>Admin LogIn</b></a></p>
+	
+	<?php
+	if(empty($_SESSION['username'])){
+	?>
+		<p id="loginFooter" class="fl_right"><a href="#" onclick="UcitajFormu()"><b>Admin LogIn</b></a></p>
+	
+	<?php
+	}else{
+		?>
+		<form method="post">
+			<p class="fl_right"><a href="#" onclick="return SubmitLogout()"><b>Admin LogOut</b></a></p>
+			<p style="margin-right: 20px;" class="fl_right"><a href="adminPanel.php"><b>Admin Panel</b></a></p>
+		</form>
+		
+	<?php	
+	}
+	?>
     <br class="clear" />
   </div>
 </div>
+
+<div id="loginDiv"></div>
 </body>
 </html>

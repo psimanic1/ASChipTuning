@@ -26,11 +26,11 @@ DROP TABLE IF EXISTS `novosti`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `novosti` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `naslov` varchar(25) DEFAULT NULL,
   `tekst` varchar(150) DEFAULT NULL,
   `datumObjave` datetime DEFAULT NULL,
   `link` varchar(250) DEFAULT NULL,
   `jelVideo` int(11) DEFAULT NULL,
+  `naslov` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-26 19:52:54
+-- Dump completed on 2016-06-27 22:01:25

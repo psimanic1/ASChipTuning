@@ -18,37 +18,29 @@ USE `aschip`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `vozila`
+-- Table structure for table `proizvodjaci`
 --
 
-DROP TABLE IF EXISTS `vozila`;
+DROP TABLE IF EXISTS `proizvodjaci`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `vozila` (
+CREATE TABLE `proizvodjaci` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `model` varchar(30) DEFAULT NULL,
-  `tipVozila` varchar(15) DEFAULT NULL,
-  `motor` varchar(20) DEFAULT NULL,
-  `hp` int(11) DEFAULT NULL,
-  `kw` int(11) DEFAULT NULL,
-  `snaga` int(11) DEFAULT NULL,
-  `obrtaji` int(11) DEFAULT NULL,
-  `cijena` varchar(20) DEFAULT NULL,
-  `idProizvodjaca` int(11) DEFAULT NULL,
+  `markaVozila` varchar(45) DEFAULT NULL,
   `idSlike` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `vozila`
+-- Dumping data for table `proizvodjaci`
 --
 
-LOCK TABLES `vozila` WRITE;
-/*!40000 ALTER TABLE `vozila` DISABLE KEYS */;
-INSERT INTO `vozila` VALUES (21,'Audi a3','Auto','1',1,1,1,1,'1',4,28);
-/*!40000 ALTER TABLE `vozila` ENABLE KEYS */;
+LOCK TABLES `proizvodjaci` WRITE;
+/*!40000 ALTER TABLE `proizvodjaci` DISABLE KEYS */;
+INSERT INTO `proizvodjaci` VALUES (4,'Audi',23),(5,'BeMWe',24),(6,'Ferarrrriii',25),(7,'Lamborgini',26),(8,'VW',27);
+/*!40000 ALTER TABLE `proizvodjaci` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -60,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-27 22:01:18
+-- Dump completed on 2016-06-27 22:01:27

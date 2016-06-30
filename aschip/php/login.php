@@ -1,14 +1,16 @@
 <?php
 include 'crud.php';
 session_start();
-$_SESSION['username']="";
+//$_SESSION['username']="";
 
 if( $_SERVER["REQUEST_METHOD"] == "POST" ){
-	if(isset($_REQUEST['username']) && isset($_REQUEST['pass'])){
+	$_SESSION['username']="";
+	if(isset($_REQUEST['username']) && isset($_REQUEST['pass']) && empty($_SESSION['username'])){
 		Login($_REQUEST['username'],$_REQUEST['pass']);
 	}
 	
 	if(isset($_REQUEST['odjava'])){
+		echo "logout";
 		$_SESSION['username']="";
 		session_destroy();
 	}
@@ -19,7 +21,7 @@ function Login($username, $password){
 	$korisnik=LoginServer($username,$passHash);
 	if($korisnik!=null){
 		$_SESSION['username']=$username;					
-		echo "<script> alert('Uspjesno ste se logovali!'); </script>";
+		echo "<script> var greska='Uspjesno ste se logovali!'; </script>";
 	}else{
 		echo "<script> alert('Pogresan username i sifra!'); </script>";
 	}
@@ -28,39 +30,42 @@ function Login($username, $password){
 
 
 <?php
-if($_SESSION['username']=="")
+if(empty($_SESSION['username']))
 {
 ?>
 
 <link rel="stylesheet" href="../layout/styles/login.css">
 <div id="login">
-	<form id="loginForm" action="login.php" method="POST">
+<!--onsubmit="return SubmitLogin()" method="POST"-->
+	<form id="loginForm" >
 	<h1>Log In</h1>
 		<div class="ineline">
 			<p class="ineline tbprijava">Username:</p>
-			<input type="text" name="username" value="">	
+			<input type="text" id="username" name="username" value="">	
 		</div>
 		<div class="ineline">
 			<p class="ineline tbprijava">Sifra:</p>
-			<input type="password" name="pass" value="">
+			<input type="password" id="pass" name="pass" value="">
 		</div>
 		<br>
 		
 		<div class="ineline">
-			<input class="btnPrijava" type="submit" name="login" value="Prijavi se">
+			<input class="btnPrijava" onclick="return SubmitLogin()" type="submit" name="login" value="Prijavi se">
 		</div>
+		<div class="ineline">
+			<input class="btnIzadji" type="button" value="Izadji" onclick="Zatvori()">
+		</div>
+
 	</form>
 </div>
 
 
 <?php
-}else{
+}
 ?>
-<div id="logout">
-	<form method="post" action="login.php">
-		<input class="btnPrijava" name="odjava" value="Odjavi se" type="submit"/>
-	</form>
-</div>
-<?php
-}	
-?>		
+	
+
+
+<script>
+
+</script>
