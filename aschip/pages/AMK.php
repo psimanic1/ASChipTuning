@@ -111,11 +111,7 @@ Licence URI: http://www.os-templates.com/template-terms
 ?>
 <html>
 <head>
-<<<<<<< HEAD
-<title>PlusBusiness | Style Demo</title>
-=======
 <title>AS Chip tuning</title>
->>>>>>> refs/remotes/origin/dizajn
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" href="../layout/styles/layout.css" type="text/css" />
 <link rel="stylesheet" href="../layout/styles/login.css" type="text/css" />

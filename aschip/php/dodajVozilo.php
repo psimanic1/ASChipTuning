@@ -7,18 +7,17 @@ include 'crud.php';
 include 'klase.php';
 
 session_start();
-
 //dodavanje vozila
-if( $_SERVER["REQUEST_METHOD"] == "POST" && !empty($_SESSTION['username'])){
-		$model=htmlspecialchars($_POST['model']);
-		$motor=htmlspecialchars($_POST['motor']);
-		$hp=htmlspecialchars($_POST['hp']);
+if( $_SERVER["REQUEST_METHOD"] == "POST" && !empty($_SESSION['username'])){
+		$model=htmlspecialchars($_POST["model"]);
+		$motor=htmlspecialchars($_POST["motor"]);
+		$hp=htmlspecialchars($_POST["hp"]);
 		$kw=htmlspecialchars($_POST['kw']);
 		$snaga=htmlspecialchars($_POST['snaga']);
 		$obrtaji=htmlspecialchars($_POST['obrtaji']);
 		$cijena=htmlspecialchars($_POST['cijena']);
 		
-		if(isset($model) && isset($motor) && isset($hp) && isset($kw) && isset($snaga) && isset($obrtaji) && isset($cijena)){
+		if(!empty($model) && !empty($motor) && !empty($hp) && !empty($kw) && !empty($snaga) && !empty($obrtaji) && !empty($cijena)){
 			if(isset($_POST['tipVozila']))
 				$tipV = $_POST['tipVozila']?:'';
 			else{
@@ -28,8 +27,6 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" && !empty($_SESSTION['username'])){
 			else if($tipV==1) $tipVozila="Kamion";
 			else if($tipV==2) $tipVozila="Motor";
 			else $tipVozila=null;
-			
-			
 			//dodavanje slike
 			$idUploadovaneSlike=0;
 			$target_dir = "../uploads/vozila/".$tipVozila."/";
@@ -87,7 +84,10 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" && !empty($_SESSTION['username'])){
 						$auto->VoziloCtor(0,$model,$tipVozila,$motor,$hp,$kw,$snaga,$obrtaji,$cijena,$markaVozila,$idUploadovaneSlike);
 						$id=dodajVozilo($auto);
 						
-						if($id!=0) echo "<script> alert('Uspjesno ste dodali vozilo!'); </script>";
+						if($id!=0){ 
+							PrikaziDodanoVozilo(dajVoziloPoId($id));
+							echo "<script> alert('Uspjesno ste dodali vozilo!'); </script>";
+						}
 						else{
 							obrisiSlikuPoId($idUploadovaneSlike);
 							unlink($target_file);
@@ -98,7 +98,24 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" && !empty($_SESSTION['username'])){
 					echo "Sorry, there was an error uploading your file.";
 				}
 			}
+		}else{
+			echo "Nisu sve vrijednosti postavljene";
 		}	
+	}
+	
+	function PrikaziDodanoVozilo($vozilo){
+		echo '<div style="display:inline-block; float:right" id="dodanoAuto">
+				<h2 style="margin: 20px 0;">'.dajProizvodjacaPoId($vozilo["idProizvodjaca"])["markaVozila"].'</h2>
+				<div>Model: '.$vozilo["model"].'</div>
+				<div>Motor: '.$vozilo["motor"].'</div>
+				<div>HP: '.$vozilo["hp"].'</div>
+				<div>kW: '.$vozilo["kw"].'</div>
+				<div>Snaga: '.$vozilo["snaga"].'</div>
+				<div>Obrtaji: '.$vozilo["obrtaji"].'</div>
+				<div>Cijena: '.$vozilo["cijena"].'</div>
+				<div><img style="max-width:150px; max-height:150px;" src="'.dajSlikuPoid($vozilo["idSlike"])["path"].'" alt=""></div>			
+				<input type="button" onclick="dodajStage('.$vozilo["id"].')" value="Dodaj Stage"/>
+			</div>';	
 	}
 	
 	function PrikaziMarkeVozila($lista){
@@ -113,27 +130,21 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" && !empty($_SESSTION['username'])){
  if(!empty($_SESSION["username"])){
 ?>
 
-<form id="dodajAuto" method="POST" enctype="multipart/form-data">
+<form style="display:inline-block; float:left" id="dodajAuto" method="POST" enctype="multipart/form-data">
 	<label>Marka vozila:</label>
 	<select id="markaVozila" name="markaVozila">
 		<?php
 			PrikaziMarkeVozila(dajSveProizvodjace());							
 		?>
 	</select></br>
-<<<<<<< HEAD
-=======
 	<br>
->>>>>>> refs/remotes/origin/dizajn
 	<label>Tip vozila:</label>
 	<select id="tipVozila" name="tipVozila">
 		<option value="0">Auto</option>
 		<option value="1">Kamion</option>
 		<option value="2">Motor</option>
 	</select></br>
-<<<<<<< HEAD
-=======
 	<br>
->>>>>>> refs/remotes/origin/dizajn
 	<label>Model:</label></br>
 	<input type="text" name="model" id="model" /></br>
 	<label>Motor:</label></br>
@@ -149,14 +160,9 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" && !empty($_SESSTION['username'])){
 	<label>Cijena:</label></br>
 	<input type="text" name="cijena" id="cijena" /></br>
 	<label>Izaberite sliku:<label></br>
-<<<<<<< HEAD
-	<input type="file" name="fileToUpload" id="fileToUpload"/></br>
-	<input type="submit" value="submit" name="submit"/>
-=======
 	<br>
 	<input type="file" name="fileToUpload" id="fileToUpload"/>
 	<input type="submit" value="Submit" name="submit"/>
->>>>>>> refs/remotes/origin/dizajn
 </form>
 
 <?php
@@ -179,4 +185,19 @@ $('#dodajAuto').submit( function( e ) {
 		});
     e.preventDefault();
 	});
+	
+function dodajStage(id){
+	urlTmp='../php/dodajStage.php';
+	var datarow={
+		'idVozila':id
+	};
+	$.ajax({
+	   url: urlTmp,
+	   type:    'GET',
+	   data: datarow,
+	 success: function(response){
+		$("#centerAdminPanel").html(response);
+	 }});
+	return false;
+}
 </script>

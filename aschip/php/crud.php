@@ -275,6 +275,23 @@ include 'baza.php';
 		return $obj;
 	}
 
+	
+	function dajSveChipTuningZaVozilo($idVozila){
+		$obj=array();
+		$baza=Baza::connect();
+		$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$query='Select * from chiptuning where idVozila=?';
+		$q = $baza->prepare($query);
+		$q->execute(array($idVozila));
+		$tmpObj1 = $q->fetchAll();
+		foreach($tmpObj1 as $r){
+			$tmpObj=array('id'=>$r['id'],'idVozila'=>$r['idVozila'],'idStage1'=>$r['idStage1'],'idStage2'=>$r['idStage2'],'idStage3'=>$r['idStage3'],'idEcoTuning'=>$r['idEcoTuning']);
+			array_push($obj,$tmpObj);
+		}
+		Baza::disconnect();
+		return $obj;
+	}
+	
 	/*	dodaje chiptuning, prima varijablu tipa ChipTuning()
 		vraca id dodanog ChipTuning-a
 		ukoliko nije uspjesno dodavanje vraca 0
