@@ -49,13 +49,10 @@ Licence URI: http://www.os-templates.com/template-terms
   <div id="featured_slide">
     <div id="featured_content">
       <ul>
-        <li><img src="images/g6.jpg" alt="" />
-          
-        </li>
-        <li><img src="images/a3.jpg" alt="" />
-        </li>
-        <li><img src="images/r32.jpg" alt="" />
-        </li>
+        <li><img src="images/g6.jpg" alt="" />  </li>
+        <li><img src="images/a3.jpg" alt="" />  </li>
+        <li><img src="images/r32.jpg" alt="" /> </li>
+		<li><img src="images/kriva.jpg" alt="" /> </li>
       </ul>
     </div>
     <a href="javascript:void(0);" id="featured-item-prev"><img src="layout/images/left.png" alt="" /></a> <a href="javascript:void(0);" id="featured-item-next"><img src="layout/images/right.png" alt="" /></a> </div>
@@ -64,20 +61,59 @@ Licence URI: http://www.os-templates.com/template-terms
 <!-- ####################################################################################################### -->
 <div class="wrapper col3">
   <div id="container">
+    <div id="centralni"
+	<p>Odaberite vozilo i saznajte koliko snage dobijate chip tuningom!</p>
+	</div>
+	<div class="odabir">
+	<p>Tip--------Marka------------Model---------Motor</p>
+	<select id="tipVozila" name="tipVozila">
+		<option value="0">Auto</option>
+		<option value="1">Kamion</option>
+		<option value="2">Motor</option>
+	</select>
+	
+	<select id="tipVozila" name="tipVozila">
+		<option value="0">Auto</option>
+		<option value="1">Kamion</option>
+		<option value="2">Motor</option>
+	</select>
+	
+	<select id="tipVozila" name="tipVozila">
+		<option value="0">Auto</option>
+		<option value="1">Kamion</option>
+		<option value="2">Motor</option>
+	</select>
+	
+	<select id="tipVozila" name="tipVozila">
+		<option value="0">Auto</option>
+		<option value="1">Kamion</option>
+		<option value="2">Motor</option>
+	</select>
+    <br class="clear" />
+    </div>
+  </div>
+</div>
+<!-- ####################################################################################################### -->
+<!-- ####################################################################################################### -->
+<div class="wrapper col3">
+  <div id="container">
     <div class="homepage">
       <ul>
         <li>
-          <h2><img src="images/demo/60x60.gif" alt="" />Nullamlacus dui ipsum conseque loborttis</h2>
+          <h2><img src="images/a3.jpg" alt="" /></h2>
+		  
           <p>Nullamlacus dui ipsum conseque loborttis non euisque morbi penas dapibulum orna. Urnaultrices quis curabitur phasellentesque congue magnis vestibulum quismodo nulla et feugiat. Adipisciniapellentum leo ut consequam ris felit elit id nibh sociis malesuada.</p>
           <p class="readmore"><a href="#">Continue Reading &raquo;</a></p>
         </li>
         <li>
-          <h2><img src="images/demo/60x60.gif" alt="" />Nullamlacus dui ipsum conseque loborttis</h2>
+          <h2><img src="images/g6.jpg" alt="" /></h2>
+		  
           <p>Nullamlacus dui ipsum conseque loborttis non euisque morbi penas dapibulum orna. Urnaultrices quis curabitur phasellentesque congue magnis vestibulum quismodo nulla et feugiat. Adipisciniapellentum leo ut consequam ris felit elit id nibh sociis malesuada.</p>
           <p class="readmore"><a href="#">Continue Reading &raquo;</a></p>
         </li>
         <li class="last">
-          <h2><img src="images/demo/60x60.gif" alt="" />Nullamlacus dui ipsum conseque loborttis</h2>
+          <h2><img src="images/r32.jpg" alt="" /></h2>
+		  
           <p>Nullamlacus dui ipsum conseque loborttis non euisque morbi penas dapibulum orna. Urnaultrices quis curabitur phasellentesque congue magnis vestibulum quismodo nulla et feugiat. Adipisciniapellentum leo ut consequam ris felit elit id nibh sociis malesuada.</p>
           <p class="readmore"><a href="#">Continue Reading &raquo;</a></p>
         </li>

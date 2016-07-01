@@ -36,16 +36,18 @@ img{display:block; margin:0; padding:0; border:none;}
 .imgr{margin:0 0 8px 8px; clear:right;}
 
 /* ----------------------------------------------Wrapper------------------------------------- */
-
+#centralni{font-size:x-large;padding: 0 0 0 48px;}
+.odabir label, select{padding-right:7.5em; font-size:large;}
+.odabir select {padding:10px 135px 15px 1px;font-family:audiowide;border:2px solid #b51010;border-radius:10px;}
 div.wrapper{display:block; width:100%; margin:0; text-align:left;}
 div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, div.wrapper h6{margin:0; padding:0; font-size:20px; font-weight:normal; line-height:normal; font-family:Georgia, "Times New Roman", Times, serif;}
 .col1{color:#CCCCCC; background-color:#bfbdbd;}
-.col2, .col2 a{color:#FFFFFF; background-color:#e10707;}
+.col2, .col2 a{color:#FFFFFF; background-color:#b51010;}
 .col3{color:#777777; background-color:#FFFFFF;}
 .col3 a{color:#e10707; background-color:#FFFFFF;}
 .col4{color:#FFFFFF; background-color:#000000;}
-.col4 a{color:#e10707; background-color:#000000;}
-.col5, .col5 a{color:#e10707 ; background-color:#bfbdbd;}
+.col4 a{color:#b51010; background-color:#000000;}
+.col5, .col5 a{color:#b51010 ; background-color:#bfbdbd;}
 
 /* ----------------------------------------------Generalise------------------------------------- */
 
@@ -69,7 +71,7 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 /* ----------------------------------------------Content------------------------------------- */
 
 #container{padding:20px 0;}
-#container h1, #container h2, #container h3, #container h4, #container h5, #container h6{margin:0 0 15px 0; padding:0 0 8px 0; border-bottom:1px solid #E7E6E6;}
+#container h1, #container h2, #container h3, #container h4, #container h5, #container h6{margin:0 0 15px 0; padding:-1px 0 117px 0; border-bottom:1px solid #E7E6E6;}
 
 /* ----------------------------------------------Homepage Block------------------------------------- */
 
@@ -77,11 +79,11 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 .homepage ul{margin:0; padding:0; list-style:none;}
 .homepage li{display:block; float:left; width:300px; margin:0 30px 0 0; padding:0;}
 .homepage li.last{margin-right:0;}
-.homepage li h2{display:block; width:100%; height:65px; margin:0; padding:15px 0 8px 0; font-weight:normal; line-height:normal; border-bottom:1px dotted #999999;}
-.homepage li h2 img{float:left; margin:-15px 8px 0 0; padding:5px; border:1px solid #999999;}
+.homepage li h2{display:block; width:100%; height:100%; margin:0; padding:15px 0 8px 0; font-weight:normal; line-height:normal; border-bottom:1px dotted #999999;}
+.homepage li h2 img{width:100%;height:100%;float:left; margin:-15px 8px 0 0; padding:0 0 0 0;  border:1px solid #999999;}
 .homepage p{margin:0 0 25px 0; padding:0; line-height:1.6em;}
 .homepage p.readmore{display:block; text-align:right; line-height:normal; font-weight:bold;}
-.homepage p.readmore a{padding:8px 15px 10px; color:#e10707 ; background-color:#bfbdbd;}
+.homepage p.readmore a{padding:8px 15px 10px; color:#b51010 ; background-color:#bfbdbd;}
 
 /* ----------------------------------------------Content Block------------------------------------- */
 

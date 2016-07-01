@@ -311,6 +311,59 @@ include 'baza.php';
 			return 0;
 		}
 	}
+	
+	function dodajStage1ChipTuning($tmp){
+		if($tmp->idVozila!=null){
+			$baza=Baza::connect();
+			$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$query='UPDATE chiptuning SET idStage1=? WHERE id=? ';
+			$q = $baza->prepare($query);
+			$q->execute(array($tmp->idStage1,$tmp->id));
+			Baza::disconnect();
+			return true;
+		}else{
+			return false;
+		}
+	}
+		function dodajStage2ChipTuning($tmp){
+		if($tmp->idVozila!=null){
+			$baza=Baza::connect();
+			$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$query='UPDATE chiptuning SET idStage2=? WHERE id=? ';
+			$q = $baza->prepare($query);
+			$q->execute(array($tmp->idStage2, $tmp->id));
+			Baza::disconnect();
+			return true;
+		}else{
+			return false;
+		}
+	}
+		function dodajStage3ChipTuning($tmp){
+		if($tmp->idVozila!=null){
+			$baza=Baza::connect();
+			$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$query='UPDATE chiptuning SET idStage3=? WHERE id=? ';
+			$q = $baza->prepare($query);
+			$q->execute(array($tmp->idStage3, $tmp->id));
+			Baza::disconnect();
+			return true;
+		}else{
+			return false;
+		}
+	}
+		function dodajEcoStageChipTuning($tmp){
+		if($tmp->idVozila!=null){
+			$baza=Baza::connect();
+			$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$query='UPDATE chiptuning SET idEcoTuning=? WHERE id=? ';
+			$q = $baza->prepare($query);
+			$q->execute(array($tmp->idEcoTuning, $tmp->id));
+			Baza::disconnect();
+			return true;
+		}else{
+			return false;
+		}
+	}
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -358,7 +411,6 @@ include 'baza.php';
 		ukoliko nije uspjesno dodavanje vraca 0
 	*/
 	function dodajStage($tmp){
-		
 		if($tmp->obrtaji!=null && $tmp->snaga!=null){
 			$baza=Baza::connect();
 			$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
