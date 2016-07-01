@@ -50,23 +50,34 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" && !empty($_SESSION['username'])){
 				dodajChipTuning($chiptuning);
 			}
 			echo "Uspjesno ste dodali stage!";
+			?>
+			</br>
+			<?php
 		}else{
 			echo "Nisu uneseni snaga i obrtaji";
 		}
 }
+
+echo " ";
+$kraj=false;
+$tuninzi=dajSveChipTuningZaVozilo($id);
 
 if(!empty($tuninzi)){
 	if($tuninzi["0"]["idStage1"]==0) echo "Stage 1";
 	else if($tuninzi["0"]["idStage2"]==0) echo "STage 2";
 	else if($tuninzi["0"]["idStage3"]==0) echo "STage 3";
 	else if($tuninzi["0"]["idEcoTuning"]==0) echo "Eco Tuning";
-	else "Stage";
+	else{
+		echo "Vise ne mozete dodati stage-ova!";
+		$kraj=true;
+	}
 }else{
 	echo "Stage 1";
 }
 ?>
-
-
+<?php
+if(!$kraj){
+?>
 <form id="dodajStage" method="POST">
 	<?php
 	if(!empty($_GET["idVozila"]))
@@ -81,7 +92,9 @@ if(!empty($tuninzi)){
 	<input name="cijena" value="" id="cijena"/></br>
 	<input type="submit" name="submit" value="submit"/>
 </form>
-
+<?php
+}
+?>
 <script>
 $('#dodajStage').submit( function( e ) {
 		$.ajax( {

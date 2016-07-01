@@ -7,6 +7,9 @@ Licence: Free to use under our free template licence terms
 Licence URI: http://www.os-templates.com/template-terms
 -->
 <?php session_start(); ?>
+
+
+
 <html>
 <head>
 <title>AS Chip tuning</title>
@@ -61,36 +64,7 @@ Licence URI: http://www.os-templates.com/template-terms
 <!-- ####################################################################################################### -->
 <div class="wrapper col3">
   <div id="container">
-    <div id="centralni"
-	<p>Odaberite vozilo i saznajte koliko snage dobijate chip tuningom!</p>
-	</div>
-	<div class="odabir">
-	<p>Tip--------Marka------------Model---------Motor</p>
-	<select id="tipVozila" name="tipVozila">
-		<option value="0">Auto</option>
-		<option value="1">Kamion</option>
-		<option value="2">Motor</option>
-	</select>
-	
-	<select id="tipVozila" name="tipVozila">
-		<option value="0">Auto</option>
-		<option value="1">Kamion</option>
-		<option value="2">Motor</option>
-	</select>
-	
-	<select id="tipVozila" name="tipVozila">
-		<option value="0">Auto</option>
-		<option value="1">Kamion</option>
-		<option value="2">Motor</option>
-	</select>
-	
-	<select id="tipVozila" name="tipVozila">
-		<option value="0">Auto</option>
-		<option value="1">Kamion</option>
-		<option value="2">Motor</option>
-	</select>
-    <br class="clear" />
-    </div>
+    
   </div>
 </div>
 <!-- ####################################################################################################### -->
@@ -182,3 +156,18 @@ Licence URI: http://www.os-templates.com/template-terms
 <div id="loginDiv"></div>
 </body>
 </html>
+
+<script>
+$(document).ready(function(){
+	$.ajax({
+	  url: 'php/pocetna.php',
+	  type: 'POST',
+	  data: new FormData(this),
+	  processData: false,
+	  contentType: false,
+	  success:function(response){
+		  $("#container").html(response);
+	  }
+	});
+});
+</script>

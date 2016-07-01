@@ -46,10 +46,10 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" && !empty($_SESSION['username'])){
 				}
 			}
 			// Check if file already exists
-			if (file_exists($target_file)) {
+			/*if (file_exists($target_file)) {
 				echo "Sorry, file already exists.";
 				$uploadOk = 0;
-			}
+			}*/
 			// Check file size
 			//povecati velicinu fajla ovo je 500kb
 			if ($_FILES["fileToUpload"]["size"] > 500000) {

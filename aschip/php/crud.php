@@ -100,6 +100,25 @@ include 'baza.php';
 		return $obj;
 	}
 	
+	/*	 prima model vozila i vraca vozila 
+		 $tmp=dajVozilaZaModel(a3); 
+	*/
+	function dajVozilaZaModel($model){
+		$obj=array();
+		$baza=Baza::connect();
+		$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$query='Select * from vozila where model=?';
+		$q = $baza->prepare($query);
+		$q->execute(array($model));
+		$tmpObj1 = $q->fetchAll();
+		foreach($tmpObj1 as $r){
+			$tmpObj=array('id'=>$r['id'],'model'=>$r['model'],'tipVozila'=>$r['tipVozila'],'motor'=>$r['motor'],'hp'=>$r['hp'],'kw'=>$r['kw'],'snaga'=>$r['snaga'],'obrtaji'=>$r['obrtaji'],'cijena'=>$r['cijena'],'idProizvodjaca'=>$r['idProizvodjaca'],'idSlike'=>$r['idSlike']);
+			array_push($obj,$tmpObj);
+		}
+		Baza::disconnect();
+		return $obj;
+	}
+	
 	/*	dodaje vozilo, prima varijablu tipa Vozilo()
 		vraca id dodanog Vozila
 		ukoliko nije uspjesno dodavanje vraca 0
@@ -123,12 +142,13 @@ include 'baza.php';
 	/*	 prima id onog sta treba obrisati i vraca true ili false 
 		 $tmp=obrisiVoziloPoId(5); 
 	*/
-	//UBACITI BRISANJE STAGE i CHIPTUNING
 	function obrisiVoziloPoId($id){
 		try{
 			$obj=array();
 			$idSlike= dajVoziloPoId($id)["idSlike"];
 			obrisiSlikuPoId($idSlike);
+			$chips=dajSveChipTuningZaVozilo($id);
+			obrisiChipTuningPoId($chips["0"]["id"]);
 			$baza=Baza::connect();
 			$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$query='Delete from vozila where id=?';
@@ -275,6 +295,30 @@ include 'baza.php';
 		return $obj;
 	}
 
+	/*	 prima id onog sta treba obrisati i vraca true ili false 
+		 $tmp=obrisiChipTuningPoId(5); 
+	*/
+	function obrisiChipTuningPoId($id){
+		try{
+			$obj=array();
+			$chip=dajChipTuningPoId($id);
+			if($chip["idStage1"]!=0) obrisiStagePoId($chip["idStage1"]);
+			if($chip["idStage2"]!=0) obrisiStagePoId($chip["idStage2"]);
+			if($chip["idStage3"]!=0) obrisiStagePoId($chip["idStage3"]);
+			if($chip["idEcoTuning"]!=0) obrisiStagePoId($chip["idEcoTuning"]);
+			
+			$baza=Baza::connect();
+			$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$query='Delete from chiptuning where id=?';
+			$q = $baza->prepare($query);
+			$q->execute(array($id));
+			Baza::disconnect();
+			return true;
+		}catch(Exception $e){
+			Baza::disconnect();
+			return false;
+		}
+	}
 	
 	function dajSveChipTuningZaVozilo($idVozila){
 		$obj=array();
@@ -404,6 +448,25 @@ include 'baza.php';
 			$obj=array('id'=>$tmpObj['id'],'snaga'=>$tmpObj['snaga'],'obrtaji'=>$tmpObj['obrtaji'],'cijena'=>$tmpObj['cijena']);
 		Baza::disconnect();
 		return $obj;
+	}
+	
+	/*	 prima id onog sta treba obrisati i vraca true ili false 
+		 $tmp=obrisiStagePoId(5); 
+	*/
+	function obrisiStagePoId($id){
+		try{
+			$obj=array();
+			$baza=Baza::connect();
+			$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$query='Delete from stage where id=?';
+			$q = $baza->prepare($query);
+			$q->execute(array($id));
+			Baza::disconnect();
+			return true;
+		}catch(Exception $e){
+			Baza::disconnect();
+			return false;
+		}
 	}
 
 	/*	dodaje stage, prima varijablu tipa Stage()

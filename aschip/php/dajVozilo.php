@@ -6,7 +6,7 @@ include 'klase.php';
 if(isset($_REQUEST["id"])){
 	Prikazi(dajVoziloPoId($_REQUEST["id"]));
 }
-//cisti prikaz, to bum skontali kako cemo napraviti :D
+
 function Prikazi($vozilo){
 	echo '<div> 
 			<h2 style="margin: 20px 0;">'.dajProizvodjacaPoId($vozilo["idProizvodjaca"])["markaVozila"].'</h2>
