@@ -109,16 +109,14 @@ class Novost{
 	public $id;
 	public $tekst;
 	public $datumObjave;
-	public $linkSlike;
-	public $jelVideo;//1 jeste, 0 nije
+	public $idSlike;
 	public $naslov;
 	
-	function NovostCtor($id,$naslov,$tekst,$linkSlike,$jelVideo){
+	function NovostCtor($id,$naslov,$tekst,$idSlike){
 		$this->id=$id;
 		$this->naslov=$naslov;
 		$this->tekst=$tekst;
-		$this->linkSlike=$linkSlike;
-		$this->jelVideo=$jelVideo;
+		$this->idSlike=$idSlike;
 	}
 }
 

@@ -694,7 +694,7 @@ include 'baza.php';
 		$query='Select * from novosti';
 		$obj=array();
 		foreach($baza->query($query) as $r){
-			$tmpObj=array('id'=>$r['id'],'tekst'=>$r['tekst'],'datumObjave'=>$r['datumObjave'],'link'=>$r['link'],'jelVideo'=>$r['jelVideo'],'naslov'=>$r['naslov']);
+			$tmpObj=array('id'=>$r['id'],'tekst'=>$r['tekst'],'datumObjave'=>$r['datumObjave'],'idSlike'=>$r['idSlike'],'naslov'=>$r['naslov']);
 			array_push($obj,$tmpObj);
 		}
 		Baza::disconnect();
@@ -715,7 +715,7 @@ include 'baza.php';
 		$q->execute(array($id));
 		$tmpObj = $q->fetch(PDO::FETCH_ASSOC);
 		if($tmpObj!=null)
-			$obj=array('id'=>$tmpObj['id'],'tekst'=>$tmpObj['tekst'],'datumObjave'=>$tmpObj['datumObjave'],'link'=>$tmpObj['link'],'jelVideo'=>$tmpObj['jelVideo'],'naslov'=>$tmpObj['naslov']);
+			$obj=array('id'=>$tmpObj['id'],'tekst'=>$tmpObj['tekst'],'datumObjave'=>$tmpObj['datumObjave'],'idSlike'=>$tmpObj['idSlike'],'naslov'=>$tmpObj['naslov']);
 		Baza::disconnect();
 		return $obj;
 	}
@@ -730,9 +730,9 @@ include 'baza.php';
 			$today =date("Y-m-d H:i:s");
 			$baza=Baza::connect();
 			$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$query='Insert into novosti (tekst,datumObjave,link,jelVideo,naslov) values(?,?,?,?,?)';
+			$query='Insert into novosti (tekst,datumObjave,idSlike,naslov) values(?,?,?,?)';
 			$q = $baza->prepare($query);
-			$q->execute(array($tmp->tekst,$today,$tmp->link,$tmp->jelVideo,$tmp->naslov));
+			$q->execute(array($tmp->tekst,$today,$tmp->idSlike,$tmp->naslov));
 			Baza::disconnect();
 			return $baza->lastInsertId();
 		}
