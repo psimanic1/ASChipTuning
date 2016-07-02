@@ -7,7 +7,7 @@ if(isset($_REQUEST["id"])){
 	$vozila=dajVozilaZaModel(dajVoziloPoId($_REQUEST["id"])["model"]);
 	PrikaziSveMotore($vozila);
 }
-//cisti prikaz, to bum skontali kako cemo napraviti :D
+
 function PrikaziSveMotore($list){
 	echo '<table id="tabela" style="text-align:center;">
 		 <thead>

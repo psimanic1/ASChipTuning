@@ -25,28 +25,23 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" && !empty($_SESSION['username'])){
 			$chiptuning=new ChipTuning();
 			if(!empty($tuninzi)){
 				if($tuninzi["0"]["idStage1"]==0){
-					$chiptuning->ChipTuningCtor(0,$id,$idStage,0,0,0);
+					$chiptuning->ChipTuningCtor(0,$id,$idStage,0,0);
 					dodajStage1ChipTuning($chiptuning);
 				}
 				else if($tuninzi["0"]["idStage2"]==0){
 					$idChipa=$tuninzi["0"]["id"];
-					$chiptuning->ChipTuningCtor($idChipa,$id,0,$idStage,0,0);
+					$chiptuning->ChipTuningCtor($idChipa,$id,0,$idStage,0);
 					dodajStage2ChipTuning($chiptuning);
-				} 
-				else if($tuninzi["0"]["idStage3"]==0){
-					$idChipa=$tuninzi["0"]["id"];
-					$chiptuning->ChipTuningCtor($idChipa,$id,0,0,$idStage,0);
-					dodajStage3ChipTuning($chiptuning);
 				}
 				else if($tuninzi["0"]["idEcoTuning"]==0){
 					$idChipa=$tuninzi["0"]["id"];
-					$chiptuning->ChipTuningCtor($idChipa,$id,0,0,0,$idStage);
+					$chiptuning->ChipTuningCtor($idChipa,$id,0,0,$idStage);
 					dodajEcoStageChipTuning($chiptuning);
 				}else{
 					echo "Neka greska koja ne znam sta je.";		
 				}
 			}else{
-				$chiptuning->ChipTuningCtor(0,$id,$idStage,0,0,0);
+				$chiptuning->ChipTuningCtor(0,$id,$idStage,0,0);
 				dodajChipTuning($chiptuning);
 			}
 			echo "Uspjesno ste dodali stage!";
@@ -65,7 +60,6 @@ $tuninzi=dajSveChipTuningZaVozilo($id);
 if(!empty($tuninzi)){
 	if($tuninzi["0"]["idStage1"]==0) echo "Stage 1";
 	else if($tuninzi["0"]["idStage2"]==0) echo "STage 2";
-	else if($tuninzi["0"]["idStage3"]==0) echo "STage 3";
 	else if($tuninzi["0"]["idEcoTuning"]==0) echo "Eco Tuning";
 	else{
 		echo "Vise ne mozete dodati stage-ova!";

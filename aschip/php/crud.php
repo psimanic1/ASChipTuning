@@ -269,7 +269,7 @@ include 'baza.php';
 		$query='Select * from chiptuning';
 		$obj=array();
 		foreach($baza->query($query) as $r){
-			$tmpObj=array('id'=>$r['id'],'idVozila'=>$r['idVozila'],'idStage1'=>$r['idStage1'],'idStage2'=>$r['idStage2'],'idStage3'=>$r['idStage3'],'idEcoTuning'=>$r['idEcoTuning']);
+			$tmpObj=array('id'=>$r['id'],'idVozila'=>$r['idVozila'],'idStage1'=>$r['idStage1'],'idStage2'=>$r['idStage2'],'idEcoTuning'=>$r['idEcoTuning']);
 			array_push($obj,$tmpObj);
 		}
 		Baza::disconnect();
@@ -290,7 +290,7 @@ include 'baza.php';
 		$q->execute(array($id));
 		$tmpObj = $q->fetch(PDO::FETCH_ASSOC);
 		if($tmpObj!=null)
-			$obj=array('id'=>$tmpObj['id'],'idVozila'=>$tmpObj['idVozila'],'idStage1'=>$tmpObj['idStage1'],'idStage2'=>$tmpObj['idStage2'],'idStage3'=>$tmpObj['idStage3'],'idEcoTuning'=>$tmpObj['idEcoTuning']);
+			$obj=array('id'=>$tmpObj['id'],'idVozila'=>$tmpObj['idVozila'],'idStage1'=>$tmpObj['idStage1'],'idStage2'=>$tmpObj['idStage2'],'idEcoTuning'=>$tmpObj['idEcoTuning']);
 		Baza::disconnect();
 		return $obj;
 	}
@@ -304,7 +304,6 @@ include 'baza.php';
 			$chip=dajChipTuningPoId($id);
 			if($chip["idStage1"]!=0) obrisiStagePoId($chip["idStage1"]);
 			if($chip["idStage2"]!=0) obrisiStagePoId($chip["idStage2"]);
-			if($chip["idStage3"]!=0) obrisiStagePoId($chip["idStage3"]);
 			if($chip["idEcoTuning"]!=0) obrisiStagePoId($chip["idEcoTuning"]);
 			
 			$baza=Baza::connect();
@@ -329,7 +328,7 @@ include 'baza.php';
 		$q->execute(array($idVozila));
 		$tmpObj1 = $q->fetchAll();
 		foreach($tmpObj1 as $r){
-			$tmpObj=array('id'=>$r['id'],'idVozila'=>$r['idVozila'],'idStage1'=>$r['idStage1'],'idStage2'=>$r['idStage2'],'idStage3'=>$r['idStage3'],'idEcoTuning'=>$r['idEcoTuning']);
+			$tmpObj=array('id'=>$r['id'],'idVozila'=>$r['idVozila'],'idStage1'=>$r['idStage1'],'idStage2'=>$r['idStage2'],'idEcoTuning'=>$r['idEcoTuning']);
 			array_push($obj,$tmpObj);
 		}
 		Baza::disconnect();
@@ -345,9 +344,9 @@ include 'baza.php';
 		if($tmp->idVozila!=null){
 			$baza=Baza::connect();
 			$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$query='Insert into chiptuning (idVozila,idStage1,idStage2,idStage3,idEcoTuning) values(?,?,?,?,?)';
+			$query='Insert into chiptuning (idVozila,idStage1,idStage2,idEcoTuning) values(?,?,?,?)';
 			$q = $baza->prepare($query);
-			$q->execute(array($tmp->idVozila,$tmp->idStage1,$tmp->idStage2,$tmp->idStage3,$tmp->idEcoTuning));
+			$q->execute(array($tmp->idVozila,$tmp->idStage1,$tmp->idStage2,$tmp->idEcoTuning));
 			Baza::disconnect();
 			return $baza->lastInsertId();
 		}
@@ -369,7 +368,7 @@ include 'baza.php';
 			return false;
 		}
 	}
-		function dodajStage2ChipTuning($tmp){
+	function dodajStage2ChipTuning($tmp){
 		if($tmp->idVozila!=null){
 			$baza=Baza::connect();
 			$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -382,20 +381,8 @@ include 'baza.php';
 			return false;
 		}
 	}
-		function dodajStage3ChipTuning($tmp){
-		if($tmp->idVozila!=null){
-			$baza=Baza::connect();
-			$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$query='UPDATE chiptuning SET idStage3=? WHERE id=? ';
-			$q = $baza->prepare($query);
-			$q->execute(array($tmp->idStage3, $tmp->id));
-			Baza::disconnect();
-			return true;
-		}else{
-			return false;
-		}
-	}
-		function dodajEcoStageChipTuning($tmp){
+		
+	function dodajEcoStageChipTuning($tmp){
 		if($tmp->idVozila!=null){
 			$baza=Baza::connect();
 			$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -509,7 +496,38 @@ include 'baza.php';
 		Baza::disconnect();
 		return $obj;
 	}
+	
+	function dajSveSlikeZaFolder($idFoldera){
+		$obj=array();
+		$baza=Baza::connect();
+		$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$query='Select * from slike where idFolder=?';
+		$q = $baza->prepare($query);
+		$q->execute(array($idFoldera));
+		$tmpObj1 = $q->fetchAll();
+		foreach($tmpObj1 as $r){
+			$tmpObj=array('id'=>$r['id'],'path'=>$r['path'],'jelVideo'=>$r['jelVideo'],'idFolder'=>$r['idFolder']);
+			array_push($obj,$tmpObj);
+		}
+		Baza::disconnect();
+		return $obj;
+	}
 
+	function dajZadnje4likeZaFolder($idFoldera){
+		$obj=array();
+		$baza=Baza::connect();
+		$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$query='Select * from slike where idFolder=? order by id desc limit 4';
+		$q = $baza->prepare($query);
+		$q->execute(array($idFoldera));
+		$tmpObj1 = $q->fetchAll();
+		foreach($tmpObj1 as $r){
+			$tmpObj=array('id'=>$r['id'],'path'=>$r['path'],'jelVideo'=>$r['jelVideo'],'idFolder'=>$r['idFolder']);
+			array_push($obj,$tmpObj);
+		}
+		Baza::disconnect();
+		return $obj;
+	}
 	/*	 prima id onog sta treba vratiti i vraca array kojem pristupama npr: 
 		 $tmp=dajSlikuPoId(5); 
 		 $idVracenog=$tmp["id"];
@@ -591,6 +609,7 @@ include 'baza.php';
 		$obj=array();
 		foreach($baza->query($query) as $r){
 			$tmpObj=array('id'=>$r['id'],'imeFoldera'=>$r['imeFoldera']);
+			if($tmpObj["id"]==1 || $tmpObj["id"]==2) continue;
 			array_push($obj,$tmpObj);
 		}
 		Baza::disconnect();
@@ -616,6 +635,30 @@ include 'baza.php';
 		return $obj;
 	}
 
+	/*	 prima id onog sta treba obrisati i vraca true ako obrise odnosno false ako ne i brise sliku u folderu ako postoji 
+		 $tmp=obrisiFolderPoId(5); 
+	*/
+	function obrisiFolderPoId($id){
+		try{
+			$obj=array();
+			$baza=Baza::connect();
+			$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$list=dajSveSlikeZaFolder($id);
+			for($i=0; $i<count($list); $i++){
+				obrisiSlikuPoId($list[$i]["id"]);
+			}
+			$query='Delete from folderi where id=?';
+			$q = $baza->prepare($query);
+			$q->execute(array($id));
+			
+			Baza::disconnect();
+			return true;
+		}catch(Exception $e){
+			Baza::disconnect();
+			return false;
+		}
+	}
+	
 	/*	dodaje folder, prima varijablu tipa Folder()
 		vraca id dodanog foldera
 		ukoliko nije uspjesno dodavanje vraca 0

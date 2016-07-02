@@ -9,6 +9,7 @@ if(isset($_POST["model"])){
 	
 }
 
+
 function PrikaziVozilo($vozilo){
 	echo '<div> 
 			<h2 style="margin: 20px 0;">'.dajProizvodjacaPoId($vozilo["idProizvodjaca"])["markaVozila"].'</h2>
@@ -41,7 +42,6 @@ function PrikaziChipTuning($vozilo){
             <th scope="col" style="color:#000;font-weight:bold;text-align:center;">Fabricki</th>
             <th scope="col" style="color:#d50000;font-weight:bold;text-align:center;">Stage 1</th>
             <th scope="col" style="color:#d50000;font-weight:bold;text-align:center;">Stage 2</th>
-            <th scope="col" style="color:#d50000;font-weight:bold;text-align:center;">Stage 3</th>
 			<th scope="col" style="color:#014f01;font-weight:bold;text-align:center;">Eco Tuning</th>
         </tr></thead>';
 		echo '<tbody>';
@@ -55,7 +55,6 @@ function PrikaziChipTuning($vozilo){
 		if(!empty($chip)){
 			$stage1=dajStagePoId($chip["0"]["idStage1"]);
 			$stage2=dajStagePoId($chip["0"]["idStage2"]);
-			$stage3=dajStagePoId($chip["0"]["idStage3"]);
 			$ecoTuning=dajStagePoId($chip["0"]["idEcoTuning"]);
 		}
 		
@@ -68,10 +67,6 @@ function PrikaziChipTuning($vozilo){
 			echo	'<td> </td>';
 		if(!empty($stage2))
 			echo	'<td>'.$stage2["snaga"].'</td>';
-		else
-			echo	'<td> </td>';
-		if(!empty($stage3))
-			echo	'<td>'.$stage3["snaga"].'</td>';
 		else
 			echo	'<td> </td>';
 		if(!empty($ecoTuning))
@@ -94,10 +89,6 @@ function PrikaziChipTuning($vozilo){
 			echo	'<td>'.$stage2["obrtaji"].'</td>';
 		else
 			echo	'<td> </td>';
-		if(!empty($stage3))
-			echo	'<td>'.$stage3["obrtaji"].'</td>';
-		else
-			echo	'<td> </td>';
 		if(!empty($ecoTuning))
 			echo	'<td>'.$ecoTuning["obrtaji"].'</td>';
 		else
@@ -116,10 +107,6 @@ function PrikaziChipTuning($vozilo){
 			echo	'<td> </td>';
 		if(!empty($stage2))
 			echo	'<td>'.$stage2["cijena"].'</td>';
-		else
-			echo	'<td> </td>';
-		if(!empty($stage3))
-			echo	'<td>'.$stage3["cijena"].'</td>';
 		else
 			echo	'<td> </td>';
 		if(!empty($ecoTuning))
