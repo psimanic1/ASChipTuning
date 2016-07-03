@@ -150,7 +150,7 @@ Licence URI: http://www.os-templates.com/template-terms
   <div id="breadcrumb">
     <ul>
       <li class="first"><p>Mob: 061/552-336 --- Mob: 061/815-816 | info@aschiptuning.com</p></li>
-      <p>Dodati fb logo ovde, za fb stranicu.</p>
+       <a href="https://www.facebook.com/ASchiptuning/?fref=ts"><img src="../images/fb.png"></a>
     </ul>
   </div>
 </div>
