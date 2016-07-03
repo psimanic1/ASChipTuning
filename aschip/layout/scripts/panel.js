@@ -75,3 +75,16 @@ function dodajNovosti(){
 	 }});
 	return false;
 }
+
+function editujNovosti(){
+	urlTmp='../php/editujNovosti.php';
+	var datarow={	};
+	$.ajax({
+	   url: urlTmp,
+	   type:    'GET',
+	   data: datarow,
+	 success: function(response){
+		$("#centerAdminPanel").html(response);
+	 }});
+	return false;
+}

@@ -701,6 +701,45 @@ include 'baza.php';
 		return $obj;
 	}
 
+	function dajZadnjih10Novosti(){
+		$baza=Baza::connect();
+		$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$query='Select * from novosti order by id desc limit 10';
+		$obj=array();
+		foreach($baza->query($query) as $r){
+			$tmpObj=array('id'=>$r['id'],'tekst'=>$r['tekst'],'datumObjave'=>$r['datumObjave'],'idSlike'=>$r['idSlike'],'naslov'=>$r['naslov']);
+			array_push($obj,$tmpObj);
+		}
+		Baza::disconnect();
+		return $obj;
+	}
+	
+	function dajZadnje3Novosti(){
+		$baza=Baza::connect();
+		$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$query='Select * from novosti order by id desc limit 3';
+		$obj=array();
+		foreach($baza->query($query) as $r){
+			$tmpObj=array('id'=>$r['id'],'tekst'=>$r['tekst'],'datumObjave'=>$r['datumObjave'],'idSlike'=>$r['idSlike'],'naslov'=>$r['naslov']);
+			array_push($obj,$tmpObj);
+		}
+		Baza::disconnect();
+		return $obj;
+	}
+	
+	function ucitajJos5Novosti($brUcitanih){
+		$baza=Baza::connect();
+		$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$query='Select * from novosti order by id desc limit '.$brUcitanih.',5';
+		$obj=array();
+		foreach($baza->query($query) as $r){
+			$tmpObj=array('id'=>$r['id'],'tekst'=>$r['tekst'],'datumObjave'=>$r['datumObjave'],'idSlike'=>$r['idSlike'],'naslov'=>$r['naslov']);
+			array_push($obj,$tmpObj);
+		}
+		Baza::disconnect();
+		return $obj;
+	}
+	
 	/*	 prima id onog sta treba vratiti i vraca array kojem pristupama npr: 
 		 $tmp=dajNovostPoId(5); 
 		 $idVracenog=$tmp["id"];
@@ -720,6 +759,27 @@ include 'baza.php';
 		return $obj;
 	}
 
+	/*	 prima id onog sta treba obrisati i vraca true ako obrise odnosno false ako ne 
+		 $tmp=obrisiNovostPoId(5); 
+	*/
+	function obrisiNovostPoId($id){
+		try{
+			$obj=array();
+			$baza=Baza::connect();
+			$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$novost=dajNovostPoId($id);
+			obrisiSlikuPoId($novost["idSlike"]);
+			$query='Delete from novosti where id=?';
+			$q = $baza->prepare($query);
+			$q->execute(array($id));
+			Baza::disconnect();
+			return true;
+		}catch(Exception $e){
+			Baza::disconnect();
+			return false;
+		}
+	}
+	
 	/*	dodaje novost, prima varijablu tipa Novost()
 		vraca id dodane novosti
 		ukoliko nije uspjesno dodavanje vraca 0
@@ -735,6 +795,22 @@ include 'baza.php';
 			$q->execute(array($tmp->tekst,$today,$tmp->idSlike,$tmp->naslov));
 			Baza::disconnect();
 			return $baza->lastInsertId();
+		}
+		else{
+			return 0;
+		}
+	}
+
+	function editujNovost($tmp){		
+		if($tmp->tekst!=null && $tmp->naslov!=null){
+			$today =date("Y-m-d H:i:s");
+			$baza=Baza::connect();
+			$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$query='UPDATE novosti set tekst=?, idSlike=?,naslov=? where id=?';
+			$q = $baza->prepare($query);
+			$q->execute(array($tmp->tekst,$tmp->idSlike,$tmp->naslov,$tmp->id));
+			Baza::disconnect();
+			return 1;
 		}
 		else{
 			return 0;

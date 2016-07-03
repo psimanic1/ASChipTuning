@@ -64,7 +64,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_SESSION['username'])){
 					$id=dodajNovost($novost);
 					
 					if($id!=0){ 
-						PrikaziDodanuNovost(dajNovostPoId($id));
 						echo "<script> alert('Uspjesno ste dodali novost!'); </script>";
 					}
 					else{
@@ -85,47 +84,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_SESSION['username'])){
 		echo "Niste popunili sva polja!";
 	}
 }
-
-function PrikaziDodanuNovost($novost){
-	echo '<div class="novosti"> 
-			<h2>'.$novost["naslov"].'</h2>
-			<div class="vrijeme"> Novost objavljena '.$novost["datumObjave"].'.</div>
-			<div class="novost">
-				<img class="slikaNovosti" src="'.dajSlikuPoId($novost["idSlike"])["path"].'" alt="0"/>
-				<p class="paragrafNovosti">'.$novost["tekst"].'</p>
-			</div>
-		</div>';
-}
 ?>
 <style>
-.novost{
-	padding: 5px;
-}
-
-.vrijeme{
-	font-size:10px;
-	margin-left:5px;
-}
-
-.slikaNovosti{
-	width:200px;
-	height:100px;
-	display:inline-block;
-	border-radius: 15%;
-	vertical-align:top;
-}
-
-.paragrafNovosti{
-	display:inline-block;
-	width:40%;
-	margin-left:5px;
-    font-size: 100%;
-	margin-top: -5px;
-	font-size:15px;
-	font-family:'Lora';
-	font-style:italic;
-}
-
 .inputTextEditorObjaviNovost{
 	width: 295px;
 }
@@ -138,11 +98,6 @@ function PrikaziDodanuNovost($novost){
 }
 
 #formaObjavaBbtObjavi{
-	margin-top: 25px;
-	float: right;
-}
-
-#formaObjavaBbtPonisti{
 	margin-top: 25px;
 	float: left;
 }
@@ -160,9 +115,6 @@ function PrikaziDodanuNovost($novost){
 		<label>Izaberite sliku:<label></br>
 		<br>
 		<input type="file" name="fileToUpload" id="fileToUpload"/>
-	</div>
-	<div id="formaObjavaBbtPonisti">
-		<input type="button" name="izadji" onclick="IzadjiIzNovosti()" value="Ponisti"/>
 	</div>
 	<div id="formaObjavaBbtObjavi">				
 		<input type="submit" name="objavi" value="Objavi novost"/>
