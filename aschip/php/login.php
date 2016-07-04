@@ -41,16 +41,16 @@ if(empty($_SESSION['username']))
 	<h1>Log In</h1>
 		<div class="ineline">
 			<p class="ineline tbprijava">Username:</p>
-			<input type="text" id="username" name="username" value="">	
+			<input type="text" id="username" name="username" value="" oninput="Validiraj(this)">	
 		</div>
 		<div class="ineline">
 			<p class="ineline tbprijava">Sifra:</p>
-			<input type="password" id="pass" name="pass" value="">
+			<input type="password" id="pass" name="pass" value="" oninput="Validiraj(this)">
 		</div>
 		<br>
 		
 		<div class="ineline">
-			<input class="btnPrijava" onclick="return SubmitLogin()" type="submit" name="login" value="Prijavi se">
+			<input class="btnPrijava" onclick="return SubmitLogin()" type="submit" name="login" value="Prijavi se" id="submit" disabled="disabled">
 		</div>
 		<div class="ineline">
 			<input class="btnIzadji" type="button" value="Izadji" onclick="Zatvori()">
@@ -63,9 +63,3 @@ if(empty($_SESSION['username']))
 <?php
 }
 ?>
-	
-
-
-<script>
-
-</script>

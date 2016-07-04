@@ -319,6 +319,11 @@ include 'baza.php';
 		}
 	}
 	
+	/*	 prima idVozila i vraca listu chiptuninga za trazeno vozilo 
+		 $tmp=dajSveChipTuningZaVozilo(5);
+		 pristupa se na nacin:
+		 $idPrvog=$tmp[1]["id"];
+	*/
 	function dajSveChipTuningZaVozilo($idVozila){
 		$obj=array();
 		$baza=Baza::connect();
@@ -355,6 +360,10 @@ include 'baza.php';
 		}
 	}
 	
+	/*	update chiptuning na nacin da dodaje stage1, prima varijablu tipa Stage()
+		vraca true ili false
+		$tmp=dodajStage1ChipTuning(stage);
+	*/
 	function dodajStage1ChipTuning($tmp){
 		if($tmp->idVozila!=null){
 			$baza=Baza::connect();
@@ -368,6 +377,11 @@ include 'baza.php';
 			return false;
 		}
 	}
+	
+	/*	update chiptuning na nacin da dodaje stage2, prima varijablu tipa Stage()
+		vraca true ili false
+		$tmp=dodajStage2ChipTuning(stage);
+	*/
 	function dodajStage2ChipTuning($tmp){
 		if($tmp->idVozila!=null){
 			$baza=Baza::connect();
@@ -382,6 +396,10 @@ include 'baza.php';
 		}
 	}
 		
+	/*	update chiptuning na nacin da dodaje EcoStage, prima varijablu tipa Stage()
+		vraca true ili false
+		$tmp=dodajEcoStageChipTuning(stage);
+	*/
 	function dodajEcoStageChipTuning($tmp){
 		if($tmp->idVozila!=null){
 			$baza=Baza::connect();
@@ -497,6 +515,10 @@ include 'baza.php';
 		return $obj;
 	}
 	
+	/*	 prima idFoldera u kojem se nalaze slike i vraca array kojem pristupama npr: 
+		 $tmp=dajSveSlikeZaFolder(5); 
+		 $idPrvog=$tmp[1]["id"];
+	*/
 	function dajSveSlikeZaFolder($idFoldera){
 		$obj=array();
 		$baza=Baza::connect();
@@ -513,6 +535,10 @@ include 'baza.php';
 		return $obj;
 	}
 
+	/*	 prima idFoldera u kojem se nalaze slike i vraca array sa 4 zadnje slike ukoliko postoje i njemu pristumapo npr: 
+		 $tmp=dajZadnje4SlikeZaFolder(5); 
+		 $idPrvog=$tmp[1]["id"];
+	*/
 	function dajZadnje4likeZaFolder($idFoldera){
 		$obj=array();
 		$baza=Baza::connect();
@@ -528,6 +554,38 @@ include 'baza.php';
 		Baza::disconnect();
 		return $obj;
 	}
+	
+	/*	 vraca array sa 6 zadnje slike ukoliko postoje i njemu pristumapo npr: 
+		 $tmp=dajZadnjih6Slika(5); 
+		 $idPrvog=$tmp[1]["id"];
+	*/
+	function dajZadnjih6Slika(){
+		$baza=Baza::connect();
+		$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$query='Select * from slike order by id desc limit 6';
+		$obj=array();
+		foreach($baza->query($query) as $r){
+			$tmpObj=array('id'=>$r['id'],'path'=>$r['path'],'jelVideo'=>$r['jelVideo'],'idFolder'=>$r['idFolder']);
+			if($tmpObj["idFolder"]==0 || $tmpObj["idFolder"]==1 || $tmpObj["idFolder"]==2 || $tmpObj["idFolder"]==3) continue;
+			array_push($obj,$tmpObj);
+		}
+		Baza::disconnect();
+		
+		if(count($obj)<6){
+			$baza=Baza::connect();
+			$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);	
+			$query='Select * from novosti order by id desc limit 6,6';
+			foreach($baza->query($query) as $r){
+				$tmpObj=array('id'=>$r['id'],'path'=>$r['path'],'jelVideo'=>$r['jelVideo'],'idFolder'=>$r['idFolder']);
+				if($tmpObj["idFolder"]==0 || $tmpObj["idFolder"]==1 || $tmpObj["idFolder"]==2 || $tmpObj["idFolder"]==3) continue;
+				array_push($obj,$tmpObj);
+			}
+			Baza::disconnect();
+			
+		}
+		return $obj;
+	}
+	
 	/*	 prima id onog sta treba vratiti i vraca array kojem pristupama npr: 
 		 $tmp=dajSlikuPoId(5); 
 		 $idVracenog=$tmp["id"];
@@ -609,7 +667,7 @@ include 'baza.php';
 		$obj=array();
 		foreach($baza->query($query) as $r){
 			$tmpObj=array('id'=>$r['id'],'imeFoldera'=>$r['imeFoldera']);
-			if($tmpObj["id"]==1 || $tmpObj["id"]==2) continue;
+			if($tmpObj["id"]==1 || $tmpObj["id"]==2 || $tmpObj["id"]==3) continue;
 			array_push($obj,$tmpObj);
 		}
 		Baza::disconnect();
@@ -701,6 +759,10 @@ include 'baza.php';
 		return $obj;
 	}
 
+	/*	 vraca array zadnjih 10 novosti ukoliko postoje kojem pristupama npr: 
+		 $tmp=dajZadnjih10Novosti(); 
+		 $idPrvog=$tmp[1]["id"];
+	*/
 	function dajZadnjih10Novosti(){
 		$baza=Baza::connect();
 		$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -713,7 +775,11 @@ include 'baza.php';
 		Baza::disconnect();
 		return $obj;
 	}
-	
+
+	/*	 vraca array zadnje 3 novosti ukoliko postoje kojem pristupama npr: 
+		 $tmp=dajZadnje3Novosti(); 
+		 $idPrvog=$tmp[1]["id"];
+	*/	
 	function dajZadnje3Novosti(){
 		$baza=Baza::connect();
 		$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -727,6 +793,10 @@ include 'baza.php';
 		return $obj;
 	}
 	
+	/*	 vraca array zadnjih 5 novosti ukoliko postoje kojem pristupama npr: 
+		 $tmp=ucitajJos5Novosti(); 
+		 $idPrvog=$tmp[1]["id"];
+	*/
 	function ucitajJos5Novosti($brUcitanih){
 		$baza=Baza::connect();
 		$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -801,6 +871,10 @@ include 'baza.php';
 		}
 	}
 
+	/*	edituje novost, prima varijablu tipa Novost()
+		vraca 1 ukoliko je uspjesno 
+		ukoliko nije uspjesno dodavanje vraca 0
+	*/
 	function editujNovost($tmp){		
 		if($tmp->tekst!=null && $tmp->naslov!=null){
 			$today =date("Y-m-d H:i:s");
@@ -879,6 +953,10 @@ include 'baza.php';
 		}
 	}
 	
+	/*
+		provjerava da li postoji korisnik sa username i password ukoliko postoji vraca tog korisnika
+		ukoliko ne postoji vraca prazan objekat
+	*/
 	function LoginServer($username, $password){
 		if($username!=null && $password!=null){
 			

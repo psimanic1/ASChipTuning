@@ -4,8 +4,7 @@ include 'crud.php';
 include 'klase.php';
 
 Prikazi(dajSvaVozila());
-
-//cisti prikaz, to bum skontali kako cemo napraviti :D
+//mislim da se ovo nigdje ne koristi
 function Prikazi($lista){
 	for($i=0; $i<count($lista); $i++){
 		print '<div> 

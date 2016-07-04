@@ -10,23 +10,16 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["idFoldera"]) && isset(
 		$uploadOk = 1;
 		$video=0;
 		$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-		// Check if image file is a actual image or fake image
 		if(isset($_POST["submit"])) {
 			$check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
 			if($check !== false) {
-				//echo "File is an image - " . $check["mime"] . ".";
 				$uploadOk = 1;
 			} else {
 				echo "Fajl nije slika ili video.";
 				$uploadOk = 0;
 			}
 		}
-		// Check if file already exists
-		/*if (file_exists($target_file)) {
-			echo "Sorry, file already exists.";
-			$uploadOk = 0;
-		}*/
-		// Check file size
+
 		//povecati velicinu fajla ovo je 50Mb
 		if ($_FILES["fileToUpload"]["size"] > 50000000) {
 			echo "Fajl je prevelik!";
@@ -37,7 +30,6 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["idFoldera"]) && isset(
 			$video=1;
 		}
 		
-		// Allow certain file formats
 		if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif"  && $imageFileType!="mp4" && $imageFileType!="avi" && $imageFileType!="wmv" && $imageFileType!="mkv" && $imageFileType!="flv") {
 			if($video==1 && !($imageFileType=="mp4" || $imageFileType=="avi" || $imageFileType=="wmv" || $imageFileType=="mkv" || $imageFileType=="flv")){
 				//treba vidjeti koje kodeke podrzava i kako ih predstaviti
@@ -48,17 +40,13 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["idFoldera"]) && isset(
 			}
 			$uploadOk = 0;
 		}
-
 		
-		// Check if $uploadOk is set to 0 by an error
 		if ($uploadOk == 0) {
 			echo "Greska prilikom dodavanja slike.";
-		// if everything is ok, try to upload file
 		} else {
 			if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
 				
 				$slika=new Slika();
-
 				$slika->SlikaCtor(0,$target_file,$video,$folder["id"]);
 				$id=dodajSliku($slika);
 				echo "Uspjesno ste dodali sliku;";
@@ -118,6 +106,13 @@ function PrikaziSlikeUFolderu($idFoldera){
 #buttoniDodajSliku{
 	position:relative;
 	top: 45px;
+}
+#ponisti{
+	position:relative;
+	top: 45px;
+}
+#izadjiDodajSlikuDiv{
+	float:left;	
 }
 
 .slikeUFolderu{
@@ -203,8 +198,11 @@ div.slikeUFolderuDiv:hover{
 			<input type="hidden" name="idFoldera" id="idFoldera" value="<?php if(isset($_POST["idFoldera"])) echo $_POST["idFoldera"]; ?>"/>
 			<input type="file" name="fileToUpload" id="fileToUpload"/></br></br>
 			<input type="checkbox" name="video" id="video"/>Video 
+			<div id="ponisti">
+				<input type="button" value="Izadji" id="izadjiDodajSlikuDiv" />
+			</div>
 			<div id="buttoniDodajSliku">
-				<input type="submit" value="submit" id="submitDodajSlikuDiv" name="submit"/>
+				<input type="submit" value="Submit" id="submitDodajSlikuDiv" disabled="disabled" name="submit"/>
 			</div>
 		</form>
 	</div>
@@ -241,7 +239,6 @@ $('#dodajSlikuForm').submit( function( e ) {
 		processData: false,
 		contentType: false,
 		success:function(response){			
-			//$("#poruke").html(response);
 			$("#centerAdminPanel").html(response);
 			$("#dodajSlikuDiv").hide();
 		}
@@ -249,6 +246,14 @@ $('#dodajSlikuForm').submit( function( e ) {
 	$("#dodajSlikuDiv").hide();
 	e.preventDefault();
 });
+
+$("#izadjiDodajSlikuDiv").click(function(){
+	$("#dodajSlikuDiv").hide();
+	$("#fileToUpload").val("");
+	$("#fileToUpload").addClass("redBorder");
+	$("#submit").attr("disabled","disabled");
+});
+
 function DodajSliku(){
 	$("#dodajSlikuDiv").show();
 }
@@ -303,5 +308,34 @@ function OtvoriFolderZaSlike(id){
 		$("#centerAdminPanel").html(response);
 	 }});
 	return false;
+}
+
+
+
+//validacija
+$("#fileToUpload").addClass("redBorder");
+
+ $("input:file").change(function (){
+	var fileName = $(this).val();
+	if(fileName!=null)
+		removeRedBorder(this);		
+	else 
+		addRedBorder(this);
+	
+});
+
+function addRedBorder(tb){
+	$(tb).addClass("redBorder");
+}
+
+function removeRedBorder(tb){
+	$(tb).removeClass("redBorder");
+	Check();
+}
+
+function Check(){
+	var treciEl=$("#fileToUpload").hasClass("redBorder");
+	if(!treciEl)
+		$("#submitDodajSlikuDiv").removeAttr("disabled");
 }
 </script>

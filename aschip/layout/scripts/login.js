@@ -18,6 +18,8 @@ function Zatvori(){
 	$("#loginForm").hide();
 }
 $(document).ready(function(){
+	$("#username").addClass("redBorder");
+	$("#pass").addClass("redBorder");
 	if(localStorage.getItem("msg")){
 		alert(localStorage.getItem("msg"));
 		localStorage.clear();
@@ -75,4 +77,33 @@ function SubmitLogout(){
 	   document.location.reload(); 
 	 }
 	});
+}
+
+//validacija
+
+
+function Validiraj(tb){
+	var reg=/\w{2}/i;
+	if(!reg.test(tb.value)){
+		addRedBorder(tb);
+		$("#submit").attr("disabled","disabled");
+	}else{
+		removeRedBorder(tb);
+	}
+}
+
+function addRedBorder(tb){
+	$(tb).addClass("redBorder");
+}
+
+function removeRedBorder(tb){
+	$(tb).removeClass("redBorder");
+	Check();
+}
+
+function Check(){
+	var prviEl=$("#username").hasClass("redBorder");
+	var drugiEl=$("#pass").hasClass("redBorder");
+	if(!prviEl && !drugiEl)
+		$("#submit").removeAttr("disabled");
 }

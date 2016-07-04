@@ -224,11 +224,11 @@ div.slikeBezFolderaDiv:hover{
 	</div>
 	<div class="sredinaDodajDiv">
 		<label>Ime foldera:</label></br>
-		<input name="dodajFolder" id="dodajFolder" placeholder="Ime foldera" type="text" value="" /></br>
+		<input name="dodajFolder" id="dodajFolder" placeholder="Ime foldera" type="text" value="" oninput="ValidacijaImenaFoldera(this)" /></br>
 	</div>
 	<div class="dnoDodajDiv">
 		<input type="button" value="Izadji" id="izadjiDodajFolderDiv"/>
-		<input type="button" value="Dodaj" id="submitDodajFolderDiv"/>
+		<input type="button" value="Dodaj" id="submitDodajFolderDiv" disabled="disabled"/>
 	</div>
 </div>
 
@@ -244,7 +244,7 @@ div.slikeBezFolderaDiv:hover{
 			<input type="checkbox" name="video" id="video"/>Video 
 			<div id="buttoniDodajSliku">
 				<input type="button" value="Izadji" id="izadjiDodajSlikuDiv"/>		
-				<input type="submit" value="submit" id="submitDodajSlikuDiv" name="submit"/>
+				<input type="submit" value="submit" id="submitDodajSlikuDiv" disabled="disabled" name="submit"/>
 			</div>
 		</form>
 	</div>
@@ -278,6 +278,7 @@ div.slikeBezFolderaDiv:hover{
 $("#izadjiDodajFolderDiv").click(function (){
 	$("#dodajFolder").val("");
 	$("#dodajFolderDiv").hide();
+	$("#submitDodajFolderDiv").attr("disabled","disabled");
 });
 
 $("#submitDodajFolderDiv").click(function (){
@@ -292,7 +293,7 @@ $("#submitDodajFolderDiv").click(function (){
 	   data: datarow,
 	 success: function(response){
 		 $("#dodajFolderDiv").hide();
-		$("#centerAdminPanel").html(response);
+		 $("#centerAdminPanel").html(response);
 	 }});
 	return false;
 });
@@ -300,6 +301,7 @@ $("#submitDodajFolderDiv").click(function (){
 
 function DodajFolder(){
 	$("#dodajFolderDiv").show();
+	$("#dodajFolder").addClass("redBorder");
 }
 
 function ObrisiFolder(id){
@@ -340,6 +342,7 @@ $("#izadjiDodajSlikuDiv").click(function (){
 	   type:    'GET',
 	 success: function(response){
 		$("#centerAdminPanel").html(response);
+		$("#fileToUpload").removeClass("redBorder");
 	 }});
 	return false;
 });
@@ -353,12 +356,15 @@ $('#dodajSlikuForm').submit( function( e ) {
 		contentType: false,
 		success:function(response){			  
 			$("#poruke").html(response);
+			$("#fileToUpload").removeClass("redBorder");
 		}
 	});
 	e.preventDefault();
 });
+
 function DodajSliku(){
 	$("#dodajSlikuDiv").show();
+	$("#fileToUpload").addClass("redBorder");
 }
 
 function ObrisiSliku(id){
@@ -423,5 +429,49 @@ function editujGaleriju(){
 		$("#centerAdminPanel").html(response);
 	 }});
 	return false;
+}
+
+//validacija
+ $("input:file").change(function (){
+	var fileName = $(this).val();
+	if(fileName!=null)
+		removeRedBorder(this);		
+	else 
+		addRedBorder(this);
+	
+});
+
+function ValidacijaImenaFoldera(tb){
+	var reg=/\w{2}/i;
+	if(!reg.test(tb.value)){
+		addRedBorder(tb);
+		$("#submitDodajFolderDiv").attr("disabled","disabled");
+	}else{
+		removeRedBorder(tb);
+	}
+}
+
+function addRedBorder(tb){
+	$(tb).addClass("redBorder");
+}
+
+function removeRedBorder(tb){
+	$(tb).removeClass("redBorder");
+	Check();
+}
+
+function Check(){
+	var visibleFolderDiv=$("#dodajFolderDiv").is(':visible');
+	var visibleSlikaDiv=$("#dodajSlikuDiv").is(':visible');
+	if(visibleSlikaDiv){
+		var treciEl=$("#fileToUpload").hasClass("redBorder");
+		if(!treciEl)
+			$("#submitDodajSlikuDiv").removeAttr("disabled");
+	}
+	if(visibleFolderDiv){
+		var prviEl=$("#dodajFolder").hasClass("redBorder");
+		if(!prviEl)
+			$("#submitDodajFolderDiv").removeAttr("disabled");
+	}
 }
 </script>

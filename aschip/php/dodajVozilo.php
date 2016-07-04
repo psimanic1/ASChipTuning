@@ -27,47 +27,36 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" && !empty($_SESSION['username'])){
 			else if($tipV==1) $tipVozila="Kamion";
 			else if($tipV==2) $tipVozila="Motor";
 			else $tipVozila=null;
-			//dodavanje slike
+		
 			$idUploadovaneSlike=0;
 			$target_dir = "../uploads/vozila/".$tipVozila."/";
 			$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 			$uploadOk = 1;
 			$video=0;
 			$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-			// Check if image file is a actual image or fake image
 			if(isset($_POST["submit"])) {
 				$check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
 				if($check !== false) {
-					//echo "File is an image - " . $check["mime"] . ".";
 					$uploadOk = 1;
 				} else {
-					echo "File is not an image.";
+					echo "Fajl nije slika ili video.";
 					$uploadOk = 0;
 				}
 			}
-			// Check if file already exists
-			/*if (file_exists($target_file)) {
-				echo "Sorry, file already exists.";
-				$uploadOk = 0;
-			}*/
-			// Check file size
+
 			//povecati velicinu fajla ovo je 500kb
 			if ($_FILES["fileToUpload"]["size"] > 500000) {
-				echo "Sorry, your file is too large.";
+				echo "Fajl je prevelik";
 				$uploadOk = 0;
 			}
 			
-			// Allow certain file formats
 			if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
-				echo "Sorry, only JPG, JPEG & PNG files are allowed.";
+				echo "Samo JPG, JPEG, PNG & GIF fajlovi su dozvoljeni.";
 				$uploadOk = 0;
 			}
 
-			
-			// Check if $uploadOk is set to 0 by an error
 			if ($uploadOk == 0) {
-				echo "Sorry, your file was not uploaded.";
-			// if everything is ok, try to upload file
+				echo "Greska prilikom dodavanja slike.";
 			} else {
 				if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
 					$slika=new Slika();
@@ -95,7 +84,7 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" && !empty($_SESSION['username'])){
 						}
 					}			
 				} else {
-					echo "Sorry, there was an error uploading your file.";
+					echo "Greska prilikom dodavanja slike.";
 				}
 			}
 		}else{
@@ -146,23 +135,23 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" && !empty($_SESSION['username'])){
 	</select></br>
 	<br>
 	<label>Model:</label></br>
-	<input type="text" name="model" id="model" /></br>
+	<input type="text" name="model" id="model" oninput="ValidirajModel(this)" /></br>
 	<label>Motor:</label></br>
-	<input type="text" name="motor" id="motor" /></br>
+	<input type="text" name="motor" id="motor" oninput="ValidirajMotor(this)"/></br>
 	<label>HP:</label></br>
-	<input type="number" min="0" name="hp" id="hp" /></br>
+	<input type="number" min="0" value="1" name="hp" id="hp" oninput="Validiraj(this)" /></br>
 	<label>kW:</label></br>
-	<input type="number" min="0" name="kw" id="kw" /></br>
+	<input type="number" min="0" value="1" name="kw" id="kw" oninput="Validiraj(this)" /></br>
 	<label>Snaga:</label></br>
-	<input type="number" min="0" name="snaga" id="snaga" /></br>
+	<input type="number" min="0" value="1" name="snaga" id="snaga" oninput="Validiraj(this)" /></br>
 	<label>Obrtaji:</label></br>
-	<input type="number" min="0" name="obrtaji" id="obrtaji" /></br>
+	<input type="number" min="0" value="1" name="obrtaji" id="obrtaji" oninput="Validiraj(this)" /></br>
 	<label>Cijena:</label></br>
-	<input type="text" name="cijena" id="cijena" /></br>
+	<input type="text" name="cijena" id="cijena" value="0" oninput="Validiraj(this)" /></br>
 	<label>Izaberite sliku:<label></br>
 	<br>
 	<input type="file" name="fileToUpload" id="fileToUpload"/>
-	<input type="submit" value="Submit" name="submit"/>
+	<input type="submit" value="Submit" name="submit" disabled="disabled" id="submit"/>
 </form>
 
 <?php
@@ -199,5 +188,72 @@ function dodajStage(id){
 		$("#centerAdminPanel").html(response);
 	 }});
 	return false;
+}
+
+
+//validacija
+$("#model").addClass("redBorder");
+$("#motor").addClass("redBorder");
+$("#fileToUpload").addClass("redBorder");
+
+ $("input:file").change(function (){
+	var fileName = $(this).val();
+	if(fileName!=null)
+		removeRedBorder(this);		
+	else 
+		addRedBorder(this);
+	
+});
+
+function Validiraj(tb){
+	if(tb.value=="" || tb.value<=0){
+		addRedBorder(tb);
+		$("#submit").attr("disabled","disabled");
+	}else{
+		removeRedBorder(tb);
+	}
+}
+
+function ValidirajMotor(tb){
+	var reg=/\w{1}/i;
+	if(!reg.test(tb.value)){
+		addRedBorder(tb);
+		$("#submit").attr("disabled","disabled");
+	}else{
+		removeRedBorder(tb);
+	}
+}
+
+function ValidirajModel(tb){
+	var reg=/\w{1}/i;
+	if(!reg.test(tb.value)){
+		addRedBorder(tb);
+		$("#submit").attr("disabled","disabled");
+	}else{
+		removeRedBorder(tb);
+	}
+}
+
+function addRedBorder(tb){
+	$(tb).addClass("redBorder");
+}
+
+function removeRedBorder(tb){
+	$(tb).removeClass("redBorder");
+	Check();
+}
+
+function Check(){
+	var prviEl=$("#model").hasClass("redBorder");
+	var drugiEl=$("#motor").hasClass("redBorder");
+	var treciEl=$("#fileToUpload").hasClass("redBorder");
+	var cetEl=$("#hp").hasClass("redBorder");
+	var petiEl=$("#kw").hasClass("redBorder");
+	var sestiEl=$("#snaga").hasClass("redBorder");
+	var sedmiEl=$("#obrtaji").hasClass("redBorder");
+	var osmiEl=$("#cijena").hasClass("redBorder");
+	
+	if(!prviEl && !drugiEl && !treciEl && !cetEl && !petiEl && !sestiEl && !sedmiEl && !osmiEl)
+		$("#submit").removeAttr("disabled");
 }
 </script>

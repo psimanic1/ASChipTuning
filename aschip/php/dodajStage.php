@@ -79,12 +79,12 @@ if(!$kraj){
 	else
 		echo '<input type="hidden" value="'.$_POST["idVozila"].'" name="idVozila" />'; 	?>
 	<label>Snaga:</label></br>
-	<input name="snaga" value="" id="snaga"/></br>
+	<input type="number" name="snaga" value="1" id="snaga" min="0" oninput="Validiraj(this)"/></br>
 	<label>Obrtaji:</label></br>
-	<input name="obrtaji" value="" id="obrtaji"/></br>
+	<input type="number" name="obrtaji" value="1" id="obrtaji" min="0" oninput="Validiraj(this)"/></br>
 	<label>Cijena:</label></br>
-	<input name="cijena" value="" id="cijena"/></br>
-	<input type="submit" name="submit" value="submit"/>
+	<input type="number" name="cijena" value="1" id="cijena"  min="0" oninput="Validiraj(this)"/></br>
+	<input type="submit" name="submit" value="submit" id="submit"/>
 </form>
 <?php
 }
@@ -102,6 +102,32 @@ $('#dodajStage').submit( function( e ) {
 		  }
 		});
     e.preventDefault();
-	});
-	
+});
+
+//validacija
+function Validiraj(tb){
+	if(tb.value=="" || tb.value<=0){
+		addRedBorder(tb);
+		$("#submit").attr("disabled","disabled");
+	}else{
+		removeRedBorder(tb);
+	}
+}
+
+function addRedBorder(tb){
+	$(tb).addClass("redBorder");
+}
+
+function removeRedBorder(tb){
+	$(tb).removeClass("redBorder");
+	Check();
+}
+
+function Check(){
+	var prviEl=$("#snaga").hasClass("redBorder");
+	var drugiEl=$("#obrtaji").hasClass("redBorder");
+	var treciEl=$("#cijena").hasClass("redBorder");
+	if(!prviEl && !drugiEl && !treciEl)
+		$("#submit").removeAttr("disabled");
+}
 </script>

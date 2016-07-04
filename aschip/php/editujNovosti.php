@@ -11,52 +11,41 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_SESSION['username']) && isse
 	
 	if(!empty($_POST['naslov']) && !empty($_POST['tekstualno']) && !empty($_POST["idNovosti"])){
 		if($_POST["idSlike"]==0){
-			//dodavanje slike
+
 			$idUploadovaneSlike=0;
 			$target_dir = "../uploads/novosti/";
 			$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 			$uploadOk = 1;
 			$video=0;
 			$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-			// Check if image file is a actual image or fake image
 			if(isset($_POST["submit"])) {
 				$check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
 				if($check !== false) {
-					//echo "File is an image - " . $check["mime"] . ".";
 					$uploadOk = 1;
 				} else {
-					echo "File is not an image.";
+					echo "Fajl nije slika ili video.";
 					$uploadOk = 0;
 				}
 			}
-			// Check if file already exists
-			/*if (file_exists($target_file)) {
-				echo "Sorry, file already exists.";
-				$uploadOk = 0;
-			}*/
-			// Check file size
 			//povecati velicinu fajla ovo je 500kb
 			if ($_FILES["fileToUpload"]["size"] > 500000) {
-				echo "Sorry, your file is too large.";
+				echo "Fajl je prevelik";
 				$uploadOk = 0;
 			}
 			
-			// Allow certain file formats
 			if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
-				echo "Sorry, only JPG, JPEG & PNG files are allowed.";
+				echo "Samo JPG, JPEG, PNG & GIF fajlovi su dozvoljeni.";
 				$uploadOk = 0;
 			}
 
 			
-			// Check if $uploadOk is set to 0 by an error
 			if ($uploadOk == 0) {
-				echo "Sorry, your file was not uploaded.";
-			// if everything is ok, try to upload file
+				echo "Greska prilikom dodavanja slike.";
 			} else {
 				if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
 					$slika=new Slika();
-					//idFoldera je 6 jer su tu slike za novosti
-					$slika->SlikaCtor(0,$target_file,$video,6);
+					//idFoldera je 3 jer su tu slike za novosti
+					$slika->SlikaCtor(0,$target_file,$video,3);
 					$idUploadovaneSlike=dodajSliku($slika);
 					
 					if($idUploadovaneSlike!=0){						
@@ -74,7 +63,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_SESSION['username']) && isse
 						}
 					}			
 				} else {
-					echo "Sorry, there was an error uploading your file.";
+					echo "Greska prilikom dodavanja slike.";
 				}
 			}
 		}else{
@@ -275,7 +264,7 @@ function PrikaziNovosti($list){
 			<input type="button" name="izadji" onclick="IzadjiIzNovosti()" value="Ponisti"/>
 		</div>
 		<div id="formaEditBbtObjavi">				
-			<input type="submit" name="objavi" value="Objavi novost"/>
+			<input type="submit" name="objavi" value="Objavi novost" id="submit"/>
 		</div>	
 	</form>	
 </div>
@@ -391,4 +380,43 @@ $('#formaEdit').submit( function( e ) {
 	e.preventDefault();
 });
 
+
+//validacija
+
+function ValidirajNaslov(tb){
+	var reg=/\w{2}/i;
+	if(!reg.test(tb.value)){
+		addRedBorder(tb);
+		$("#submit").attr("disabled","disabled");
+	}else{
+		removeRedBorder(tb);
+	}
+}
+
+function ValidirajTekst(tb){
+	var reg=/\w{2}/i;
+	if(!reg.test(tb.value)){
+		addRedBorder(tb);
+		$("#submit").attr("disabled","disabled");
+	}else{
+		removeRedBorder(tb);
+	}
+}
+
+function addRedBorder(tb){
+	$(tb).addClass("redBorder");
+}
+
+function removeRedBorder(tb){
+	$(tb).removeClass("redBorder");
+	Check();
+}
+
+function Check(){
+	var prviEl=$("#inputTextEditorObjaviNovost").hasClass("redBorder");
+	var drugiEl=$("#MultilineEditorObjaviNovost").hasClass("redBorder");
+	var treciEl=$("#fileToUpload").hasClass("redBorder");
+	if(!prviEl && !drugiEl && !treciEl)
+		$("#submit").removeAttr("disabled");
+}
 </script>
