@@ -566,7 +566,7 @@ include 'baza.php';
 		$obj=array();
 		foreach($baza->query($query) as $r){
 			$tmpObj=array('id'=>$r['id'],'path'=>$r['path'],'jelVideo'=>$r['jelVideo'],'idFolder'=>$r['idFolder']);
-			if($tmpObj["idFolder"]==0 || $tmpObj["idFolder"]==1 || $tmpObj["idFolder"]==2 || $tmpObj["idFolder"]==3) continue;
+			if($tmpObj["idFolder"]==1 || $tmpObj["idFolder"]==2 || $tmpObj["idFolder"]==3) continue;
 			array_push($obj,$tmpObj);
 		}
 		Baza::disconnect();
@@ -577,7 +577,7 @@ include 'baza.php';
 			$query='Select * from novosti order by id desc limit 6,6';
 			foreach($baza->query($query) as $r){
 				$tmpObj=array('id'=>$r['id'],'path'=>$r['path'],'jelVideo'=>$r['jelVideo'],'idFolder'=>$r['idFolder']);
-				if($tmpObj["idFolder"]==0 || $tmpObj["idFolder"]==1 || $tmpObj["idFolder"]==2 || $tmpObj["idFolder"]==3) continue;
+				if($tmpObj["idFolder"]==1 || $tmpObj["idFolder"]==2 || $tmpObj["idFolder"]==3) continue;
 				array_push($obj,$tmpObj);
 			}
 			Baza::disconnect();

@@ -251,7 +251,7 @@ DROP TABLE IF EXISTS `novosti`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `novosti` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `tekst` varchar(150) DEFAULT NULL,
+  `tekst` varchar(500) DEFAULT NULL,
   `datumObjave` datetime DEFAULT NULL,
   `idSlike` int(11) DEFAULT NULL,
   `naslov` varchar(25) DEFAULT NULL,

@@ -241,6 +241,14 @@ function PrikaziNovosti($list){
 	margin-top: 25px;
 	float: left;
 }
+#brSlova{
+	font-size: 8px;
+    position: relative;
+    left: 175px;
+    width: 100px;
+    display: inline-block;
+	top: 14px;
+}
 </style>
 
 <div id="divForm">
@@ -253,7 +261,10 @@ function PrikaziNovosti($list){
 			<input type="hidden" value="" id="idSlike" name="idSlike"/>
 			<p>Naslov:</p>
 			<input id="inputTextEditorEditNovost" type="text" oninput="ValidirajNaslov(this)" value="" name="naslov"/>
-			<p>Tekst:</p>
+			<div>
+				<p style="width:100px; display:inline-block;">Tekst:</p>
+				<p id="brSlova">500</p>
+			</div>
 			<textarea id="MultilineEditorEditNovost" name="tekstualno" oninput="ValidirajTekst(this)" value="" cols="40" rows="5"></textarea>
 			<br/>
 			<label>Izaberite drugu sliku:<label></br>
@@ -382,10 +393,11 @@ $('#formaEdit').submit( function( e ) {
 
 
 //validacija
-
+var br=$("#MultilineEditorObjaviNovost").val().length;
+$("#brSlova").html(500-br);
 function ValidirajNaslov(tb){
 	var reg=/\w{2}/i;
-	if(!reg.test(tb.value)){
+	if(!reg.test(tb.value) || tb.value.length>25){
 		addRedBorder(tb);
 		$("#submit").attr("disabled","disabled");
 	}else{
@@ -394,8 +406,10 @@ function ValidirajNaslov(tb){
 }
 
 function ValidirajTekst(tb){
+	var br=$("#MultilineEditorObjaviNovost").val().length;
+	$("#brSlova").html(500-br);
 	var reg=/\w{2}/i;
-	if(!reg.test(tb.value)){
+	if(!reg.test(tb.value || tb.value.length>500)){
 		addRedBorder(tb);
 		$("#submit").attr("disabled","disabled");
 	}else{

@@ -121,7 +121,7 @@ $("#fileToUpload").addClass("redBorder");
 
 function ValidirajProizvodjaca(tb){
 	var reg=/\w{2}/i;
-	if(!reg.test(tb.value)){
+	if(!reg.test(tb.value || tb.value.length>45)){
 		addRedBorder(tb);
 		$("#submit").attr("disabled","disabled");
 	}else{

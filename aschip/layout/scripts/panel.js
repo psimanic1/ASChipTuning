@@ -1,3 +1,13 @@
+$(document).ready(function(){
+$.ajax({
+	  url: '../php/ucitajPosljednjih6Slika.php',
+	  type: 'GET',
+	  success:function(response){
+		  $("#sestSlika").html(response);
+	  }
+	});
+});
+
 function dodajProizvodjaca(){
 	urlTmp='../php/dodavanjeProizvodjaca.php';
 	var datarow={	};

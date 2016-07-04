@@ -22,11 +22,19 @@ function PrikaziZadnjeTri($list){
 	for($i=0; $i<count($list); $i++){
 		echo '<li>';
 			echo '<h2><img src="'.dajSlikuPoId($list[$i]["idSlike"])["path"].'" alt="" /></h2>
-				 <p style="height: 270px;">'.$list[$i]["tekst"].'</p><p class="readmore"><a href="Novosti.php?id='.$list[$i]["id"].'">Continue Reading &raquo;</a></p>';
+				 <p style="height: 270px;">'.dajTekstSmanjen($list[$i]["tekst"]).'</p><p class="readmore"><a href="Novosti.php?id='.$list[$i]["id"].'">Continue Reading &raquo;</a></p>';
 		echo '</li>';
 	}
 	echo '</ul>';
 } 
+
+function dajTekstSmanjen($text){
+	if(strlen($text)>205){
+		$text = substr($text, 0, 205);
+		$text = substr($text, 0, strrpos($text, ' ')) . " ...";
+	}
+	return $text;
+}
 ?>
 
 
@@ -42,7 +50,7 @@ Licence URI: http://www.os-templates.com/template-terms
 <html>
 <head>
 <title>AS Chip tuning</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" href="../layout/styles/layout.css" type="text/css" />
 <link rel="stylesheet" href="../layout/styles/login.css" type="text/css" />
 <script type="text/javascript" src="../layout/scripts/jquery.min.js"></script>
@@ -173,12 +181,8 @@ Licence URI: http://www.os-templates.com/template-terms
       <h2>Posljednje slike u galeriji!</h2>
       <div class="wrap">
         <div class="fix"></div>
-        <div class="flickr_badge_image" id="flickr_badge_image1"><a href="#"><img src="../images/demo/80x80.gif" alt="" /></a></div>
-        <div class="flickr_badge_image" id="flickr_badge_image2"><a href="#"><img src="../images/demo/80x80.gif" alt="" /></a></div>
-        <div class="flickr_badge_image" id="flickr_badge_image3"><a href="#"><img src="../images/demo/80x80.gif" alt="" /></a></div>
-        <div class="flickr_badge_image" id="flickr_badge_image4"><a href="#"><img src="../images/demo/80x80.gif" alt="" /></a></div>
-        <div class="flickr_badge_image" id="flickr_badge_image5"><a href="#"><img src="../images/demo/80x80.gif" alt="" /></a></div>
-        <div class="flickr_badge_image" id="flickr_badge_image6"><a href="#"><img src="../images/demo/80x80.gif" alt="" /></a></div>
+        <div id="sestSlika">
+        </div>
         <div class="fix"></div>
       </div>
     </div>
@@ -212,5 +216,16 @@ Licence URI: http://www.os-templates.com/template-terms
 </div>
 
 <div id="loginDiv"></div>
+<script>
+$(document).ready(function(){
+$.ajax({
+	  url: '../php/ucitajPosljednjih6Slika.php',
+	  type: 'GET',
+	  success:function(response){
+		  $("#sestSlika").html(response);
+	  }
+	});
+});
+</script>
 </body>
 </html>

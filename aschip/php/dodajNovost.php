@@ -88,6 +88,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_SESSION['username'])){
 	margin-top: 25px;
 	float: left;
 }
+#brSlova{
+	font-size: 8px;
+    position: relative;
+    left: 175px;
+    width: 100px;
+    display: inline-block;
+	top: 14px;
+}
 </style>
 
 
@@ -96,7 +104,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_SESSION['username'])){
 	<div>
 		<p>Naslov:</p>
 		<input id="inputTextEditorObjaviNovost" type="text" oninput="ValidirajNaslov(this)" value="" name="naslov"/>
-		<p>Tekst:</p>
+		<div>
+			<p style="width:100px; display:inline-block;">Tekst:</p>
+			<p id="brSlova">500</p>
+		</div>
 		<textarea id="MultilineEditorObjaviNovost" name="tekstualno" oninput="ValidirajTekst(this)" value="" cols="40" rows="5"></textarea>
 		<br/>
 		<label>Izaberite sliku:<label></br>
@@ -140,7 +151,7 @@ $("#fileToUpload").addClass("redBorder");
 
 function ValidirajNaslov(tb){
 	var reg=/\w{2}/i;
-	if(!reg.test(tb.value)){
+	if(!reg.test(tb.value) || tb.value.length>25){
 		addRedBorder(tb);
 		$("#submit").attr("disabled","disabled");
 	}else{
@@ -149,8 +160,10 @@ function ValidirajNaslov(tb){
 }
 
 function ValidirajTekst(tb){
+	var br=$("#MultilineEditorObjaviNovost").val().length;
+	$("#brSlova").html(500-br);
 	var reg=/\w{2}/i;
-	if(!reg.test(tb.value)){
+	if(!reg.test(tb.value || tb.value.length>500)){
 		addRedBorder(tb);
 		$("#submit").attr("disabled","disabled");
 	}else{

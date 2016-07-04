@@ -98,6 +98,18 @@ Licence URI: http://www.os-templates.com/template-terms
       <div class="wrap">
         <div class="fix"></div>
 		<div id="sestSlika">
+		<?php 
+			include 'php/crud.php';
+
+			PrikazSlikeNaDnu(dajZadnjih6Slika());
+			
+			function PrikazSlikeNaDnu($list){
+				for($i=0; $i<count($list); $i++){
+					$j=$i+1;
+					echo '<div class="flickr_badge_image" id="flickr_badge_image'.$j.'"><a href="#"><img style="width:80px; height:80px;" src="'.str_replace("../","",$list[$i]["path"]).'" alt="" /></a></div>';
+				}
+			}
+		?>
         </div>
         <div class="fix"></div>
       </div>
@@ -152,14 +164,6 @@ $(document).ready(function(){
 	  type: 'GET',
 	  success:function(response){
 		  $("#homepage").html(response);
-	  }
-	});
-	
-	$.ajax({
-	  url: 'php/ucitajPosljednjih6Slika.php',
-	  type: 'GET',
-	  success:function(response){
-		  $("#sestSlika").html(response);
 	  }
 	});
 });

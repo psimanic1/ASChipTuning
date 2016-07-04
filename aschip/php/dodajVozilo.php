@@ -216,7 +216,7 @@ function Validiraj(tb){
 
 function ValidirajMotor(tb){
 	var reg=/\w{1}/i;
-	if(!reg.test(tb.value)){
+	if(!reg.test(tb.value) || tb.value.length>20){
 		addRedBorder(tb);
 		$("#submit").attr("disabled","disabled");
 	}else{
@@ -226,7 +226,7 @@ function ValidirajMotor(tb){
 
 function ValidirajModel(tb){
 	var reg=/\w{1}/i;
-	if(!reg.test(tb.value)){
+	if(!reg.test(tb.value) || tb.value.length>30){
 		addRedBorder(tb);
 		$("#submit").attr("disabled","disabled");
 	}else{
