@@ -128,14 +128,28 @@ Licence URI: http://www.os-templates.com/template-terms
     </div>
     <div id="topnav">
       <ul>
-        <li class="active"><a href="..\index.php">Home</a></li>
+        <li><a href="..\index.php">Home</a></li>
         <li><a href="style-demo.php">Kontakt</a></li>
         <li><a href="full-width.php">O nama</a></li>
         <li><a href="Katalog.php">Katalog</a>
           <ul>
-            <li><a href="AMK.php?tip=Auto">Auta</a></li>
+		  <?php if($_GET["tip"]=="Auto"){ ?>
+            <li class="active"><a href="AMK.php?tip=Auto">Auta</a></li>
             <li><a href="AMK.php?tip=Kamion">Kamioni</a></li>
             <li><a href="AMK.php?tip=Motor">Motori</a></li>
+		  <?php }else if($_GET["tip"]=="Kamion"){ ?>
+            <li><a href="AMK.php?tip=Auto">Auta</a></li>
+            <li class="active"><a href="AMK.php?tip=Kamion">Kamioni</a></li>
+            <li><a href="AMK.php?tip=Motor">Motori</a></li>
+		  <?php }else if($_GET["tip"]=="Motor"){ ?>
+            <li><a href="AMK.php?tip=Auto">Auta</a></li>
+            <li><a href="AMK.php?tip=Kamion">Kamioni</a></li>
+            <li class="active"><a href="AMK.php?tip=Motor">Motori</a></li>
+		  <?php }else{ ?>
+            <li><a href="AMK.php?tip=Auto">Auta</a></li>
+            <li><a href="AMK.php?tip=Kamion">Kamioni</a></li>
+            <li><a href="AMK.php?tip=Motor">Motori</a></li>		  
+		  <?php } ?>
           </ul>
         </li>
 		<li><a href="Galerija.php">Galerija</a></li>

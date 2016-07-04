@@ -47,10 +47,10 @@ div.desc {
     </div>
     <div id="topnav">
       <ul>
-        <li class="active"><a href="..\index.php">Home</a></li>
+        <li><a href="..\index.php">Home</a></li>
         <li><a href="style-demo.php">Kontakt</a></li>
         <li><a href="full-width.php">O nama</a></li>
-        <li><a href="Katalog.php">Katalog</a>
+        <li class="active"><a href="Katalog.php">Katalog</a>
           <ul>
             <li><a href="AMK.php?tip=Auto">Auta</a></li>
             <li><a href="AMK.php?tip=Kamion">Kamioni</a></li>

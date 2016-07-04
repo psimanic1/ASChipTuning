@@ -47,7 +47,7 @@ div.desc {
     </div>
     <div id="topnav">
       <ul>
-        <li class="active"><a href="..\index.php">Home</a></li>
+        <li><a href="..\index.php">Home</a></li>
         <li><a href="style-demo.php">Kontakt</a></li>
         <li><a href="full-width.php">O nama</a></li>
         <li><a href="Katalog.php">Katalog</a>
@@ -57,7 +57,7 @@ div.desc {
             <li><a href="AMK.php?tip=Motor">Motori</a></li>
           </ul>
         </li>
-		<li><a href="Galerija.php">Galerija</a></li>
+		<li class="active"><a href="Galerija.php">Galerija</a></li>
         <li class="last"><a href="Novosti.php">Novosti</a></li>
       </ul>
     </div>

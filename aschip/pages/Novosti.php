@@ -1,3 +1,35 @@
+<?php
+include '../php/crud.php';
+include '../php/klase.php';
+
+
+
+function PrikaziNovost($novost){
+	echo '<div class="novostiDetalji"> 
+			<h2>'.$novost["naslov"].'</h2>
+			<div class="vrijemeDetalji"> Novost objavljena '.$novost["datumObjave"].'.</div>
+			<div class="novostDetalji">
+				<img class="slikaNovostiDetalji" src="'.dajSlikuPoId($novost["idSlike"])["path"].'" alt="0"/>
+				<p class="paragrafNovostiDetalji">'.$novost["tekst"].'</p>
+			</div>
+		 </div>';
+				  
+}
+
+ 
+function PrikaziZadnjeTri($list){
+	echo '<ul>';
+	for($i=0; $i<count($list); $i++){
+		echo '<li>';
+			echo '<h2><img src="'.dajSlikuPoId($list[$i]["idSlike"])["path"].'" alt="" /></h2>
+				 <p style="height: 270px;">'.$list[$i]["tekst"].'</p><p class="readmore"><a href="pages/Novosti.php?id='.$list[$i]["id"].'">Continue Reading &raquo;</a></p>';
+		echo '</li>';
+	}
+	echo '</ul>';
+} 
+?>
+
+
 <!DOCTYPE html>
 <!--
 Template Name: PlusBusiness
@@ -15,6 +47,61 @@ Licence URI: http://www.os-templates.com/template-terms
 <link rel="stylesheet" href="../layout/styles/login.css" type="text/css" />
 <script type="text/javascript" src="../layout/scripts/jquery.min.js"></script>
 <script type="text/javascript" src="../layout/scripts/login.js"></script>
+
+<style>
+.novostiDetalji{
+    width: 95%;
+    display: inline-block;
+    margin-left: 20px;
+    border-radius: 5%;
+/*    border: 1px solid gray;*/
+    margin-top: 15px;
+    /*background-color: rgba(15, 117, 56, 0.55);*/
+}
+
+.novostiDetalji h2{
+	margin-left:auto;
+	margin-right:auto;
+	width:40%;
+	margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.vrijemeDetalji{
+	font-size:12px;
+	margin-left:5px;
+	display:inline-block;
+}
+
+.autorDetalji{
+	font-size:12px;
+	margin-right:5px;
+	display:inline-block;
+	float:right;
+}
+.novostDetalji{
+	padding: 5px;
+}
+
+.slikaNovostiDetalji{
+	width:300px;
+	height:200px;
+	display:inline-block;
+	border-radius: 15%;
+	vertical-align:top;
+}
+
+.paragrafNovostiDetalji{
+	display:inline-block;
+	width:60%;
+	margin-left:5px;
+    font-size: 100%;
+	margin-top: -5px;
+	font-size:15px;
+	font-family:'Lora';
+	font-style:italic;
+}
+</style>
 </head>
 <body id="top">
 <!-- ####################################################################################################### -->
@@ -25,7 +112,7 @@ Licence URI: http://www.os-templates.com/template-terms
     </div>
     <div id="topnav">
       <ul>
-        <li class="active"><a href="..\index.php">Home</a></li>
+        <li><a href="..\index.php">Home</a></li>
         <li><a href="style-demo.php">Kontakt</a></li>
         <li><a href="full-width.php">O nama</a></li>
         <li><a href="Katalog.php">Katalog</a>
@@ -36,7 +123,7 @@ Licence URI: http://www.os-templates.com/template-terms
           </ul>
         </li>
 		<li><a href="Galerija.php">Galerija</a></li>
-        <li class="last"><a href="Novosti.php">Novosti</a></li>
+        <li class="last active"><a href="Novosti.php">Novosti</a></li>
       </ul>
     </div>
     <br class="clear" />
@@ -55,27 +142,13 @@ Licence URI: http://www.os-templates.com/template-terms
 <div class="wrapper col3">
   <div id="container">
     <div class="homepage">
-      <ul>
-        <li>
-          <h2><img src="../images/a3.jpg" alt="" /></h2>
-		  
-          <p>Nullamlacus dui ipsum conseque loborttis non euisque morbi penas dapibulum orna. Urnaultrices quis curabitur phasellentesque congue magnis vestibulum quismodo nulla et feugiat. Adipisciniapellentum leo ut consequam ris felit elit id nibh sociis malesuada.</p>
-          <p class="readmore"><a href="#">Continue Reading &raquo;</a></p>
-        </li>
-        <li>
-          <h2><img src="../images/g6.jpg" alt="" /></h2>
-		  
-          <p>Nullamlacus dui ipsum conseque loborttis non euisque morbi penas dapibulum orna. Urnaultrices quis curabitur phasellentesque congue magnis vestibulum quismodo nulla et feugiat. Adipisciniapellentum leo ut consequam ris felit elit id nibh sociis malesuada.</p>
-          <p class="readmore"><a href="#">Continue Reading &raquo;</a></p>
-        </li>
-        
-		<li class="last">
-          <h2><img src="../images/r32.jpg" alt="" /></h2>
-		  
-          <p>Nullamlacus dui ipsum conseque loborttis non euisque morbi penas dapibulum orna. Urnaultrices quis curabitur phasellentesque congue magnis vestibulum quismodo nulla et feugiat. Adipisciniapellentum leo ut consequam ris felit elit id nibh sociis malesuada.</p>
-          <p class="readmore"><a href="#">Continue Reading &raquo;</a></p>
-        </li>
-      </ul>
+		<?php 
+        if(isset($_GET["id"])){
+			PrikaziNovost(dajNovostPoId($_GET["id"]));
+		}else{
+			PrikaziZadnjeTri(dajZadnje3Novosti());
+		}
+	  ?>
       <br class="clear" />
     </div>
   </div>

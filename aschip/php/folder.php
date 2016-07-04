@@ -108,7 +108,8 @@ function PrikaziSlikeUFolderu($idFoldera){
 	display:none;
 	color: white;
 	border-radius:5%;
-	
+	position: absolute;
+    top: 10px;
 }
 #submitDodajSlikuDiv{
 	float:right;
@@ -240,10 +241,12 @@ $('#dodajSlikuForm').submit( function( e ) {
 		processData: false,
 		contentType: false,
 		success:function(response){			
-			$("#poruke").html(response);
+			//$("#poruke").html(response);
+			$("#centerAdminPanel").html(response);
 			$("#dodajSlikuDiv").hide();
 		}
 	});
+	$("#dodajSlikuDiv").hide();
 	e.preventDefault();
 });
 function DodajSliku(){

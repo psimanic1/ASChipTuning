@@ -25,8 +25,8 @@ Licence URI: http://www.os-templates.com/template-terms
     </div>
     <div id="topnav">
       <ul>
-        <li class="active"><a href="..\index.php">Home</a></li>
-        <li><a href="style-demo.php">Kontakt</a></li>
+        <li><a href="..\index.php">Home</a></li>
+        <li class="active"><a href="style-demo.php">Kontakt</a></li>
         <li><a href="full-width.php">O nama</a></li>
         <li><a href="Katalog.php">Katalog</a>
           <ul>

@@ -71,27 +71,8 @@ Licence URI: http://www.os-templates.com/template-terms
 <!-- ####################################################################################################### -->
 <div class="wrapper col3">
   <div id="container">
-    <div class="homepage">
-      <ul>
-        <li>
-          <h2><img src="images/a3.jpg" alt="" /></h2>
-		  
-          <p>Nullamlacus dui ipsum conseque loborttis non euisque morbi penas dapibulum orna. Urnaultrices quis curabitur phasellentesque congue magnis vestibulum quismodo nulla et feugiat. Adipisciniapellentum leo ut consequam ris felit elit id nibh sociis malesuada.</p>
-          <p class="readmore"><a href="#">Continue Reading &raquo;</a></p>
-        </li>
-        <li>
-          <h2><img src="images/g6.jpg" alt="" /></h2>
-		  
-          <p>Nullamlacus dui ipsum conseque loborttis non euisque morbi penas dapibulum orna. Urnaultrices quis curabitur phasellentesque congue magnis vestibulum quismodo nulla et feugiat. Adipisciniapellentum leo ut consequam ris felit elit id nibh sociis malesuada.</p>
-          <p class="readmore"><a href="#">Continue Reading &raquo;</a></p>
-        </li>
-        <li class="last">
-          <h2><img src="images/r32.jpg" alt="" /></h2>
-		  
-          <p>Nullamlacus dui ipsum conseque loborttis non euisque morbi penas dapibulum orna. Urnaultrices quis curabitur phasellentesque congue magnis vestibulum quismodo nulla et feugiat. Adipisciniapellentum leo ut consequam ris felit elit id nibh sociis malesuada.</p>
-          <p class="readmore"><a href="#">Continue Reading &raquo;</a></p>
-        </li>
-      </ul>
+    <div id="homepage" class="homepage">
+      
       <br class="clear" />
     </div>
   </div>
@@ -169,5 +150,14 @@ $(document).ready(function(){
 		  $("#container").html(response);
 	  }
 	});
+	
+	$.ajax({
+	  url: 'php/ucitajPosljednje3NovostiNaPocetnoj.php',
+	  type: 'GET',
+	  success:function(response){
+		  $("#homepage").html(response);
+	  }
+	});
 });
+
 </script>
