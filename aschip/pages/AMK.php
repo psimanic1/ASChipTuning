@@ -124,13 +124,13 @@ Licence URI: http://www.os-templates.com/template-terms
 <div class="wrapper col1">
   <div id="header">
     <div id="logo">
-      <h1><a href="..\index.php"><img src="LOGO-Copy1.bmp"></a></h1>
+      <h1><a href="..\index.php"><img src="../images/logo.png" width=200; height=80;></a></h1>
     </div>
     <div id="topnav">
       <ul>
         <li><a href="..\index.php">Home</a></li>
         <li><a href="style-demo.php">Kontakt</a></li>
-        <li><a href="full-width.php">O nama</a></li>
+        <li><a href="full-width.php">Chip tuning</a></li>
         <li><a href="Katalog.php">Katalog</a>
           <ul>
 		  <?php if($_GET["tip"]=="Auto"){ ?>

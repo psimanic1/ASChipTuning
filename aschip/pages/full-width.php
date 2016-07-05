@@ -10,7 +10,7 @@ Licence URI: http://www.os-templates.com/template-terms
 <html>
 <head>
 <title>AS Chip tuning</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" href="../layout/styles/layout.css" type="text/css" />
 <link rel="stylesheet" href="../layout/styles/login.css" type="text/css" />
 <script type="text/javascript" src="../layout/scripts/jquery.min.js"></script>
@@ -21,13 +21,13 @@ Licence URI: http://www.os-templates.com/template-terms
 <div class="wrapper col1">
   <div id="header">
     <div id="logo">
-      <h1><a href="..\index.php"><img src="LOGO-Copy1.bmp"></a></h1>
+      <h1><a href="..\index.php"><img src="../images/logo.png" width=200; height=80;></a></h1>
     </div>
     <div id="topnav">
       <ul>
         <li><a href="..\index.php">Home</a></li>
         <li><a href="style-demo.php">Kontakt</a></li>
-        <li class="active"><a href="full-width.php">O nama</a></li>
+        <li class="active"><a href="full-width.php">Chip tuning</a></li>
         <li><a href="Katalog.php">Katalog</a>
           <ul>
            <li><a href="AMK.php?tip=Auto">Auta</a></li>
@@ -54,29 +54,51 @@ Licence URI: http://www.os-templates.com/template-terms
 <!-- ####################################################################################################### -->
 <div class="wrapper col3">
   <div id="container">
-    <h1>Headline 1 Colour and Size</h1>
-    <h2>Headline 2 Colour and Size</h2>
-    <h3>Headline 3 Colour and Size</h3>
-    <h4>Headline 4 Colour and Size</h4>
-    <h5>Headline 5 Colour and Size</h5>
-    <h6>Headline 6 Colour and Size</h6>
-    <p>This is a W3C compliant free website template from <a href="http://www.os-templates.com/" title="Free Website Templates">OS Templates</a>. This template is distributed using a <a href="http://www.os-templates.com/template-terms">Website Template Licence</a>.</p>
-    <p>You can use and modify the template for both personal and commercial use. You must keep all copyright information and credit links in the template and associated files. For more CSS templates visit <a href="http://www.os-templates.com/">Free Website Templates</a>.</p>
-    <ul>
-      <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-      <li>Etiam vel sapien et est adipiscing commodo.</li>
-      <li>Duis pharetra eleifend sapien, id faucibus dolor rutrum et.</li>
-      <li>Donec et dui dolor, in lacinia leo.</li>
-      <li>Mauris posuere tellus ac purus adipiscing dapibus.</li>
-    </ul>
-    <p>Vestibulumaccumsan egestibulum eu justo convallis augue estas aenean elit intesque sed. Facilispede estibulum nulla orna nisl velit elit ac aliquat non tincidunt. Namjusto cras urna urnaretra lor urna neque sed quis orci nulla. Laoremut vitae doloreet condimentumst phasellentes dolor ut a ipsum id consectetus. Inpede cumst vitae ris tellentesque fring intesquet nibh fames nulla curabitudin.</p>
-    <ol>
-      <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-      <li>Etiam vel sapien et est adipiscing commodo.</li>
-      <li>Duis pharetra eleifend sapien, id faucibus dolor rutrum et.</li>
-      <li>Donec et dui dolor, in lacinia leo.</li>
-      <li>Mauris posuere tellus ac purus adipiscing dapibus.</li>
-    </ol>
+  <img src="../images/chip.png">
+    <p>
+	TUNING – eng. podešavanje, vrlo čest termin kod prerade automobila, najčešće u sportskom smislu.
+	Tuning automobila u smislu poboljšavanja performansi na tržištu je prisutan već preko pola stoljeća, a korijene vuče iz USA.
+	U posljednjih 10- tak godina prisutna je velika ekspanzija ove grane auto industrije i kod nas.
+	</p>
+	<p>
+	U velikoj ponudi tuning opreme, moramo razlikovati tzv. estetski tuning i performance tuning. 
+	Ovaj potonji je fokus našeg djelovanja i mi se bavimo time. 
+	Naš osnovni cilj je poboljšati performanse Vašeg automobila optimizacijom softvera koji kontrolira rad motora.
+	</p>
+	<p>
+	CHIP TUNING Motori, benzinski i dizelski, današnjih modernih automobila nadzirani su putem tzv. ECU-a( Engine Control Unit ). 
+	Softver koji kontrolira rad motora smješten je u memoriju (EEPROM -Electricaly Erasable Programmable Read-Only Memory) tj. popularnog naziva ”chip”. Otuda i naziv CHIP TUNING, 
+	jer se nekada davno promjenom chipa mijenjao softver koji procesor čita da bi upravljao radom motora.
+	</p>
+	Kroz historiju i razne generacije ECU-a razlikujemo i razne vrste memorije,
+	pa tako imamo OTP eeprome (jednokratne), a kasnije i flash memorije (višekratne) koje se mogu reprogramirati putem OBD2 konektora,	tj. preko kabela.
+	Pojavom ECU-a te generacije nestala je i potreba za otvaranjem istih i fizičkom promjenom memorije čime se smanjuje potencijalna opasnost od kvara tj. oštećenja uslijed lemljenja. 
+	Danas gotovo svi moderni automobili koriste ECU-e koje je moguće reprogramirati putem kabela, a najčešće su to vozila EU proizvodnje.
+	Japanska vozila se mogu takodjer reprogramirati putem kabela, ali ne sva.
+	<p>
+	ŠTA MI USTVARI RADIMO?
+
+	ECU direktno kontrolira ubrizgavanje goriva, paljenje, pritisak turbo punjača itd, te veliki broj raznih senzora koji šalju informacije o radu motora u točno odredjenom trenutku. 
+	Sve te informacije ECU procesira te na temelju unaprijed zadanih parametara odredjuje najefikasniji rad motora.
+	Chip tuning djelomično ili u potpunosti optimizira tvorničku mapu ECU-a (softver).
+	</p>
+	<p>
+	Nova mapa mijenja parametre rada motora u vidu bolje iskoristivosti goriva i zraka koji čine smjesu, čime postižemo veću snagu motora.
+	Ove promjene odnose se u osnovi na ubrizgavanje goriva, paljenje i pritisak turbo punjača.
+	Kao rezultat, motori sa turbo punjačima postizati će veću snagu, za 20 do 40 %, kao i istovjetni porast okretnog momenta.
+	</p>
+	<p>
+	Kod motora bez turbo punjača, tzv. atmosferskih (N/A – naturally aspirated), snaga i okretni moment mogu porasti za 8 do 10%.
+	Promjene se izmedju ostaloga odnose i na razne mape koje kontroliraju odziv na gas (throttle response), mape pedale gasa (elektronski gas i automatski mjenjač),
+	EGR kontrolu ispušnih plinova itd.
+	</p>
+	<p>
+	Sve to omogućuje da motor razvija veću snagu i okretni moment te da manjom ukupnom angažiranom snagom vuče istu težinu automobila te u normalnim uvjetima vožnje troši manje goriva. 
+	Ubrzanje, međuubrzanje i krajnja brzina se poboljšavaju.
+	</p>
+	<p>
+	Naš osnovni prioritet su prvenstveno zadržavanje 100%-tne sigurnosti rada motora, poboljšanja performansi i zadovoljstva korisnika.
+	</p>
   </div>
 </div>
 <!-- ####################################################################################################### -->

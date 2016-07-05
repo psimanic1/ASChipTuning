@@ -13,7 +13,7 @@ Licence URI: http://www.os-templates.com/template-terms
 <html>
 <head>
 <title>AS Chip tuning</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" href="layout/styles/layout.css" type="text/css" />
 <link rel="stylesheet" href="layout/styles/login.css" type="text/css" />
 <script type="text/javascript" src="layout/scripts/jquery.min.js"></script>
@@ -26,13 +26,13 @@ Licence URI: http://www.os-templates.com/template-terms
 <div class="wrapper col1">
   <div id="header">
     <div id="logo">
-      <h1><a href="index.php"><img src="LOGO-Copy1.bmp"></a></h1>
+      <h1><a href="index.php"><img src="images/logo.png" width=200; height=80;></a></h1>
     </div>
     <div id="topnav">
       <ul>
         <li class="active"><a href="index.php">Home</a></li>
         <li><a href="pages/style-demo.php">Kontakt</a></li>
-        <li><a href="pages/full-width.php">O nama</a></li>
+        <li><a href="pages/full-width.php">Chip tuning</a></li>
         <li><a href="pages/Katalog.php">Katalog</a>
           <ul>
             <li><a href="pages/AMK.php?tip=Auto">Auta</a></li>

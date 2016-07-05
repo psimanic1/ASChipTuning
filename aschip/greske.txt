@@ -1,0 +1,17 @@
+Ukoliko ima vise istih auta, izbaci onoliko slika koliko ih ima, a trebalo bi samo jednu sliku za izbor jednog auta.
+
+Na pocetnoj, ako ima vise istih auta s razlicitim motorima, uvijek ispisuje isto auto na koji god motor tog modela kliknes.
+
+Pri dodavanju vozila, ubaciti da se sve moze napisati "na upit", ako on upise nesto deseto jebaji ga, al lakse ce meni biti unositi u bazu.
+
+Staviti da se upis stage-a vrsi kad i upis ostalih vrijednosti, ako mozes to a nije puno izmjena, opet jer ce biti lakse unositi, ovako
+sam siguran da cu 10x minimalno unijeti auto bez stage-a, mahinalno, a onda nema edit :D
+
+Validacija novosti, nek pise sta hoce, makni je :D
+Validacija polja za tekst, staviti vise karaktera da moze, malo je 500.
+
+Prilikom editovanja novosti, obrise je skroz, i ne doda je opet iz nekog razloga :) Provjeri to negdje gresku imas u kodu.
+Koraci do tog: Napisao novost, izbacilo je gdje treba, ->admin panel->edituj novost->promijeni sta hoces i posalji "submit", i izbacit ce ti odma kao "gresku"
+da si promijenio novost i odma pored toga da je novost izbrisana, i vise je nigdje nema, ni na panelu ni na index.php.
+
+Ukinuti ECO Chip ne treba, za stage 2 omoguciti da ima "Na upit", jer ne mozes tacno napisati koliko ide icega, dok se ne dodje na valjke :)
