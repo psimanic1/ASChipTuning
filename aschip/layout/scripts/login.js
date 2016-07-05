@@ -83,8 +83,7 @@ function SubmitLogout(){
 
 
 function Validiraj(tb){
-	var reg=/\w{2}/i;
-	if(!reg.test(tb.value)){
+	if(tb.value==""){
 		addRedBorder(tb);
 		$("#submit").attr("disabled","disabled");
 	}else{

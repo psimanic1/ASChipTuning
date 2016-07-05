@@ -78,14 +78,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_SESSION['username']) && isse
 			}
 		}
 	
-		echo "Uspjesno ste editovali novost!";
+		//echo "Uspjesno ste editovali novost!";
 	}
 	else{
 		echo "Niste popunili sva polja!";
 	}
 }
 
-if($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_SESSION['username']) && isset($_POST["idNovosti"])){
+if($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_SESSION['username']) && isset($_POST["idNovosti"]) && isset($_POST["brisi"])){
 	if(obrisiNovostPoId($_POST["idNovosti"]))
 		echo "Novost je uspjesno obrisana!";
 	else 
@@ -263,7 +263,7 @@ function PrikaziNovosti($list){
 			<input id="inputTextEditorEditNovost" type="text" oninput="ValidirajNaslov(this)" value="" name="naslov"/>
 			<div>
 				<p style="width:100px; display:inline-block;">Tekst:</p>
-				<p id="brSlova">500</p>
+				<p id="brSlova">1000</p>
 			</div>
 			<textarea id="MultilineEditorEditNovost" name="tekstualno" oninput="ValidirajTekst(this)" value="" cols="40" rows="5"></textarea>
 			<br/>
@@ -330,7 +330,8 @@ $("#msgboxButtonYes").click(function(){
 	if(vrj!="Ne"){
 		urlTmp='../php/editujNovosti.php';
 		var datarow={	
-			'idNovosti':vrj
+			'idNovosti':vrj,
+			'brisi':'true'
 		};
 		$.ajax({
 		   url: urlTmp,
@@ -394,10 +395,9 @@ $('#formaEdit').submit( function( e ) {
 
 //validacija
 var br=$("#MultilineEditorObjaviNovost").val().length;
-$("#brSlova").html(500-br);
+$("#brSlova").html(1000-br);
 function ValidirajNaslov(tb){
-	var reg=/\w{2}/i;
-	if(!reg.test(tb.value) || tb.value.length>25){
+	if(tb.value=="" || tb.value.length>50){
 		addRedBorder(tb);
 		$("#submit").attr("disabled","disabled");
 	}else{
@@ -407,9 +407,8 @@ function ValidirajNaslov(tb){
 
 function ValidirajTekst(tb){
 	var br=$("#MultilineEditorObjaviNovost").val().length;
-	$("#brSlova").html(500-br);
-	var reg=/\w{2}/i;
-	if(!reg.test(tb.value || tb.value.length>500)){
+	$("#brSlova").html(1000-br);
+	if(tb.value=="" || tb.value.length>1000){
 		addRedBorder(tb);
 		$("#submit").attr("disabled","disabled");
 	}else{

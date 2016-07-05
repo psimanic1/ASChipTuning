@@ -269,7 +269,7 @@ include 'baza.php';
 		$query='Select * from chiptuning';
 		$obj=array();
 		foreach($baza->query($query) as $r){
-			$tmpObj=array('id'=>$r['id'],'idVozila'=>$r['idVozila'],'idStage1'=>$r['idStage1'],'idStage2'=>$r['idStage2'],'idEcoTuning'=>$r['idEcoTuning']);
+			$tmpObj=array('id'=>$r['id'],'idVozila'=>$r['idVozila'],'idStage1'=>$r['idStage1'],'idStage2'=>$r['idStage2']);
 			array_push($obj,$tmpObj);
 		}
 		Baza::disconnect();
@@ -290,7 +290,7 @@ include 'baza.php';
 		$q->execute(array($id));
 		$tmpObj = $q->fetch(PDO::FETCH_ASSOC);
 		if($tmpObj!=null)
-			$obj=array('id'=>$tmpObj['id'],'idVozila'=>$tmpObj['idVozila'],'idStage1'=>$tmpObj['idStage1'],'idStage2'=>$tmpObj['idStage2'],'idEcoTuning'=>$tmpObj['idEcoTuning']);
+			$obj=array('id'=>$tmpObj['id'],'idVozila'=>$tmpObj['idVozila'],'idStage1'=>$tmpObj['idStage1'],'idStage2'=>$tmpObj['idStage2']);
 		Baza::disconnect();
 		return $obj;
 	}
@@ -304,7 +304,6 @@ include 'baza.php';
 			$chip=dajChipTuningPoId($id);
 			if($chip["idStage1"]!=0) obrisiStagePoId($chip["idStage1"]);
 			if($chip["idStage2"]!=0) obrisiStagePoId($chip["idStage2"]);
-			if($chip["idEcoTuning"]!=0) obrisiStagePoId($chip["idEcoTuning"]);
 			
 			$baza=Baza::connect();
 			$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -333,7 +332,7 @@ include 'baza.php';
 		$q->execute(array($idVozila));
 		$tmpObj1 = $q->fetchAll();
 		foreach($tmpObj1 as $r){
-			$tmpObj=array('id'=>$r['id'],'idVozila'=>$r['idVozila'],'idStage1'=>$r['idStage1'],'idStage2'=>$r['idStage2'],'idEcoTuning'=>$r['idEcoTuning']);
+			$tmpObj=array('id'=>$r['id'],'idVozila'=>$r['idVozila'],'idStage1'=>$r['idStage1'],'idStage2'=>$r['idStage2']);
 			array_push($obj,$tmpObj);
 		}
 		Baza::disconnect();
@@ -349,9 +348,9 @@ include 'baza.php';
 		if($tmp->idVozila!=null){
 			$baza=Baza::connect();
 			$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$query='Insert into chiptuning (idVozila,idStage1,idStage2,idEcoTuning) values(?,?,?,?)';
+			$query='Insert into chiptuning (idVozila,idStage1,idStage2) values(?,?,?)';
 			$q = $baza->prepare($query);
-			$q->execute(array($tmp->idVozila,$tmp->idStage1,$tmp->idStage2,$tmp->idEcoTuning));
+			$q->execute(array($tmp->idVozila,$tmp->idStage1,$tmp->idStage2));
 			Baza::disconnect();
 			return $baza->lastInsertId();
 		}
@@ -389,24 +388,6 @@ include 'baza.php';
 			$query='UPDATE chiptuning SET idStage2=? WHERE id=? ';
 			$q = $baza->prepare($query);
 			$q->execute(array($tmp->idStage2, $tmp->id));
-			Baza::disconnect();
-			return true;
-		}else{
-			return false;
-		}
-	}
-		
-	/*	update chiptuning na nacin da dodaje EcoStage, prima varijablu tipa Stage()
-		vraca true ili false
-		$tmp=dodajEcoStageChipTuning(stage);
-	*/
-	function dodajEcoStageChipTuning($tmp){
-		if($tmp->idVozila!=null){
-			$baza=Baza::connect();
-			$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$query='UPDATE chiptuning SET idEcoTuning=? WHERE id=? ';
-			$q = $baza->prepare($query);
-			$q->execute(array($tmp->idEcoTuning, $tmp->id));
 			Baza::disconnect();
 			return true;
 		}else{
@@ -605,6 +586,22 @@ include 'baza.php';
 		return $obj;
 	}
 
+	function dajSlikePoPathu($path){
+		$obj=array();
+		$baza=Baza::connect();
+		$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$query='Select * from slike where path=?';
+		$q = $baza->prepare($query);
+		$q->execute(array($path));
+		$tmpObj1 = $q->fetchAll();
+		foreach($tmpObj1 as $r){
+			$tmpObj=array('id'=>$r['id'],'path'=>$r['path'],'jelVideo'=>$r['jelVideo'],'idFolder'=>$r['idFolder']);
+			array_push($obj,$tmpObj);
+		}
+		Baza::disconnect();
+		return $obj;
+	}
+	
 	/*	 prima id onog sta treba obrisati i vraca true ako obrise odnosno false ako ne i brise sliku u folderu ako postoji 
 		 $tmp=obrisiSlikuPoId(5); 
 	*/
@@ -615,7 +612,8 @@ include 'baza.php';
 			$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			try{
 				$imgPath=dajSlikuPoId($id)["path"];
-				unlink($imgPath);
+				if(count(dajSlikePoPathu($imgPath))==1)
+					unlink($imgPath);
 			}catch(Exception $ex){
 				$ex->getMessage();
 			}

@@ -94,14 +94,12 @@ class ChipTuning{
 	public $idVozila;
 	public $idStage1;
 	public $idStage2;
-	public $idEcoTuning;
 	
-	function ChipTuningCtor($id,$idVozila,$idStage1,$idStage2,$idEcoTuning){
+	function ChipTuningCtor($id,$idVozila,$idStage1,$idStage2){
 		$this->id=$id;
 		$this->idVozila=$idVozila;
 		$this->idStage1=$idStage1;
 		$this->idStage2=$idStage2;
-		$this->idEcoTuning=$idEcoTuning;
 	}
 }
 

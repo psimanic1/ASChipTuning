@@ -442,8 +442,7 @@ function editujGaleriju(){
 });
 
 function ValidacijaImenaFoldera(tb){
-	var reg=/\w{2}/i;
-	if(!reg.test(tb.value) || tb.value.length>45){
+	if(tb.value=="" || tb.value.length>45){
 		addRedBorder(tb);
 		$("#submitDodajFolderDiv").attr("disabled","disabled");
 	}else{

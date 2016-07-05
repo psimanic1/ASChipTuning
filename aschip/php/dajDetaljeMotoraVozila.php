@@ -42,7 +42,6 @@ function PrikaziChipTuning($vozilo){
             <th scope="col" style="color:#000;font-weight:bold;text-align:center;">Fabricki</th>
             <th scope="col" style="color:#d50000;font-weight:bold;text-align:center;">Stage 1</th>
             <th scope="col" style="color:#d50000;font-weight:bold;text-align:center;">Stage 2</th>
-			<th scope="col" style="color:#014f01;font-weight:bold;text-align:center;">Eco Tuning</th>
         </tr></thead>';
 		echo '<tbody>';
 		
@@ -51,11 +50,9 @@ function PrikaziChipTuning($vozilo){
 		$stage1=array();
 		$stage2=array();
 		$stage3=array();
-		$ecoTuning=array();
 		if(!empty($chip)){
 			$stage1=dajStagePoId($chip["0"]["idStage1"]);
 			$stage2=dajStagePoId($chip["0"]["idStage2"]);
-			$ecoTuning=dajStagePoId($chip["0"]["idEcoTuning"]);
 		}
 		
 		echo '<tr>
@@ -67,10 +64,6 @@ function PrikaziChipTuning($vozilo){
 			echo	'<td> </td>';
 		if(!empty($stage2))
 			echo	'<td>'.$stage2["snaga"].'</td>';
-		else
-			echo	'<td> </td>';
-		if(!empty($ecoTuning))
-			echo	'<td>'.$ecoTuning["snaga"].'</td>';
 		else
 			echo	'<td> </td>';
 		echo '</tr>';
@@ -89,10 +82,6 @@ function PrikaziChipTuning($vozilo){
 			echo	'<td>'.$stage2["obrtaji"].'</td>';
 		else
 			echo	'<td> </td>';
-		if(!empty($ecoTuning))
-			echo	'<td>'.$ecoTuning["obrtaji"].'</td>';
-		else
-			echo	'<td> </td>';
 		echo '</tr>';
 		
 		
@@ -107,10 +96,6 @@ function PrikaziChipTuning($vozilo){
 			echo	'<td> </td>';
 		if(!empty($stage2))
 			echo	'<td>'.$stage2["cijena"].'</td>';
-		else
-			echo	'<td> </td>';
-		if(!empty($ecoTuning))
-			echo	'<td>'.$ecoTuning["cijena"].'</td>';
 		else
 			echo	'<td> </td>';
 		echo '</tr>';

@@ -4,7 +4,7 @@ class Baza
     private static $dbName = 'aschip' ;
     private static $dbHost = 'localhost' ;
     private static $dbUsername = 'root';
-    private static $dbUserPassword = 'root';
+    private static $dbUserPassword = 'Sitim12';
     
     private static $con  = null;
      

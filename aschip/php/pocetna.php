@@ -77,7 +77,12 @@ function izbaciDuple($lista){
 	$lista=Sortiraj($lista);
 	$tmpList=array();
 	for($i=0; $i<count($lista); $i++){
-		if($lista[$i]["model"]==$lista[$i+1]["model"]) continue;
+		$j=$i+1;
+		if($j==count($lista)){ 
+			array_push($tmpList,$lista[$i]);
+			break;
+		}
+		if($lista[$i]["model"]==$lista[$j]["model"]) continue;
 		else{
 			array_push($tmpList,$lista[$i]);
 		}
@@ -119,12 +124,21 @@ function Sortiraj($list){
 	<select id="model" name="model" onchange="SubmitModelForm()">
 		<option value="-1">Odaberite model vozila</option>
 		<?php
+			if(isset($_POST["tipVozila"]))
+				$tipV = $_POST["tipVozila"]?:'';
+			else{
+				$tipV=0;
+			}
+			$tipVozila="";
+			if($tipV==0) $tipVozila="Auto";
+			else if($tipV==1) $tipVozila="Kamion";
+			else if($tipV==2) $tipVozila="Motor";
 			if(isset($_POST['markaVozila']))
 				$markaVozila = $_POST['markaVozila']?:'';
 			else{
 				$markaVozila=0;
 			}
-			PrikaziModeleVozila(dajVozilaZaProizvodjaca($markaVozila));							
+			PrikaziModeleVozila(dajVozilaZaProizvodjacaITipVozila($markaVozila,$tipVozila));							
 
 		?>
 	</select>
@@ -196,7 +210,7 @@ function SubmitModelForm(){
 
 function SubmitMotorVozila(){
 	var dataRow={
-		'model':$("#model option:selected").val(),
+		'model':$("#motorVozila option:selected").val(),
 		'pocetna':"true"
 	}
 	$.ajax( {

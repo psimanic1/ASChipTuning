@@ -139,15 +139,15 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" && !empty($_SESSION['username'])){
 	<label>Motor:</label></br>
 	<input type="text" name="motor" id="motor" oninput="ValidirajMotor(this)"/></br>
 	<label>HP:</label></br>
-	<input type="number" min="0" value="1" name="hp" id="hp" oninput="Validiraj(this)" /></br>
+	<input type="text" value="Na upit" name="hp" id="hp" oninput="Validiraj(this)" /></br>
 	<label>kW:</label></br>
-	<input type="number" min="0" value="1" name="kw" id="kw" oninput="Validiraj(this)" /></br>
+	<input type="text" value="Na upit" name="kw" id="kw" oninput="Validiraj(this)" /></br>
 	<label>Snaga:</label></br>
-	<input type="number" min="0" value="1" name="snaga" id="snaga" oninput="Validiraj(this)" /></br>
+	<input type="text" value="Na upit" name="snaga" id="snaga" oninput="Validiraj(this)" /></br>
 	<label>Obrtaji:</label></br>
-	<input type="number" min="0" value="1" name="obrtaji" id="obrtaji" oninput="Validiraj(this)" /></br>
+	<input type="text" value="Na upit" name="obrtaji" id="obrtaji" oninput="Validiraj(this)" /></br>
 	<label>Cijena:</label></br>
-	<input type="text" name="cijena" id="cijena" value="0" oninput="Validiraj(this)" /></br>
+	<input type="text" name="cijena" id="cijena" value="Na upit" oninput="Validiraj(this)" /></br>
 	<label>Izaberite sliku:<label></br>
 	<br>
 	<input type="file" name="fileToUpload" id="fileToUpload"/>
@@ -206,7 +206,7 @@ $("#fileToUpload").addClass("redBorder");
 });
 
 function Validiraj(tb){
-	if(tb.value=="" || tb.value<=0){
+	if(tb.value=="" || tb.value.length>20){
 		addRedBorder(tb);
 		$("#submit").attr("disabled","disabled");
 	}else{
@@ -215,8 +215,7 @@ function Validiraj(tb){
 }
 
 function ValidirajMotor(tb){
-	var reg=/\w{1}/i;
-	if(!reg.test(tb.value) || tb.value.length>20){
+	if(tb.value=="" || tb.value.length>20){
 		addRedBorder(tb);
 		$("#submit").attr("disabled","disabled");
 	}else{
@@ -225,8 +224,7 @@ function ValidirajMotor(tb){
 }
 
 function ValidirajModel(tb){
-	var reg=/\w{1}/i;
-	if(!reg.test(tb.value) || tb.value.length>30){
+	if(tb.value=="" || tb.value.length>30){
 		addRedBorder(tb);
 		$("#submit").attr("disabled","disabled");
 	}else{
