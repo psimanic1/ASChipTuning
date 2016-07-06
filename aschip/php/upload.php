@@ -4,7 +4,7 @@ include 'klase.php';
 
 if( $_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST["imeFoldera"])){
 	if(!empty($_FILES["fileToUpload"]["name"])){
-		$target_dir = "../uploads/";
+		$target_dir = "../uploads/galerija/";
 		$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 		$uploadOk = 1;
 		$video=0;
@@ -56,7 +56,6 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST["imeFoldera"])){
 		} else {
 			if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
 				//logika za kreiranje foldera ukoliko nema foldera onda je $idFoldera=0
-				////////////////////////////////////////********************??????????????????????
 				$slika=new Slika();
 				$slika->SlikaCtor(0,$target_file,$video,0);
 				$id=dodajSliku($slika);

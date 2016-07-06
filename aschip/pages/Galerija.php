@@ -6,7 +6,42 @@ Author URI: http://www.os-templates.com/
 Licence: Free to use under our free template licence terms
 Licence URI: http://www.os-templates.com/template-terms
 -->
-<?php session_start(); ?>
+<?php 
+session_start(); 
+include '../php/crud.php';
+
+function PrikaziFoldere($list){
+	for($i=0; $i<count($list); $i++){
+		echo '<div class="folderVanDiv" onclick="PrikaziFullScree('.$list[$i]["id"].')" onmouseenter="PrikaziSlide('.$list[$i]["id"].')"><div class="folderOkolniDiv">
+				<div class="folderDiv">';
+					PrikaziSlikeUFolderu($list[$i]["id"]); 
+		echo 	'</div>
+				<div class="desc">'.$list[$i]["imeFoldera"].'</div>
+			</div></div>';
+	}
+}
+
+function PrikaziSlikeUFolderu($idFoldera){
+	$list=dajZadnje4likeZaFolder($idFoldera);
+	for($i=0; $i<count($list); $i++){
+		echo '<img class="slikaUFolderu" alt src="'.$list[$i]["path"].'" />';
+		
+	}
+}
+
+function PrikaziSlikeBezFoldera(){
+	$list=dajSveSlikeZaFolder(0);
+	if(!empty($list)){
+		echo '<div class="folderVanDiv"><div class="folderOkolniDiv" onclick="PrikaziFullScree(0)" onmouseenter="PrikaziSlide(0)">
+				<div class="folderDiv">';
+			PrikaziSlikeUFolderu(0);
+		echo 	'</div>
+				<div class="desc">Ostale slike</div>
+			</div></div>';
+	}
+}
+
+?>
 <html>
 <head>
 <style>
@@ -26,10 +61,81 @@ div.img img {
     height: auto;
 }
 
+#folderiSlika{
+	width:60%;
+	height:100%;
+	display: inline-block;
+	vertical-align: top;
+}
+
+#slideShow{
+	width:39%;
+	height:100%;
+	display: inline-block;
+}
+
+
+.folderVanDiv{
+	width: 182px;
+    height: 142px;
+	float: left;
+    margin: 8px;
+    margin-left: 0px;
+}
+
+.folderOkolniDiv{
+	height: 100%;
+    border: 1px solid black;
+    width: 100%;
+}
+.folderDiv{
+	width: 174px;
+    height: 100px;
+    float: left;
+    border: 1px solid #ccc;
+    margin: 2px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+div.folderOkolniDiv:hover{
+	border:2px solid red;
+	cursor:pointer;
+}
+
+.slikaUFolderu{
+	width:48%;
+	height:48%;
+	padding:1px;
+}
 div.desc {
     padding: 15px;
     text-align: center;
 }
+
+
+
+#slider {
+	background:#000;
+	border:5px solid #eaeaea;
+	box-shadow:1px 1px 5px rgba(0,0,0,0.7);
+	height:320px;
+	/*width:680px;*/
+	width: 380px;
+	margin:40px auto 0;
+	overflow:visible;
+	position:relative;
+}
+.containerSlide{
+	position:relative;
+	width:100%;
+	height:300px;
+	border-radius:5px;
+	border:1px solid red;
+	overflow:hidden;
+}
+
 </style>
 <title>AS Chip tuning</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -77,39 +183,24 @@ div.desc {
 <div class="wrapper col3">
   <div id="container">
     <div id="homepage">
-     <div class="img">
-  <a target="_self" href="../images/r32.jpg">
-    <img src="../images/r32.jpg" alt="" width="300" height="200">
-  </a>
-  <div class="desc">Opis galerije-ovde</div>
-</div>
+		<div id="folderiSlika">
+		<?php
+			PrikaziFoldere(dajSveFoldere());  
+			PrikaziSlikeBezFoldera();
+		?>
+		</div>
+		<div id="slideShow">
+			<div id="content-slider">
+				<div id="imslider">
+					
+					<div id="imgGallary" class="containerSlide">
+						<img src="../images/r32.jpg" alt="" width="100%" height="300" />
+					</div>
+				</div>
+			</div>
+		</div>
 
-<div class="img">
-  <a target="_self" href="../images/r32.jpg">
-    <img src="../images/r32.jpg" alt="" width="300" height="200">
-  </a>
-  <div class="desc">Opis galerije-ovde</div>
-</div>
-
-<div class="img">
-
-  <a target="_self" href="../images/r32.jpg">
-  
-    <img src="../images/r32.jpg" alt="" width="300" height="200">
-	<img src="../images/g6.jpg" alt="" width="300" height="200">
-	<img src="../images/g6.jpg" alt="" width="300" height="200">
-  </a>
-  <div class="self">Opis galerije-ovde</div>
-</div>
-
-<div class="img">
-  <a target="_self" href="../images/r32.jpg">
-    <img src="../images/r32.jpg" alt="" width="300" height="200">
-  </a>
-  <div class="desc">Opis galerije-ovde</div>
-</div>
-    </div>
- 
+    </div> 
     <br class="clear" />
   </div>
 </div>
@@ -178,6 +269,38 @@ $.ajax({
 	  }
 	});
 });
+
+function PrikaziSlide(id){
+var datarow={
+	'idFoldera':id
+};
+$.ajax({
+	data:datarow,	
+	url: '../php/dajSlikeZaFolder.php',
+	type: 'GET',
+	success:function(response){
+		$("#imgGallary").html(response);
+	}
+});	
+}
+
+(function(){
+	var imgLen = document.getElementById('imgGallary');
+	var images = imgLen.getElementsByTagName('img');
+	var counter = 1;
+
+	if(counter <= images.length){
+		setInterval(function(){
+			images[0].src = images[counter].src;
+			console.log(images[counter].src);
+			counter++;
+
+			if(counter === images.length){
+				counter = 1;
+			}
+		},4000);
+	}
+})();
 </script>
 </body>
 </html>

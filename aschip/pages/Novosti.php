@@ -21,7 +21,7 @@ function PrikaziZadnjeTri($list){
 	echo '<ul>';
 	for($i=0; $i<count($list); $i++){
 		echo '<li>';
-			echo '<h2><img src="'.dajSlikuPoId($list[$i]["idSlike"])["path"].'" alt="" /></h2>
+			echo '<h2 style="border:none;"><img src="'.dajSlikuPoId($list[$i]["idSlike"])["path"].'" alt="" /></h2>
 				 <p style="height: 270px;">'.dajTekstSmanjen($list[$i]["tekst"]).'</p><p class="readmore"><a href="Novosti.php?id='.$list[$i]["id"].'">Continue Reading &raquo;</a></p>';
 		echo '</li>';
 	}

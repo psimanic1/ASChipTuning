@@ -504,7 +504,7 @@ include 'baza.php';
 		$obj=array();
 		$baza=Baza::connect();
 		$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$query='Select * from slike where idFolder=?';
+		$query='Select * from slike where idFolder=? order by id desc';
 		$q = $baza->prepare($query);
 		$q->execute(array($idFoldera));
 		$tmpObj1 = $q->fetchAll();

@@ -114,7 +114,7 @@ function Sortiraj($list){
 	</form>
 	<form id="markaVozilaForm" method="POST">
 		<select id="markaVozila" name="markaVozila" onchange="SubmitMarkaVozilaForm()">
-			<option value="-1">Odaberite marku vozila</option>
+			<option value="-1">Odaberite marku</option>
 			<?php
 				PrikaziMarkeVozila(dajSveProizvodjace());							
 			?>
@@ -122,7 +122,7 @@ function Sortiraj($list){
 	</form>
 	
 	<select id="model" name="model" onchange="SubmitModelForm()">
-		<option value="-1">Odaberite model vozila</option>
+		<option value="-1">Odaberite model</option>
 		<?php
 			if(isset($_POST["tipVozila"]))
 				$tipV = $_POST["tipVozila"]?:'';
@@ -144,7 +144,7 @@ function Sortiraj($list){
 	</select>
 	
 	<select id="motorVozila" name="motorVozila" onchange="SubmitMotorVozila()">
-		<option value="-1">Odaberite motor vozila</option>
+		<option value="-1">Odaberite motor</option>
 		<?php
 			if(isset($_POST['model']))
 				$modelVozila = $_POST['model']?:'';
