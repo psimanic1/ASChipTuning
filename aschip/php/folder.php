@@ -10,7 +10,7 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["idFoldera"]) && isset(
 		$uploadOk = 1;
 		$video=0;
 		$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-		if(isset($_POST["submit"])) {
+		/*if(isset($_POST["submit"])) {
 			$check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
 			if($check !== false) {
 				$uploadOk = 1;
@@ -18,7 +18,7 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["idFoldera"]) && isset(
 				echo "Fajl nije slika ili video.";
 				$uploadOk = 0;
 			}
-		}
+		}*/
 
 		//povecati velicinu fajla ovo je 50Mb
 		if ($_FILES["fileToUpload"]["size"] > 50000000) {

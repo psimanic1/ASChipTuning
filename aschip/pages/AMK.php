@@ -10,14 +10,71 @@ Licence URI: http://www.os-templates.com/template-terms
 <?php
 	include '../php/crud.php';
 
-	$lista=Sortiraj(dajSveProizvodjace());
-
+	if(!empty($_GET['tip'])){
+		$lista=izbaciDuple(dajSveProizvodjaceZaTip($_GET['tip']));
+	}
 	function Sortiraj($list){
-		foreach ($list as $key => $row) {
-			$markaVozila[$key]  = $row['markaVozila'];
+		if(!empty($list)){
+			foreach ($list as $key => $row) {
+				$markaVozila[$key]  = $row['markaVozila'];
+			}
+			array_multisort($markaVozila, SORT_ASC, $list);
+			return $list;
+		}else
+			return null;
+	}
+	
+	function izbaciDuple($lista){
+		if(count($lista)>0){
+			$lista=Sortiraj($lista);
+			$tmpList=array();
+			for($i=0; $i<count($lista); $i++){
+				$j=$i+1;
+				if($j==count($lista)){ 
+					array_push($tmpList,$lista[$i]);
+					break;
+				}
+				if($lista[$i]["markaVozila"]==$lista[$j]["markaVozila"]) continue;
+				else{
+					array_push($tmpList,$lista[$i]);
+				}
+			}
+			return $tmpList;
+		}else{
+			return null;
 		}
-		array_multisort($markaVozila, SORT_ASC, $list);
-		return $list;
+	}
+	
+	function SortirajVozila($list){
+		if(!empty($list)){
+			foreach ($list as $key => $row) {
+				$markaVozila[$key]  = $row['model'];
+			}
+			array_multisort($markaVozila, SORT_ASC, $list);
+			return $list;
+		}else
+			return null;
+	}
+	
+	function izbaciDupleVozila($lista){
+		if(count($lista)>0){
+			$lista=SortirajVozila($lista);
+			$tmpList=array();
+			for($i=0; $i<count($lista); $i++){
+				$j=$i+1;
+				if($j==count($lista)){ 
+					array_push($tmpList,$lista[$i]);
+					break;
+				}
+				if($lista[$i]["model"]==$lista[$j]["model"]) continue;
+				else{
+					array_push($tmpList,$lista[$i]);
+				}
+			}
+			return $tmpList;
+		}else{
+			return null;
+		}
 	}
 	
 	if($_GET['tip']=="Auto"){		
@@ -28,10 +85,10 @@ Licence URI: http://www.os-templates.com/template-terms
 				$j++;
 				$js="'Auto'";
 				if(count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Auto"))!=0)
-					echo '<td><a title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Auto")).'" href="#" onclick="return OtvoriProizvodjaca('.$lista[$i]["id"].','.$js.')">
+					echo '<td><a title="Ukupno '.count(izbaciDupleVozila(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Auto"))).'" href="#" onclick="return OtvoriProizvodjaca('.$lista[$i]["id"].','.$js.')">
 						<img class="imgProizvodjaci" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <div style="display:inline-block; position: relative;top: -10px;">'.$lista[$i]["markaVozila"].'</div></a></td>';
 				else
-					echo '<td><a title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Auto")).'" href="#">
+					echo '<td><a title="Ukupno '.count(izbaciDupleVozila(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Auto"))).'" href="#">
 						<img class="imgProizvodjaci" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <div style="display:inline-block; position: relative;top: -10px;">'.$lista[$i]["markaVozila"].'</div></a></td>';
 				if($j==3){ 
 					echo '</tr>';
@@ -57,10 +114,10 @@ Licence URI: http://www.os-templates.com/template-terms
 				$j++;
 				$js="'Kamion'";
 				if(count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Kamion"))!=0)
-					echo '<td><a title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Kamion")).'" href="#" onclick="return OtvoriProizvodjaca('.$lista[$i]["id"].','.$js.')">
+					echo '<td><a title="Ukupno '.count(izbaciDupleVozila(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Kamion"))).'" href="#" onclick="return OtvoriProizvodjaca('.$lista[$i]["id"].','.$js.')">
 					<img class="imgProizvodjaci" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <div style="display:inline-block; position: relative;top: -10px;">'.$lista[$i]["markaVozila"].'</div></a></td>';
 				else
-					echo '<td><a title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Kamion")).'" href="#">
+					echo '<td><a title="Ukupno '.count(izbaciDupleVozila(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Kamion"))).'" href="#">
 					<img class="imgProizvodjaci" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <div style="display:inline-block; position: relative;top: -10px;">'.$lista[$i]["markaVozila"].'</div></a></td>';
 				if($j==3){ 
 					echo '</tr>';
@@ -86,10 +143,10 @@ Licence URI: http://www.os-templates.com/template-terms
 				$j++;
 				$js="'Motor'";
 				if(count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Motor"))!=0)
-					echo '<td><a title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Motor")).'" href="#" onclick="return OtvoriProizvodjaca('.$lista[$i]["id"].','.$js.')">
+					echo '<td><a title="Ukupno '.count(izbaciDupleVozila(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Motor"))).'" href="#" onclick="return OtvoriProizvodjaca('.$lista[$i]["id"].','.$js.')">
 						<img class="imgProizvodjaci" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <div style="display:inline-block; position: relative;top: -10px;">'.$lista[$i]["markaVozila"].'</div></a></td>';
 				else
-					echo '<td><a title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Motor")).'" href="#">
+					echo '<td><a title="Ukupno '.count(izbaciDupleVozila(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Motor"))).'" href="#">
 					<img class="imgProizvodjaci" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <div style="display:inline-block; position: relative;top: -10px;">'.$lista[$i]["markaVozila"].'</div></a></td>';
 				if($j==3){ 
 					echo '</tr>';
@@ -108,7 +165,11 @@ Licence URI: http://www.os-templates.com/template-terms
 			}
 		}
 	}
+	
+	
 ?>
+
+
 <html>
 <head>
 <title>AS Chip tuning</title>
@@ -117,7 +178,6 @@ Licence URI: http://www.os-templates.com/template-terms
 <link rel="stylesheet" href="../layout/styles/login.css" type="text/css" />
 <script type="text/javascript" src="../layout/scripts/jquery.min.js"></script>
 <script type="text/javascript" src="../layout/scripts/login.js"></script>
-<script type="text/javascript" src="../layout/scripts/AMK.js"></script>
 </head>
 <body id="top">
 <!-- ####################################################################################################### -->
@@ -367,5 +427,48 @@ Licence URI: http://www.os-templates.com/template-terms
 </div>
 
 <div id="loginDiv"></div>
+<script>
+$(document).ready(function(){
+$.ajax({
+	  url: '../php/ucitajPosljednjih6Slika.php',
+	  type: 'GET',
+	  success:function(response){
+		  $("#sestSlika").html(response);
+	  }
+	});
+});
+
+function OtvoriProizvodjaca(id,tip){
+	urlTmp='../php/dajSvaVozilaZaProizvodjaca.php';
+	var datarow={
+		'idProizvodjaca':id,
+		'tipVozila':tip
+	};
+	$.ajax({
+	   url: urlTmp,
+	   type:    'POST',
+	   data: datarow,
+	 success: function(response){
+		$("#content").html(response);
+	 }});
+	return false;
+}
+
+function OtvoriVozilo(id){
+	urlTmp='../php/dajVozilo.php';
+	var datarow={
+		'id':id,
+	};
+	$.ajax({
+	   url: urlTmp,
+	   type:    'POST',
+	   data: datarow,
+	 success: function(response){
+		$("#content").html(response);
+	 }});
+	return false;
+	
+}
+</script>
 </body>
 </html>

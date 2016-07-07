@@ -33,7 +33,28 @@ function PrikaziSlikeBezFoldera(){
 		}
 	}
 }
+
+if (isset($_FILES["file"]["name"])) {
+
+    $name = $_FILES["file"]["name"];
+    $tmp_name = $_FILES['file']['tmp_name'];
+    $error = $_FILES['file']['error'];
+
+    if (!empty($name)) {
+        $location = '../uploads/galerija/';
+
+        if  (move_uploaded_file($tmp_name, $location.$name)){
+            echo 'Uploaded';
+        }
+
+    } else {
+        echo 'please choose a file';
+    }
+}
 ?>
+
+
+
 
 <style>
 #folderi{
@@ -273,7 +294,6 @@ div.slikeBezFolderaDiv:hover{
 		<input type="button" class="msgboxButtonYes" id="msgboxSlikaButtonYes" value="Da" name="Ne"/>
 	</div>
 </div>
-
 <script>
 $("#izadjiDodajFolderDiv").click(function (){
 	$("#dodajFolder").val("");
@@ -347,11 +367,11 @@ $("#izadjiDodajSlikuDiv").click(function (){
 	return false;
 });
 
-$('#dodajSlikuForm').submit( function( e ) {
+$('#dodajSlikuForm').submit( function( e ) {	
 	$.ajax({
 		url: '../php/upload.php',
 		type: 'POST',
-		data: new FormData(this),
+		data:  new FormData(this),
 		processData: false,
 		contentType: false,
 		success:function(response){			  

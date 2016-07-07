@@ -31,6 +31,7 @@ function PrikaziTipVozila(){
 }
 
 function PrikaziMarkeVozila($lista){
+	$lista=izbaciDuple($lista);
 	if(isset($_POST['markaVozila']))
 		$markaVozila = $_POST['markaVozila']?:'';
 	else{
@@ -74,20 +75,24 @@ function PrikaziMotoreZaModel($lista){
 }
 
 function izbaciDuple($lista){
-	$lista=Sortiraj($lista);
-	$tmpList=array();
-	for($i=0; $i<count($lista); $i++){
-		$j=$i+1;
-		if($j==count($lista)){ 
-			array_push($tmpList,$lista[$i]);
-			break;
+	if(count($lista)>0){
+		$lista=Sortiraj($lista);
+		$tmpList=array();
+		for($i=0; $i<count($lista); $i++){
+			$j=$i+1;
+			if($j==count($lista)){ 
+				array_push($tmpList,$lista[$i]);
+				break;
+			}
+			if($lista[$i]["model"]==$lista[$j]["model"]) continue;
+			else{
+				array_push($tmpList,$lista[$i]);
+			}
 		}
-		if($lista[$i]["model"]==$lista[$j]["model"]) continue;
-		else{
-			array_push($tmpList,$lista[$i]);
-		}
+		return $tmpList;
+	}else{
+		return null;
 	}
-	return $tmpList;
 }
 
 function Sortiraj($list){
@@ -116,7 +121,16 @@ function Sortiraj($list){
 		<select id="markaVozila" name="markaVozila" onchange="SubmitMarkaVozilaForm()">
 			<option value="-1">Odaberite marku</option>
 			<?php
-				PrikaziMarkeVozila(dajSveProizvodjace());							
+				if(isset($_POST["tipVozila"]))
+					$tipV = $_POST["tipVozila"]?:'';
+				else{
+					$tipV=0;
+				}
+				$tipVozila="";
+				if($tipV==0) $tipVozila="Auto";
+				else if($tipV==1) $tipVozila="Kamion";
+				else if($tipV==2) $tipVozila="Motor";
+				PrikaziMarkeVozila(dajSveProizvodjaceZaTip($tipVozila));						
 			?>
 		</select>
 	</form>
@@ -138,7 +152,7 @@ function Sortiraj($list){
 			else{
 				$markaVozila=0;
 			}
-			PrikaziModeleVozila(dajVozilaZaProizvodjacaITipVozila($markaVozila,$tipVozila));							
+			PrikaziModeleVozila(dajVozilaZaProizvodjacaITipVozila($markaVozila,$tipVozila));					
 
 		?>
 	</select>
@@ -151,8 +165,15 @@ function Sortiraj($list){
 			else{
 				$modelVozila=0;
 			}
-			$modelIme=dajVoziloPoId($modelVozila);
-			PrikaziMotoreZaModel(dajVozilaZaModel($modelIme["model"]));
+			$auto=dajVoziloPoId($modelVozila);
+			if(!empty($auto)){
+				print_r($auto);
+				$model=$auto["model"];
+				$tip=$auto["tipVozila"];
+				$idProiz=$auto["idProizvodjaca"];
+				$lista=dajVozilaZaModelTipProizvodjac($model,$tip,$idProiz);
+				PrikaziMotoreZaModel($lista);
+			}
 		?>
 	</select>
     <br class="clear" />

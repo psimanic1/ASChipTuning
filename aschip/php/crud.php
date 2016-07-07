@@ -80,6 +80,22 @@ include 'baza.php';
 		Baza::disconnect();
 		return $obj;
 	}
+
+    function dajVozilaZaModelTipProizvodjac($model,$tipVozila,$idProizvodjaca){
+		$obj=array();
+		$baza=Baza::connect();
+		$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$query='Select * from vozila where idProizvodjaca=? and tipVozila="'.$tipVozila.'" and model=?';
+		$q = $baza->prepare($query);
+		$q->execute(array($idProizvodjaca,$model));
+		$tmpObj1 = $q->fetchAll();
+		foreach($tmpObj1 as $r){
+			$tmpObj=array('id'=>$r['id'],'model'=>$r['model'],'tipVozila'=>$r['tipVozila'],'motor'=>$r['motor'],'hp'=>$r['hp'],'kw'=>$r['kw'],'snaga'=>$r['snaga'],'obrtaji'=>$r['obrtaji'],'cijena'=>$r['cijena'],'idProizvodjaca'=>$r['idProizvodjaca'],'idSlike'=>$r['idSlike']);
+			array_push($obj,$tmpObj);
+		}
+		Baza::disconnect();
+		return $obj;
+	}
 	
 	/*	 prima idProizvodjaca i vraca vozila 
 		 $tmp=dajVozilaZaProizvodjaca(5); 
@@ -91,25 +107,6 @@ include 'baza.php';
 		$query='Select * from vozila where idProizvodjaca=?';
 		$q = $baza->prepare($query);
 		$q->execute(array($idProizvodjaca));
-		$tmpObj1 = $q->fetchAll();
-		foreach($tmpObj1 as $r){
-			$tmpObj=array('id'=>$r['id'],'model'=>$r['model'],'tipVozila'=>$r['tipVozila'],'motor'=>$r['motor'],'hp'=>$r['hp'],'kw'=>$r['kw'],'snaga'=>$r['snaga'],'obrtaji'=>$r['obrtaji'],'cijena'=>$r['cijena'],'idProizvodjaca'=>$r['idProizvodjaca'],'idSlike'=>$r['idSlike']);
-			array_push($obj,$tmpObj);
-		}
-		Baza::disconnect();
-		return $obj;
-	}
-	
-	/*	 prima model vozila i vraca vozila 
-		 $tmp=dajVozilaZaModel(a3); 
-	*/
-	function dajVozilaZaModel($model){
-		$obj=array();
-		$baza=Baza::connect();
-		$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$query='Select * from vozila where model=?';
-		$q = $baza->prepare($query);
-		$q->execute(array($model));
 		$tmpObj1 = $q->fetchAll();
 		foreach($tmpObj1 as $r){
 			$tmpObj=array('id'=>$r['id'],'model'=>$r['model'],'tipVozila'=>$r['tipVozila'],'motor'=>$r['motor'],'hp'=>$r['hp'],'kw'=>$r['kw'],'snaga'=>$r['snaga'],'obrtaji'=>$r['obrtaji'],'cijena'=>$r['cijena'],'idProizvodjaca'=>$r['idProizvodjaca'],'idSlike'=>$r['idSlike']);
@@ -185,6 +182,25 @@ include 'baza.php';
 		return $obj;
 	}
 
+	/*	 prima tip vozila i vraca proizvodjace 
+		 $tmp=dajSveProizvodjaceZaTip(Auto); 
+	*/
+	function dajSveProizvodjaceZaTip($tip){
+		$obj=array();
+		$baza=Baza::connect();
+		$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$query='select proizvodjaci.id,proizvodjaci.markaVozila,proizvodjaci.idSlike  from proizvodjaci, vozila where vozila.tipVozila=? and vozila.idProizvodjaca=proizvodjaci.id;';
+		$q = $baza->prepare($query);
+		$q->execute(array($tip));
+		$tmpObj1 = $q->fetchAll();
+		foreach($tmpObj1 as $r){
+			$tmpObj=array('id'=>$r['id'],'markaVozila'=>$r['markaVozila'],'idSlike'=>$r['idSlike']);
+			array_push($obj,$tmpObj);
+		}
+		Baza::disconnect();
+		return $obj;
+	}
+	
 	/*	 prima id onog sta treba vratiti i vraca array kojem pristupama npr: 
 		 $tmp=dajProizvodjacaPoId(5); 
 		 $idVracenog=$tmp["id"];

@@ -32,7 +32,7 @@ function PrikaziSlikeUFolderu($idFoldera){
 function PrikaziSlikeBezFoldera(){
 	$list=dajSveSlikeZaFolder(0);
 	if(!empty($list)){
-		echo '<div class="folderVanDiv"><div class="folderOkolniDiv" onclick="PrikaziFullScree(0)" onmouseenter="PrikaziSlide(0)">
+		echo '<div class="folderVanDiv" onclick="PrikaziFullScree(0)"><div class="folderOkolniDiv" onmouseenter="PrikaziSlide(0)">
 				<div class="folderDiv">';
 			PrikaziSlikeUFolderu(0);
 		echo 	'</div>
@@ -40,7 +40,6 @@ function PrikaziSlikeBezFoldera(){
 			</div></div>';
 	}
 }
-
 ?>
 <html>
 <head>
@@ -66,12 +65,15 @@ div.img img {
 	height:100%;
 	display: inline-block;
 	vertical-align: top;
+    min-height: 500px;
 }
 
 #slideShow{
 	width:39%;
 	height:100%;
 	display: inline-block;
+	position:fixed;
+	top:294px;
 }
 
 
@@ -182,7 +184,7 @@ div.desc {
 <!-- ####################################################################################################### -->
 <div class="wrapper col3">
   <div id="container">
-    <div id="homepage">
+    <div id="homepage">	
 		<div id="folderiSlika">
 		<?php
 			PrikaziFoldere(dajSveFoldere());  
@@ -271,17 +273,31 @@ $.ajax({
 });
 
 function PrikaziSlide(id){
-var datarow={
-	'idFoldera':id
-};
-$.ajax({
-	data:datarow,	
-	url: '../php/dajSlikeZaFolder.php',
-	type: 'GET',
-	success:function(response){
-		$("#imgGallary").html(response);
-	}
-});	
+	var datarow={
+		'idFoldera':id
+	};
+	$.ajax({
+		data:datarow,	
+		url: '../php/dajSlikeZaFolder.php',
+		type: 'GET',
+		success:function(response){
+			$("#imgGallary").html(response);
+		}
+	});	
+}
+
+function PrikaziFullScree(idFoldera){
+	var datarow={
+		'idFoldera':idFoldera
+	};
+	$.ajax({
+		data:datarow,	
+		url: '../php/prikazSlikaUGaleriji.php',
+		type: 'POST',
+		success:function(response){
+			$("#homepage").html(response);
+		}
+	});
 }
 
 (function(){
@@ -292,7 +308,7 @@ $.ajax({
 	if(counter <= images.length){
 		setInterval(function(){
 			images[0].src = images[counter].src;
-			console.log(images[counter].src);
+			//console.log(images[counter].src);
 			counter++;
 
 			if(counter === images.length){
@@ -301,6 +317,25 @@ $.ajax({
 		},4000);
 	}
 })();
+
+$(window).scroll(function (e) {
+    var target = e.currentTarget,
+        scrollTop = target.scrollTop || window.pageYOffset,
+        scrollHeight = target.scrollHeight || document.body.scrollHeight;
+	var val=$(target).innerHeight()+300;
+	var val2=scrollHeight - scrollTop;
+	if (val2-val < 40) {
+		$("#slideShow").css("top","10px");
+    }else if (val2-val < 60) {
+		$("#slideShow").css("top","50px");
+    }else if (val2-val < 80) {
+		$("#slideShow").css("top","60px");
+    }else if (val2-val < 100) {
+		$("#slideShow").css("top","10px");
+    }else if(val2-val>100){
+		$("#slideShow").css("top","294px");
+	}
+});
 </script>
 </body>
 </html>

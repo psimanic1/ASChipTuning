@@ -2,15 +2,16 @@
 include 'crud.php';
 include 'klase.php';
 
+//echo '<script> alert("Test"); </script>';
 if( $_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST["imeFoldera"])){
-	if(!empty($_FILES["fileToUpload"]["name"])){
+		if(!empty($_FILES["fileToUpload"]["name"])){
 		$target_dir = "../uploads/galerija/";
 		$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 		$uploadOk = 1;
 		$video=0;
 		$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 		// Check if image file is a actual image or fake image
-		if(isset($_POST["submit"])) {
+		/*if(isset($_POST["submit"])) {
 			$check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
 			if($check !== false) {
 				//echo "File is an image - " . $check["mime"] . ".";
@@ -19,7 +20,7 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST["imeFoldera"])){
 				echo "Fajl nije slika ili video.";
 				$uploadOk = 0;
 			}
-		}
+		}*/
 		// Check if file already exists
 		/*if (file_exists($target_file)) {
 			echo "Sorry, file already exists.";
@@ -66,10 +67,8 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST["imeFoldera"])){
 			}
 		}
 	}else{
-		echo "Niste odabrali sliku!";
+	 	echo "Niste odabrali sliku!";
 	}
-	
-	
-}
 
+}
 ?>

@@ -4,8 +4,14 @@ include 'crud.php';
 include 'klase.php';
 
 if(isset($_REQUEST["id"])){
-	$vozila=dajVozilaZaModel(dajVoziloPoId($_REQUEST["id"])["model"]);
-	PrikaziSveMotore($vozila);
+	$auto=dajVoziloPoId($_REQUEST["id"]);
+	if(!empty($auto)){
+		$model=$auto["model"];
+		$tip=$auto["tipVozila"];
+		$idProiz=$auto["idProizvodjaca"];
+		$vozila=dajVozilaZaModelTipProizvodjac($model,$tip,$idProiz);
+		PrikaziSveMotore($vozila);
+	}
 }
 
 function PrikaziSveMotore($list){
