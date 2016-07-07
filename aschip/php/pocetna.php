@@ -104,7 +104,7 @@ function Sortiraj($list){
 	<p>Odaberite vozilo i saznajte koliko snage dobijate chip tuningom!</p>
 	</div>
 	<div class="odabir">
-	<p>Tip--------Marka------------Model---------Motor</p>
+
 	<form id="tipVozilaForm" method="POST">
 		<select id="tipVozila" name="tipVozila" onchange="SubmitTipVozilaForm()">
 			<?php

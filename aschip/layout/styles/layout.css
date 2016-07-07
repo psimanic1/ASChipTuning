@@ -37,17 +37,18 @@ img{display:block; margin:0; padding:0; border:none;}
 
 /* ----------------------------------------------Wrapper------------------------------------- */
 #centralni{font-size:x-large;padding: 0 0 0 48px;}
+.odabir{padding: 0 0 0 50px;}
 .odabir label, select{padding-right:7.5em; font-size:large;}
-.odabir select {padding:10px 135px 15px 1px;font-family:audiowide;border:2px solid #b51010;border-radius:10px; display: inline-block;}
+.odabir select {padding:10px 0px 15px 0px;font-family:audiowide;border:2px solid #b51010;border-radius:10px; display: inline-block;margin-right:10px;}
 div.wrapper{display: flex; width:100%; margin:0; text-align:left;}
 div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, div.wrapper h6{margin:0; padding:0; font-size:20px; font-weight:normal; line-height:normal; font-family:Georgia, "Times New Roman", Times, serif;}
-.col1{color:#CCCCCC; background-color:#bfbdbd;}
+.col1{color:#CCCCCC; background-color:darkslategray;}
 .col2, .col2 a{color:#FFFFFF; background-color:#b51010;}
 .col3{color:#777777; background-color:#FFFFFF;}
 .col3 a{color:#e10707; background-color:#FFFFFF;}
 .col4{color:#FFFFFF; background-color:#000000;}
 .col4 a{color:#b51010; background-color:#000000;}
-.col5, .col5 a{color:#b51010 ; background-color:#bfbdbd;}
+.col5, .col5 a{color:white ; background-color:darkslategray;}
 
 /* ----------------------------------------------Generalise------------------------------------- */
 

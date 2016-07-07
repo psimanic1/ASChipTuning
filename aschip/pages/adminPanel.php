@@ -22,7 +22,7 @@ Licence URI: http://www.os-templates.com/template-terms
 <div class="wrapper col1">
   <div id="header">
     <div id="logo">
-      <h1><a href="..\index.php"><img src="LOGO-Copy1.bmp"></a></h1>
+      <h1><a href="..\index.php"><img src="../images/logo.png" width=200; height=80></a></h1>
     </div>
     <div id="topnav">
       <ul>

@@ -8,7 +8,7 @@ Licence URI: http://www.os-templates.com/template-terms
 File: Forms CSS
 */
 
-form, fieldset, legend{margin:0; padding:0; border:none;}
+form, fieldset, legend{margin:0; padding:0px 5px 0 0; border:none; display:inline;}
 legend{display:none;}
 input, textarea, select{font-size:12px; font-family:Verdana, Arial, Helvetica, sans-serif;}
 
