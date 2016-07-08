@@ -23,12 +23,12 @@ function PrikaziVozilo($vozilo){
 	if(isset($_POST["pocetna"])){
 		$tmp=$_POST["pocetna"];
 		if($tmp=="true"){
-			echo '<div><img style="width: 100px; float:left;" src="'.str_replace("../","",dajSlikuPoid($vozilo["idSlike"])["path"]).'" alt=""></div></div>';
+			echo '<div><img style="width: 600px; float:center;" src="'.str_replace("../","",dajSlikuPoid($vozilo["idSlike"])["path"]).'" alt=""></div></div>';
 		}else{
-			echo '<div><img style="width: 100px; float:left;" src="'.dajSlikuPoid($vozilo["idSlike"])["path"].'" alt=""></div></div>';
+			echo '<div><img style="width: 600px; float:center;" src="'.dajSlikuPoid($vozilo["idSlike"])["path"].'" alt=""></div></div>';
 		}
 	}else{
-		echo '<div><img style="width: 100px; float:left;" src="'.dajSlikuPoid($vozilo["idSlike"])["path"].'" alt=""></div></div>';
+		echo '<div><img style="width: 600px; float:center;" src="'.dajSlikuPoid($vozilo["idSlike"])["path"].'" alt=""></div></div>';
 	}
 			
 	 

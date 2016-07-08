@@ -101,9 +101,9 @@ Licence URI: http://www.os-templates.com/template-terms
 			$js="'Auto'";
 			for($i=0; $i<count($lista); $i++){
 				if(count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Auto"))!=0)
-					echo '<li style="padding-left:20px; padding-top:5px; padding-bottom:5px;"><img style="display:inline-block;" alt="" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <a  title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Auto")).'" style="display:inline-block; position: relative; top: -10px;" href="#" onclick="return OtvoriProizvodjaca('.$lista[$i]["id"].','.$js.')">'.$lista[$i]["markaVozila"].'</a></li>';
+					echo '<li style="padding-left:20px; padding-top:5px; padding-bottom:5px;"><img style="width:30px;display:inline-block;" alt="" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <a  title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Auto")).'" style="display:inline-block; position: relative; top: -10px;" href="#" onclick="return OtvoriProizvodjaca('.$lista[$i]["id"].','.$js.')">'.$lista[$i]["markaVozila"].'</a></li>';
 				else
-					echo '<li style="padding-left:20px; padding-top:5px; padding-bottom:5px;"><img style="display:inline-block;" alt="" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <a  title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Auto")).'" style="display:inline-block; position: relative; top: -10px;" href="#">'.$lista[$i]["markaVozila"].'</a></li>';
+					echo '<li style="padding-left:20px; padding-top:5px; padding-bottom:5px;"><img style="width:30px;display:inline-block;" alt="" src="'.dajSlikuPoId($lista[$i]["idSlike"])["path"].'"> <a  title="Ukupno '.count(dajVozilaZaProizvodjacaITipVozila($lista[$i]["id"],"Auto")).'" style="display:inline-block; position: relative; top: -10px;" href="#">'.$lista[$i]["markaVozila"].'</a></li>';
 			}
 		}
 	}else if($_GET['tip']=="Kamion"){
@@ -329,8 +329,8 @@ Licence URI: http://www.os-templates.com/template-terms
 
 /* MOJE napamet*/
 .imgProizvodjaci{
-	max-width:70px;
-	max-height:70px;
+	max-width:30px;
+	max-height:30px;
 	display:inline-block;
 }
 
