@@ -48,9 +48,9 @@ Licence URI: http://www.os-templates.com/template-terms
   </div>
 </div>
 <!-- ####################################################################################################### -->
-<div class="wrapper col2">
-  <div id="featured_slide">
-    <div id="featured_content">
+<div class="wrapper col2" style="background-color: white;">
+  <div id="featured_slide" style="background-color: white;">
+    <div id="featured_content" style="background-color: white;">
       <ul>
         <li><img src="images/g6.jpg" alt="" />  </li>
         <li><img src="images/a3.jpg" alt="" />  </li>
@@ -58,7 +58,7 @@ Licence URI: http://www.os-templates.com/template-terms
 		<li><img src="images/kriva.jpg" alt="" /> </li>
       </ul>
     </div>
-    <a href="javascript:void(0);" id="featured-item-prev"><img src="layout/images/left.png" alt="" /></a> <a href="javascript:void(0);" id="featured-item-next"><img src="layout/images/right.png" alt="" /></a> </div>
+    <a href="javascript:void(0);" id="featured-item-prev" style="background-color: white;"><img src="layout/images/left.png" alt="" /></a> <a href="javascript:void(0);" id="featured-item-next" style="background-color: white;"><img src="layout/images/right.png" alt="" /></a> </div>
 </div>
 </div>
 <!-- ####################################################################################################### -->
