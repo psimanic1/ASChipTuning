@@ -145,6 +145,7 @@ div.desc {
 <link rel="stylesheet" href="../layout/styles/login.css" type="text/css" />
 <script type="text/javascript" src="../layout/scripts/jquery.min.js"></script>
 <script type="text/javascript" src="../layout/scripts/login.js"></script>
+
 </head>
 <body id="top">
 <!-- ####################################################################################################### -->
