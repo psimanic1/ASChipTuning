@@ -31,7 +31,9 @@ function PrikaziTipVozila(){
 }
 
 function PrikaziMarkeVozila($lista){
-	$lista=izbaciDuple($lista);
+	print_r($lista);
+	$lista=izbaciDupleProizvodjace($lista);
+	print_r($lista);
 	if(isset($_POST['markaVozila']))
 		$markaVozila = $_POST['markaVozila']?:'';
 	else{
@@ -102,6 +104,37 @@ function Sortiraj($list){
 	array_multisort($model, SORT_ASC, $list);
 	return $list;
 }
+
+function SortirajProizvodjace($list){
+	foreach ($list as $key => $row) {
+		$model[$key]  = $row['markaVozila'];
+	}
+	array_multisort($model, SORT_ASC, $list);
+	return $list;
+}
+
+function izbaciDupleProizvodjace($lista){
+	if(count($lista)>0){
+		$lista=SortirajProizvodjace($lista);
+		$tmpList=array();
+		for($i=0; $i<count($lista); $i++){
+			$j=$i+1;
+			if($j==count($lista)){ 
+				array_push($tmpList,$lista[$i]);
+				break;
+			}
+			if($lista[$i]["markaVozila"]==$lista[$j]["markaVozila"]) continue;
+			else{
+				array_push($tmpList,$lista[$i]);
+			}
+		}
+		return $tmpList;
+	}else{
+		return null;
+	}
+}
+
+
 ?>
 
 

@@ -21,13 +21,15 @@ Licence URI: http://www.os-templates.com/template-terms
 <div class="wrapper col1">
   <div id="header">
     <div id="logo">
-      <h1><a href="..\index.php"><img src="../images/logo.png" width=200; height=80;></a></h1>
+      <!--<h1><a href="index.php"><img src="images/logo.png" width=200; height=80;></a></h1>-->
     </div>
     <div id="topnav">
-      <ul>
+      <ul style="height: 52px; left: -63px; position: relative;">
         <li><a href="..\index.php">Home</a></li>
         <li class="active"><a href="style-demo.php">Kontakt</a></li>
         <li><a href="full-width.php">Chip tuning</a></li>
+		<li style="background: none;position: relative; top: -33px;"><a style="background: none;" href="index.php"><img src="../images/logo.png" width=200; height=80;></a> </li>
+        
         <li><a href="Katalog.php">Katalog</a>
           <ul>
             <li><a href="AMK.php?tip=Auto">Auta</a></li>
@@ -46,8 +48,8 @@ Licence URI: http://www.os-templates.com/template-terms
 <div class="wrapper col2">
   <div id="breadcrumb">
     <ul>
-      <li class="first"><p>Mob: 061/552-336 --- Mob: 061/815-816|info@aschiptuning.com</p></li>
-       <a href="https://www.facebook.com/ASchiptuning/?fref=ts"><img src="../images/fb.png"></a>
+      <li class="first"><p <p style="width:500px; display:inline-block;">>Mob: 061/552-336 --- Mob: 061/815-816 | info@aschiptuning.com</p></li>
+       <a style="float:right;" href="https://www.facebook.com/ASchiptuning/?fref=ts"><img src="../images/fb.png"></a>
     </ul>
   </div>
 </div>

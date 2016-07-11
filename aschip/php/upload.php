@@ -27,9 +27,9 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST["imeFoldera"])){
 			$uploadOk = 0;
 		}*/
 		// Check file size
-		//povecati velicinu fajla ovo je 500kb
-		if ($_FILES["fileToUpload"]["size"] > 500000) {
-			echo "Fajl je prevelik!";
+		//povecati velicinu fajla ovo je 500kb=500000
+		if ($_FILES["fileToUpload"]["size"] > 50000000) {
+			echo "Fajl je prevelik, mora biti manji od 50MB!";
 			$uploadOk = 0;
 		}
 		

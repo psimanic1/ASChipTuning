@@ -294,6 +294,7 @@ div.slikeBezFolderaDiv:hover{
 		<input type="button" class="msgboxButtonYes" id="msgboxSlikaButtonYes" value="Da" name="Ne"/>
 	</div>
 </div>
+<div style="display:none;" id="load"><img alt="load" src="../images/loading.gif"/></div>
 <script>
 $("#izadjiDodajFolderDiv").click(function (){
 	$("#dodajFolder").val("");
@@ -368,13 +369,15 @@ $("#izadjiDodajSlikuDiv").click(function (){
 });
 
 $('#dodajSlikuForm').submit( function( e ) {	
+	$("#load").show();
 	$.ajax({
 		url: '../php/upload.php',
 		type: 'POST',
 		data:  new FormData(this),
 		processData: false,
 		contentType: false,
-		success:function(response){			  
+		success:function(response){			
+		    $("#load").hide();
 			$("#poruke").html(response);
 			$("#fileToUpload").removeClass("redBorder");
 		}

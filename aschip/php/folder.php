@@ -22,7 +22,7 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["idFoldera"]) && isset(
 
 		//povecati velicinu fajla ovo je 50Mb
 		if ($_FILES["fileToUpload"]["size"] > 50000000) {
-			echo "Fajl je prevelik!";
+			echo "Fajl je prevelik, mora biti manji od 50MB!";
 			$uploadOk = 0;
 		}
 		
@@ -228,10 +228,11 @@ if(isset($_POST["idFoldera"]))
 		<input type="button" class="msgboxButtonYes" id="msgboxSlikaButtonYes" value="Da" name="Ne"/>
 	</div>
 </div>
-
+<div style="display:none;" id="load"><img alt="load" src="../images/loading.gif"/></div>
 <script>
 
 $('#dodajSlikuForm').submit( function( e ) {
+	$("#load").show();
 	$.ajax({
 		url: '../php/folder.php',
 		type: 'POST',
@@ -239,6 +240,7 @@ $('#dodajSlikuForm').submit( function( e ) {
 		processData: false,
 		contentType: false,
 		success:function(response){			
+		    $("#load").hide();
 			$("#centerAdminPanel").html(response);
 			$("#dodajSlikuDiv").hide();
 		}

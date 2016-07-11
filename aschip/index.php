@@ -26,13 +26,14 @@ Licence URI: http://www.os-templates.com/template-terms
 <div class="wrapper col1">
   <div id="header">
     <div id="logo">
-      <h1><a href="index.php"><img src="images/logo.png" width=200; height=80;></a></h1>
+      <!--<h1><a href="index.php"><img src="images/logo.png" width=200; height=80;></a></h1>-->
     </div>
     <div id="topnav">
-      <ul>
+      <ul style="height: 52px; left: -63px; position: relative;">
         <li class="active"><a href="index.php">Home</a></li>
         <li><a href="pages/style-demo.php">Kontakt</a></li>
         <li><a href="pages/full-width.php">Chip tuning</a></li>
+		<li style="background: none;position: relative; top: -33px;"><a style="background: none;" href="index.php"><img src="images/logo.png" width=200; height=80;></a> </li>
         <li><a href="pages/Katalog.php">Katalog</a>
           <ul>
             <li><a href="pages/AMK.php?tip=Auto">Auta</a></li>
