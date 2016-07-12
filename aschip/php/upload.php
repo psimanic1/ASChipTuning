@@ -38,10 +38,10 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST["imeFoldera"])){
 		}
 		
 		// Allow certain file formats
-		if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif"  && $imageFileType!="mp4" && $imageFileType!="avi" && $imageFileType!="wmv" && $imageFileType!="mkv" && $imageFileType!="flv") {
-			if($video==1 && !($imageFileType=="mp4" || $imageFileType=="avi" || $imageFileType=="wmv" || $imageFileType=="mkv" || $imageFileType=="flv")){
+		if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif"  && $imageFileType!="mp4") {
+			if($video==1 && !($imageFileType=="mp4")){
 				//treba vidjeti koje kodeke podrzava i kako ih predstaviti
-				echo "Samo only MP4, AVI, WMV, MKV & FLV fajlovi su dozvoljeni.";
+				echo "Samo MP4 fajlovi su dozvoljeni.";
 			}
 			if($video==0 && !($imageFileType=="png" || $imageFileType=="jpeg" || $imageFileType=="gif")){		
 				echo "Samo JPG, JPEG, PNG & GIF fajlovi su dozvoljeni.";

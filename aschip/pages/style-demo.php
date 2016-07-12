@@ -1,12 +1,6 @@
 <!DOCTYPE html>
-<!--
-Template Name: PlusBusiness
-Author: <a href="http://www.os-templates.com/">OS Templates</a>
-Author URI: http://www.os-templates.com/
-Licence: Free to use under our free template licence terms
-Licence URI: http://www.os-templates.com/template-terms
--->
-<?php session_start(); ?>
+<?php session_start(); 
+?>
 <html>
 <head>
 <title>AS Chip tuning</title>
@@ -59,7 +53,7 @@ Licence URI: http://www.os-templates.com/template-terms
   <div id="container">
       <h2>Kontaktirajte nas</h2>
       <div id="respond">
-        <form action="#" method="post">
+        <form action="../php/salji.php" method="post">
           <p>
             <input type="text" name="name" id="name" value="" size="22" />
             <label for="name"><small>Name (required)</small></label>

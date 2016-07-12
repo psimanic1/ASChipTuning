@@ -21,7 +21,10 @@ function PrikaziFoldere($list){
 function PrikaziSlikeUFolderu($idFoldera){
 	$list=dajZadnje4likeZaFolder($idFoldera);
 	for($i=0; $i<count($list); $i++){
-		echo '<img class="slikaUFolderu" alt src="'.$list[$i]["path"].'" />';
+		if($list[$i]["jelVideo"]==1)
+			echo '<img class="slikaUFolderu" alt src="../images/video.png" />';
+		else 
+			echo '<img class="slikaUFolderu" alt src="'.$list[$i]["path"].'" />';
 	}
 }
 
@@ -29,12 +32,16 @@ function PrikaziSlikeBezFoldera(){
 	$list=dajSveSlikeZaFolder(0);
 	if(!empty($list)){
 		for($i=0; $i<count($list); $i++){
-			echo '<div class="slikeBezFolderaDiv" onmouseleave="SakrijBrisi(this)" onmouseover="ShowBrisi(this)"><img class="slikeBezFoldera" alt src="'.$list[$i]["path"].'" /><div style="display:none; top:0px; left:-15px;" class="obrisi" onclick="ObrisiSliku('.$list[$i]["id"].')">X</div></div>';
+			if($list[$i]["jelVideo"]==1)
+				echo '<div class="slikeBezFolderaDiv" onmouseleave="SakrijBrisi(this)" onmouseover="ShowBrisi(this)" onclick="pustiVideo(&quot;'.$list[$i]["path"].'&quot;)" >
+				<img class="slikeBezFoldera" alt src="../images/video.png" /><div style="display:none; top:0px; left:-15px;" class="obrisi" onclick="ObrisiSliku('.$list[$i]["id"].')">X</div></div>';
+			else 
+				echo '<div class="slikeBezFolderaDiv" onmouseleave="SakrijBrisi(this)" onmouseover="ShowBrisi(this)"><img class="slikeBezFoldera" alt src="'.$list[$i]["path"].'" /><div style="display:none; top:0px; left:-15px;" class="obrisi" onclick="ObrisiSliku('.$list[$i]["id"].')">X</div></div>';
 		}
 	}
 }
 
-if (isset($_FILES["file"]["name"])) {
+/*if (isset($_FILES["file"]["name"])) {
 
     $name = $_FILES["file"]["name"];
     $tmp_name = $_FILES['file']['tmp_name'];
@@ -50,7 +57,7 @@ if (isset($_FILES["file"]["name"])) {
     } else {
         echo 'please choose a file';
     }
-}
+}*/
 ?>
 
 
@@ -65,7 +72,7 @@ if (isset($_FILES["file"]["name"])) {
 	width: 100px;
     height: 100px;
     float: left;
-    margin: 2px;
+    margin: 5px;
 }
 .folderDiv{
 	width:100px;
@@ -159,17 +166,21 @@ div.folderDiv:hover{
 	max-width:100px;
 	max-height:100px;
 }
-.slikeBezFolderaDiv{
-	width:100px;
-	height:100px;
-	margin:2px;
-	float:left;
-	display:flex;
-}
-div.slikeBezFolderaDiv:hover{
+.slikeBezFoldera:hover{
 	border:2px solid red;
 	cursor:pointer;
 }
+.slikeBezFolderaDiv{
+	width:100px;
+	height:100px;
+	margin:5px;
+	float:left;
+	display:flex;
+}
+/*div.slikeBezFolderaDiv:hover{
+	border:2px solid red;
+	cursor:pointer;
+}*/
 #poruke{
 	height:20px;
 }
@@ -224,6 +235,26 @@ div.slikeBezFolderaDiv:hover{
 .msgboxButtonYes{
 	float:right;
 	margin:5px;
+}
+
+#playVideo{
+    position: absolute;
+    top: 20%;
+    z-index: 10000;
+    background: grey;
+    width: 500px;
+    height: 300px;
+    border-radius: 5%;
+	display:none;
+}
+#playVideo video{
+    margin: 24px;
+    width: 400px;
+    left: 20px;
+    position: relative;
+}
+#izadjiIzVidea{
+	float: right;
 }
 </style>
 
@@ -295,7 +326,33 @@ div.slikeBezFolderaDiv:hover{
 	</div>
 </div>
 <div style="display:none;" id="load"><img alt="load" src="../images/loading.gif"/></div>
+<div id="playVideo">
+<video id="videoPlayer" width="320" height="240" controls="">
+	<source id="videoPath" src="" type="video/mp4">
+	Your browser does not support the video tag.
+</video>'
+<input type="button" id="izadjiIzVidea" value="Izadji"/>
+</div>
 <script>
+
+function pustiVideo(path){
+	var player = document.getElementById('videoPlayer');
+	var mp4Vid = document.getElementById('videoPath');
+
+	player.pause();
+	mp4Vid.src = path;
+
+	player.load();
+	player.play();
+	$("#playVideo").show();
+}
+
+$("#izadjiIzVidea").click(function(){
+	var player = document.getElementById('videoPlayer');
+	player.pause();
+	$("#playVideo").hide();
+});
+
 $("#izadjiDodajFolderDiv").click(function (){
 	$("#dodajFolder").val("");
 	$("#dodajFolderDiv").hide();

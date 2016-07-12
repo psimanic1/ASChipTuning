@@ -24,8 +24,10 @@ function PrikaziFoldere($list){
 function PrikaziSlikeUFolderu($idFoldera){
 	$list=dajZadnje4likeZaFolder($idFoldera);
 	for($i=0; $i<count($list); $i++){
-		echo '<img class="slikaUFolderu" alt src="'.$list[$i]["path"].'" />';
-		
+		if($list[$i]["jelVideo"]=="1")
+			echo '<img class="slikaUFolderu" alt src="../images/video.png" />';
+		else
+			echo '<img class="slikaUFolderu" alt src="'.$list[$i]["path"].'" />';
 	}
 }
 
@@ -196,14 +198,20 @@ div.desc {
 function PrikaziSlikeZaSlider(){
 	$list=dajSveSlikeZaFolder($_GET["idFoldera"]);
 	for($i=0; $i<count($list); $i++){
-	    echo '<img class="mySlides" src="'.$list[$i]["path"].'" style="width:100%">';
+		if($list[$i]["jelVideo"]!=1)
+			echo '<img class="mySlides" src="'.$list[$i]["path"].'" style="width:100%">';
 	}
 }
 
 function PrikaziDoleSlike(){
 	$list=dajSveSlikeZaFolder($_GET["idFoldera"]);
 	for($i=0; $i<count($list); $i++){
-	    echo '  <a class="palac" data-ucitaj="'.$i.'">
+		if($list[$i]["jelVideo"]==1)
+			echo ' <a class="palac" data-ucitaj="'.$i.'">
+				  <figure class="kvadrat"></figure>
+				  <img alt="" src="../images/video.png"></a>';
+		else
+			echo '<a class="palac" data-ucitaj="'.$i.'">
 				  <figure class="kvadrat"></figure>
 				  <img alt="" src="'.$list[$i]["path"].'"></a>';
 	}
@@ -212,13 +220,22 @@ function PrikaziDoleSlike(){
 function PrikaziSlikeGore(){
 	$list=dajSveSlikeZaFolder($_GET["idFoldera"]);
 	for($i=0; $i<count($list); $i++){
-	    echo '<div class="okvir shown" data-redni="'.$i.'" style="display: none;">
-	  <span class="opis"><strong></strong> <strong class="r"></strong></span>
-	  <img style="min-height:400px;" data-width="670" data-height="475" class="fotka " src="'.$list[$i]["path"].'" alt="" style="margin-top: 1.5px;"></div>';
+		if($list[$i]["jelVideo"]==1)
+			echo '<div class="okvir shown" data-redni="'.$i.'" style="display: none;">
+			  <span class="opis"><strong></strong> <strong class="r"></strong></span>
+				<video style="min-height:400px; margin-top: 1.5px;" data-width="670" data-height="475" class="fotka" controls="">
+									<source id="videoPath" src="'.$list[$i]["path"].'" type="video/mp4">
+									Your browser does not support the video tag.
+								</video>			  
+				</div>';
+		else
+			echo '<div class="okvir shown" data-redni="'.$i.'" style="display: none;">
+		  <span class="opis"><strong></strong> <strong class="r"></strong></span>
+		  <img style="min-height:400px;" data-width="670" data-height="475" class="fotka " src="'.$list[$i]["path"].'" alt="" style="margin-top: 1.5px;"></div>';
 	}
 }
 if(isset($_GET["idFoldera"])){
-	echo '<div class="fb-share-button" data-href="localhost/aschip/pages/Galerija.php?idFoldera=6" data-layout="button" data-size="large" data-mobile-iframe="false"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Share</a></div>';
+	echo '<div class="fb-share-button" data-href="http://aschip.byethost7.com/aschip/pages/Galerija.php?idFoldera='.$_GET["idFoldera"].'" data-layout="button" data-size="large" data-mobile-iframe="false"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Share</a></div>';
 }
 ?>
 
@@ -676,7 +693,7 @@ $(window).scroll(function (e) {
     var target = e.currentTarget,
         scrollTop = target.scrollTop || window.pageYOffset,
         scrollHeight = target.scrollHeight || document.body.scrollHeight;
-	var val=$(target).innerHeight()+300;
+	var val=$(target).innerHeight()+200;
 	var val2=scrollHeight - scrollTop;
 	if (val2-val < 40) {
 		$("#slideShow").css("top","10px");

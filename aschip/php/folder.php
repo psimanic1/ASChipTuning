@@ -30,10 +30,10 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["idFoldera"]) && isset(
 			$video=1;
 		}
 		
-		if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif"  && $imageFileType!="mp4" && $imageFileType!="avi" && $imageFileType!="wmv" && $imageFileType!="mkv" && $imageFileType!="flv") {
-			if($video==1 && !($imageFileType=="mp4" || $imageFileType=="avi" || $imageFileType=="wmv" || $imageFileType=="mkv" || $imageFileType=="flv")){
+		if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif"  && $imageFileType!="mp4") {
+			if($video==1 && !($imageFileType=="mp4")){
 				//treba vidjeti koje kodeke podrzava i kako ih predstaviti
-				echo "Samo only MP4, AVI, WMV, MKV & FLV fajlovi su dozvoljeni.";
+				echo "Samo MP4 fajlovi su dozvoljeni.";
 			}
 			if($video==0 && !($imageFileType=="png" || $imageFileType=="jpeg" || $imageFileType=="gif")){		
 				echo "Samo JPG, JPEG, PNG & GIF fajlovi su dozvoljeni.";
@@ -64,7 +64,12 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["idFoldera"]) && isset(
 function PrikaziSlikeUFolderu($idFoldera){
 	$list=dajSveSlikeZaFolder($idFoldera);
 	for($i=0; $i<count($list); $i++){
-		echo '<div class="slikeUFolderuDiv" onmouseleave="SakrijBrisi(this)" onmouseover="ShowBrisi(this)"><img style="width:100%; height:100%;" class="slikeUFolderu" alt src="'.$list[$i]["path"].'" /><div style="display:none; top:0px; left:-15px;" class="obrisi" onclick="ObrisiSliku('.$list[$i]["id"].')">X</div></div>';
+		if($list[$i]["jelVideo"]=="1"){
+			echo '<div class="slikeUFolderuDiv" onmouseleave="SakrijBrisi(this)" onmouseover="ShowBrisi(this)" onclick="pustiVideo(&quot;'.$list[$i]["path"].'&quot;)" >
+		        <img style="width:100%; height:100%;" class="slikeUFolderu" alt src="../images/video.png" />
+				<div style="display:none; top:0px; left:-15px;" class="obrisi" onclick="ObrisiSliku('.$list[$i]["id"].')">X</div></div>';
+		}else 
+			echo '<div class="slikeUFolderuDiv" onmouseleave="SakrijBrisi(this)" onmouseover="ShowBrisi(this)"><img style="width:100%; height:100%;" class="slikeUFolderu" alt src="'.$list[$i]["path"].'" /><div style="display:none; top:0px; left:-15px;" class="obrisi" onclick="ObrisiSliku('.$list[$i]["id"].')">X</div></div>';
 	}
 }
 
@@ -119,6 +124,10 @@ function PrikaziSlikeUFolderu($idFoldera){
 	max-width:100px;
 	max-height:100px;
 }
+.slikeBezFoldera:hover{
+	border:2px solid red;
+	cursor:pointer;
+}
 .slikeUFolderuDiv{
 	width:100px;
 	height:100px;
@@ -126,10 +135,10 @@ function PrikaziSlikeUFolderu($idFoldera){
 	float:left;
 	display:flex;
 }
-div.slikeUFolderuDiv:hover{
+/*div.slikeUFolderuDiv:hover{
 	border:2px solid red;
 	cursor:pointer;
-}
+}*/
 #poruke{
 	height:20px;
 }
@@ -185,6 +194,25 @@ div.slikeUFolderuDiv:hover{
 	float:right;
 	margin:5px;
 }
+
+#playVideo{
+    position: absolute;
+    top: 20%;
+    z-index: 10000;
+    background: grey;
+    width: 500px;
+    height: 300px;
+    border-radius: 5%;
+	display:none;
+}
+#playVideo video{
+    margin: 24px;
+    width: 400px;
+    left: 20px;
+    position: relative;
+}
+#izadjiIzVidea{
+	float:right;
 </style>
 <div id="poruke"></div>
 <div id="dodajSlikuDiv">
@@ -229,7 +257,34 @@ if(isset($_POST["idFoldera"]))
 	</div>
 </div>
 <div style="display:none;" id="load"><img alt="load" src="../images/loading.gif"/></div>
+
+<div id="playVideo">
+<video id="videoPlayer" width="320" height="240" controls="">
+	<source id="videoPath" src="" type="video/mp4">
+	Your browser does not support the video tag.
+</video>
+<input type="button" id="izadjiIzVidea" value="Izadji"/>
+</div>
+
 <script>
+function pustiVideo(path){
+	var player = document.getElementById('videoPlayer');
+	var mp4Vid = document.getElementById('videoPath');
+
+	player.pause();
+	mp4Vid.src = path;
+
+	player.load();
+	player.play();
+	$("#playVideo").show();
+}
+
+$("#izadjiIzVidea").click(function(){
+	var player = document.getElementById('videoPlayer');
+	player.pause();
+	$("#playVideo").hide();
+});
+
 
 $('#dodajSlikuForm').submit( function( e ) {
 	$("#load").show();
