@@ -60,6 +60,19 @@ function obrisiVozilo(){
 	return false;
 }
 
+function editujVozilo(){
+	urlTmp='../php/editVozilo.php';
+	var datarow={	};
+	$.ajax({
+	   url: urlTmp,
+	   type:    'GET',
+	   data: datarow,
+	 success: function(response){
+		$("#centerAdminPanel").html(response);
+	 }});
+	return false;
+}
+
 function editujGaleriju(){
 	urlTmp='../php/galerija.php';
 	var datarow={	};

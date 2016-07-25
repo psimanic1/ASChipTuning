@@ -136,6 +136,31 @@ include 'baza.php';
 		}
 	}
 	
+	
+	/*	update vozilo, prima varijablu tipa Vozilo()
+		vraca true ili false
+		$tmp=updateVozilo(vozilo);
+	*/
+	function updateVozilo($tmp){
+		if($tmp->id!=null){
+			$baza=Baza::connect();
+			$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			if($tmp->idSlike!=null){
+				$query='UPDATE vozila SET model=?, motor=?, hp=?, kw=?, snaga=?, obrtaji=?, cijena=?, idSlike=? WHERE id=? ';
+				$q = $baza->prepare($query);
+				$q->execute(array($tmp->model,$tmp->motor,$tmp->hp,$tmp->kw,$tmp->snaga,$tmp->obrtaji,$tmp->cijena,$tmp->idSlike,$tmp->id));
+			}else{
+				$query='UPDATE vozila SET model=?, motor=?, hp=?, kw=?, snaga=?, obrtaji=?, cijena=? WHERE id=? ';
+				$q = $baza->prepare($query);
+				$q->execute(array($tmp->model,$tmp->motor,$tmp->hp,$tmp->kw,$tmp->snaga,$tmp->obrtaji,$tmp->cijena,$tmp->id));				
+			}
+			Baza::disconnect();
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 	/*	 prima id onog sta treba obrisati i vraca true ili false 
 		 $tmp=obrisiVoziloPoId(5); 
 	*/
@@ -489,6 +514,25 @@ include 'baza.php';
 			return 0;
 		}
 	}
+	
+	
+	/*	update stage, prima varijablu tipa Stage()
+		vraca true ili false
+		$tmp=updateStage(stage);
+	*/
+	function updateStage($tmp){
+		if($tmp->id!=null){
+			$baza=Baza::connect();
+			$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$query='UPDATE stage SET snaga=?, obrtaji=?, cijena=? WHERE id=? ';
+			$q = $baza->prepare($query);
+			$q->execute(array($tmp->snaga, $tmp->obrtaji, $tmp->cijena, $tmp->id));
+			Baza::disconnect();
+			return true;
+		}else{
+			return false;
+		}
+	}
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -641,6 +685,24 @@ include 'baza.php';
 			return true;
 		}catch(Exception $e){
 			Baza::disconnect();
+			return false;
+		}
+	}
+	
+	/*	update sliku prima varijablu tipa Slika()
+		vraca true ili false
+		$tmp=updateSliku(slika);
+	*/
+	function updateSliku($tmp){
+		if($tmp->id!=null){
+			$baza=Baza::connect();
+			$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$query='UPDATE slike SET path=?, jelVideo=?, idFolder=? WHERE id=? ';
+			$q = $baza->prepare($query);
+			$q->execute(array($tmp->path,$tmp->jelVideo,$tmp->idFolder,$tmp->id));
+			Baza::disconnect();
+			return true;
+		}else{
 			return false;
 		}
 	}

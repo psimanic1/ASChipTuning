@@ -83,6 +83,7 @@ Licence URI: http://www.os-templates.com/template-terms
 			</br>
 			<h3>Vozila</h3>			
 			<li><a href="#" onclick="return dodajVozilo()">Dodaj vozilo</a></li>
+			<li><a href="#" onclick="return editujVozilo()">Edituj vozilo</a></li>
 			<li><a href="#" onclick="return obrisiVozilo()">Obrisi vozilo</a></li>
 			</br>
 			<h3>Galerija</h3>
