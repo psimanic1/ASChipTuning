@@ -58,6 +58,7 @@ class Slika{
 	public $path;
 	public $jelVideo;//1 jeste, 0 nije
 	public $idFolder;
+	//public $redniBrPocetna;
 	
 	function SlikaCtor($id,$path,$jelVideo,$idFolder){
 		$this->id=$id;

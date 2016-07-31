@@ -549,7 +549,7 @@ include 'baza.php';
 		$query='Select * from slike';
 		$obj=array();
 		foreach($baza->query($query) as $r){
-			$tmpObj=array('id'=>$r['id'],'path'=>$r['path'],'jelVideo'=>$r['jelVideo'],'idFolder'=>$r['idFolder']);
+			$tmpObj=array('id'=>$r['id'],'path'=>$r['path'],'jelVideo'=>$r['jelVideo'],'idFolder'=>$r['idFolder'],'redniBrPocetna'=>$r['redniBrPocetna']);
 			array_push($obj,$tmpObj);
 		}
 		Baza::disconnect();
@@ -641,7 +641,7 @@ include 'baza.php';
 		$q->execute(array($id));
 		$tmpObj = $q->fetch(PDO::FETCH_ASSOC);
 		if($tmpObj!=null)
-			$obj=array('id'=>$tmpObj['id'],'path'=>$tmpObj['path'],'jelVideo'=>$tmpObj['jelVideo'],'idFolder'=>$tmpObj['idFolder']);
+			$obj=array('id'=>$tmpObj['id'],'path'=>$tmpObj['path'],'jelVideo'=>$tmpObj['jelVideo'],'idFolder'=>$tmpObj['idFolder'],'redniBrPocetna'=>$tmpObj['redniBrPocetna']);
 		Baza::disconnect();
 		return $obj;
 	}
@@ -707,6 +707,48 @@ include 'baza.php';
 		}
 	}
 	
+	function updatePozicijeSlikeNaPocetnoj($id,$pozicija){
+		if($id!=null){
+			provjeriPozicije($pozicija);
+			$baza=Baza::connect();
+			$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$query='UPDATE slike SET redniBrPocetna=? WHERE id=? ';
+			$q = $baza->prepare($query);
+			$q->execute(array($pozicija,$id));
+			Baza::disconnect();
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	function provjeriPozicije($pozicija){
+		$obj=array();
+		$baza=Baza::connect();
+		$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$query='Select * from slike where redniBrPocetna=? ';
+		$q = $baza->prepare($query);
+		$q->execute(array($pozicija));
+		$tmpObj = $q->fetch(PDO::FETCH_ASSOC);
+		if($tmpObj!=null)
+			$obj=array('id'=>$tmpObj['id'],'path'=>$tmpObj['path'],'jelVideo'=>$tmpObj['jelVideo'],'idFolder'=>$tmpObj['idFolder'],'redniBrPocetna'=>$tmpObj['redniBrPocetna']);
+		if(!empty($obj)) updatePozicijeSlikeNaPocetnoj($obj["id"],null);
+		Baza::disconnect();
+		return $obj;
+	}
+
+	function dajSlikeZaSlider(){
+		$baza=Baza::connect();
+		$baza->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$query='Select * from slike where redniBrPocetna IS NOT NULL order by redniBrPocetna desc';
+		$obj=array();
+		foreach($baza->query($query) as $r){
+			$tmpObj=array('id'=>$r['id'],'path'=>$r['path'],'jelVideo'=>$r['jelVideo'],'idFolder'=>$r['idFolder'],'redniBrPocetna'=>$r['redniBrPocetna']);
+			array_push($obj,$tmpObj);
+		}
+		Baza::disconnect();
+		return $obj;
+	}
 	/*	dodaje sliku, prima varijablu tipa Slika()
 		vraca id dodane slike
 		ukoliko nije uspjesno dodavanje vraca 0

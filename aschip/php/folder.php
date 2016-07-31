@@ -69,7 +69,9 @@ function PrikaziSlikeUFolderu($idFoldera){
 		        <img style="width:100%; height:100%;" class="slikeUFolderu" alt src="../images/video.png" />
 				<div style="display:none; top:0px; left:-15px;" class="obrisi" onclick="ObrisiSliku('.$list[$i]["id"].')">X</div></div>';
 		}else 
-			echo '<div class="slikeUFolderuDiv" onmouseleave="SakrijBrisi(this)" onmouseover="ShowBrisi(this)"><img style="width:100%; height:100%;" class="slikeUFolderu" alt src="'.$list[$i]["path"].'" /><div style="display:none; top:0px; left:-15px;" class="obrisi" onclick="ObrisiSliku('.$list[$i]["id"].')">X</div></div>';
+			echo '<div class="slikeUFolderuDiv" onmouseleave="SakrijBrisi(this)" onmouseover="ShowBrisi(this)"><img style="width:100%; height:100%;" class="slikeUFolderu" alt src="'.$list[$i]["path"].'" /><div style="display:none; top:0px; left:-15px;" class="obrisi" onclick="ObrisiSliku('.$list[$i]["id"].')">X</div>
+			<div class="listaPozicija"><div class="kvadratic" onclick="StaviSliku('.$list[$i]["id"].',1)">1</div><div class="kvadratic" onclick="StaviSliku('.$list[$i]["id"].',2)">2</div><div class="kvadratic" onclick="StaviSliku('.$list[$i]["id"].',3)">3</div><div class="kvadratic" onclick="StaviSliku('.$list[$i]["id"].',4)">4</div></div>
+			</div>';
 	}
 }
 
@@ -78,6 +80,26 @@ function PrikaziSlikeUFolderu($idFoldera){
 
 
 <style>
+.listaPozicija{
+    height: 20px;
+    width: 50px;
+    z-index: 100;
+    position: relative;
+    top: 76px;
+    left: -113px;
+	display:none;
+}
+
+.kvadratic{
+	display: inline;
+    height: 10px;
+    width: 20px;
+    border: 1px solid #ae2b2b;
+    margin: 3px;
+    padding: 5px;
+	cursor: pointer;
+	color: white;
+}
 
 #obicneSlike{
 	height:200px;
@@ -346,10 +368,40 @@ $("#msgboxSlikaButtonNo").click(function(){
 
 function ShowBrisi(div){
 	$(div).find(".obrisi").show();
+	$(div).find(".listaPozicija").show();
 }
 
 function SakrijBrisi(div){
 	$(div).find(".obrisi").hide();	
+	$(div).find(".listaPozicija").hide();
+}
+
+$(".kvadratic").mouseover(function(e){
+	var ovo=$(e.target);
+	ovo.css("background","red");
+});
+
+$(".kvadratic").mouseleave(function(e){
+	var ovo=$(e.target);
+	ovo.css("background","transparent");
+});
+
+function StaviSliku(idSlike, broj){
+	urlTmp='../php/updatePozicije.php';
+	var datarow={
+		'id':idSlike,
+		'pozicija':broj
+	};
+	$.ajax({
+	   url: urlTmp,
+	   type:    'POST',
+	   data: datarow,
+	 success: function(response){
+		if(response.indexOf("Slika je uspjesno postavljenja!")!=-1){
+			alert("Uspjesno ste dodali sliku na pocetnu stranicu!");
+		}
+	 }});
+	return false;
 }
 
 function OtvoriFolderZaSlike(id){

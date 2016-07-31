@@ -6,7 +6,10 @@ Author URI: http://www.os-templates.com/
 Licence: Free to use under our free template licence terms
 Licence URI: http://www.os-templates.com/template-terms
 -->
-<?php session_start(); ?>
+<?php 
+session_start(); 
+include 'php/crud.php';
+?>
 
 
 
@@ -53,10 +56,55 @@ Licence URI: http://www.os-templates.com/template-terms
   <div id="featured_slide" style="background-color: white;">
     <div id="featured_content" style="background-color: white;">
       <ul>
-        <li><img src="images/g6.jpg" alt="" />  </li>
-        <li><img src="images/a3.jpg" alt="" />  </li>
-        <li><img src="images/r32.jpg" alt="" /> </li>
-		<li><img src="images/kriva.jpg" alt="" /> </li>
+	  <?php $lista=dajSlikeZaSlider(); 
+		 $prvi=false;
+		 $drugi=false;
+		 $treci=false;
+		 $cetvrti=false;
+		 $prviPath="";
+		 $drugiPath="";
+		 $treciPath="";
+		 $cetvrtiPath="";
+		 if(!empty($lista)){
+			for($i=0; $i<count($lista); $i++){
+				if($lista[$i]["redniBrPocetna"]==1){
+					$prvi=true;
+					$prviPath=$lista[$i]["path"];
+				}
+		        if($lista[$i]["redniBrPocetna"]==2){
+					$drugi=true;
+					$drugiPath=$lista[$i]["path"];
+				}
+		        if($lista[$i]["redniBrPocetna"]==3){
+					$treci=true;
+					$treciPath=$lista[$i]["path"];
+				}
+				if($lista[$i]["redniBrPocetna"]==4) {
+					$cetvrti=true;
+					$cetvrtiPath=$lista[$i]["path"];
+				}
+			} 
+		 }else {
+			 echo '<li><img src="images/a3.jpg" alt="" />  </li><li><img src="images/g6.jpg" alt="" />  </li><li><img src="images/r32.jpg" alt="" /> </li><li><img src="images/kriva.jpg" alt="" /> </li>';
+		 }	
+
+		if($prvi)
+			echo '<li><img src="'.str_replace("../","",$prviPath).'" alt="" />  </li>';
+		else
+			echo '<li><img src="images/a3.jpg" alt="" />  </li>';
+		if($drugi)
+			echo '<li><img src="'.str_replace("../","",$drugiPath).'" alt="" />  </li>';
+		else 
+			echo '<li><img src="images/g6.jpg" alt="" />  </li>';
+		if($treci)
+			echo '<li><img src="'.str_replace("../","",$treciPath).'" alt="" />  </li>';
+		else 
+			echo '<li><img src="images/r32.jpg" alt="" /> </li>';			
+		if($cetvrti)
+			echo '<li><img src="'.str_replace("../","",$cetvrtiPath).'" alt="" />  </li>';
+		else 
+			echo '<li><img src="images/kriva.jpg" alt="" /> </li>';
+	  ?>
       </ul>
     </div>
     <a href="javascript:void(0);" id="featured-item-prev" style="background-color: white;"><img src="layout/images/left.png" alt="" /></a> <a href="javascript:void(0);" id="featured-item-next" style="background-color: white;"><img src="layout/images/right.png" alt="" /></a> </div>
@@ -100,7 +148,7 @@ Licence URI: http://www.os-templates.com/template-terms
         <div class="fix"></div>
 		<div id="sestSlika">
 		<?php 
-			include 'php/crud.php';
+			
 
 			PrikazSlikeNaDnu(dajZadnjih6Slika());
 			
